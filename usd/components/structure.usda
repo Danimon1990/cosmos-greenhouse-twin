@@ -1,0 +1,38 @@
+#usda 1.0
+(
+    metersPerUnit = 1
+    upAxis = "Y"
+    doc = "Greenhouse structure: 12m x 18m footprint, floor at Y=0; tunnel (hoop house) cover from greenhouse_tunnel.usda."
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def Xform "Greenhouse"
+        {
+            def Xform "Structure" (
+                doc = "Floor plus tunnel-style plastic cover (semi-cylindrical arch). Centered at origin; X=width, Z=length, Y=up."
+            )
+            {
+                # --- Floor: 12m (X) x 18m (Z), thin in Y, sitting at Y=0 ---
+                def Cube "Floor"
+                {
+                    double size = 1
+                    matrix4d xformOp:transform = ( (12, 0, 0, 0), (0, 0.2, 0, 0), (0, 0, 18, 0), (0, 0.1, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+
+                # --- Tunnel cover: 18m long, 12m wide, 4m high (from generator). Rotate 90° Y so length runs along Z to match floor. ---
+                def "TunnelCover" (
+                    references = @../root/greenhouse_tunnel.usda@</World/TunnelCover>
+                )
+                {
+                    # Asset is 18m along X, 12m span Z, 4m Y. RotY(90°): length→Z (18m), span→X (12m), no scale
+                    matrix4d xformOp:transform = ( (0, 0, -1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (0, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+    }
+}

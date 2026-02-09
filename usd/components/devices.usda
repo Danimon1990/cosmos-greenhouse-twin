@@ -1,0 +1,70 @@
+#usda 1.0
+(
+    metersPerUnit = 1
+    upAxis = "Y"
+    doc = "Greenhouse devices: fan, vent, valve, sensor. Xforms with device/sensor attributes."
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def Xform "Greenhouse"
+        {
+            def Xform "Devices" (
+                doc = "Container for fan, vent, valve, and sensor prims."
+            )
+            {
+                # --- Fan: power 0–1 ---
+                def Xform "Fan_01" (
+                    doc = "Fan unit; device:power drives intensity (0 = off)."
+                )
+                {
+                    float device:power = 0
+                    string device:type = "fan"
+                    bool device:enabled = true
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (2, 2.5, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+
+                # --- Vent: position 0–1 ---
+                def Xform "Vent_01" (
+                    doc = "Vent; device:position is open amount (0 = closed)."
+                )
+                {
+                    float device:position = 0
+                    string device:type = "vent"
+                    bool device:enabled = true
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-2, 2.8, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+
+                # --- Valve: flow 0–1 ---
+                def Xform "Valve_01" (
+                    doc = "Irrigation valve; device:flow is open amount (0 = closed)."
+                )
+                {
+                    float device:flow = 0
+                    string device:type = "valve"
+                    bool device:enabled = true
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.5, 2, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+
+                # --- Sensor: temperature, humidity, soil moisture ---
+                def Xform "Sensor_01" (
+                    doc = "Environmental sensor; sensor:* attributes hold readings."
+                )
+                {
+                    float sensor:temperatureC = 22
+                    float sensor:humidityPct = 50
+                    float sensor:soilMoisturePct = 40
+                    string device:type = "sensor"
+                    bool device:enabled = true
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 1.0, -2, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+            }
+        }
+    }
+}

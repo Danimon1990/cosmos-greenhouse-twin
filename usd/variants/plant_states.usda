@@ -1,0 +1,84 @@
+#usda 1.0
+(
+    metersPerUnit = 1
+    upAxis = "Y"
+    doc = "Variant opinions for plantHealth: healthy (green, full scale) vs stressed (smaller, duller). Applied to representative plants (Plant_01, Plant_04, Plant_08)."
+)
+
+over "World"
+{
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Plants"
+            {
+                variantSets = "plantHealth"
+
+                # --- healthy: green-ish color, full scale ---
+                (variant "healthy")
+                {
+                    over "Bed_01"
+                    {
+                        over "Plant_01"
+                        {
+                            color3f[] primvars:displayColor = [(0.2, 0.7, 0.2)]
+                            matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                    over "Bed_04"
+                    {
+                        over "Plant_04"
+                        {
+                            color3f[] primvars:displayColor = [(0.25, 0.65, 0.2)]
+                            matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                    over "Bed_08"
+                    {
+                        over "Plant_08"
+                        {
+                            color3f[] primvars:displayColor = [(0.22, 0.68, 0.2)]
+                            matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                }
+
+                # --- stressed: slightly smaller, duller color ---
+                (variant "stressed")
+                {
+                    over "Bed_01"
+                    {
+                        over "Plant_01"
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.45, 0.2)]
+                            matrix4d xformOp:transform = ( (0.9, 0, 0, 0), (0, 0.9, 0, 0), (0, 0, 0.9, 0), (0, 0.5, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                    over "Bed_04"
+                    {
+                        over "Plant_04"
+                        {
+                            color3f[] primvars:displayColor = [(0.55, 0.5, 0.25)]
+                            matrix4d xformOp:transform = ( (0.85, 0, 0, 0), (0, 0.85, 0, 0), (0, 0, 0.85, 0), (0, 0.48, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                    over "Bed_08"
+                    {
+                        over "Plant_08"
+                        {
+                            color3f[] primvars:displayColor = [(0.52, 0.48, 0.22)]
+                            matrix4d xformOp:transform = ( (0.9, 0, 0, 0), (0, 0.9, 0, 0), (0, 0, 0.9, 0), (0, 0.5, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

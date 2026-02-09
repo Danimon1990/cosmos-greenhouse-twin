@@ -1,0 +1,280 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Scope "World"
+{
+    def Scope "Looks"
+    {
+        def Material "SoilMat"
+        {
+            token outputs:surface.connect = </World/Looks/SoilMat/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.35, 0.22, 0.12)
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.9
+                token outputs:surface
+            }
+        }
+
+        def Material "PlantMat"
+        {
+            token outputs:surface.connect = </World/Looks/PlantMat/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.15, 0.55, 0.2)
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.6
+                token outputs:surface
+            }
+        }
+
+        def Material "PathMat"
+        {
+            token outputs:surface.connect = </World/Looks/PathMat/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.18, 0.1, 0.06)
+                float inputs:metallic = 0
+                float inputs:opacity = 1
+                float inputs:roughness = 0.95
+                token outputs:surface
+            }
+        }
+
+        def Material "PlasticMat"
+        {
+            token outputs:surface.connect = </World/Looks/PlasticMat/UsdPreviewSurface.outputs:surface>
+
+            def Shader "UsdPreviewSurface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.85, 0.92, 1)
+                float inputs:metallic = 0
+                float inputs:opacity = 0.5
+                float inputs:roughness = 0.15
+                token outputs:surface
+            }
+        }
+    }
+
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Structure"
+            {
+                over "TunnelCover" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    rel material:binding = </World/Looks/PlasticMat>
+                }
+            }
+
+            over "Plants"
+            {
+                over "Bed_01"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_01" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_02"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_02" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_03"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_03" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_04"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_04" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_05"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_05" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_06"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_06" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_07"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_07" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Bed_08"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/SoilMat>
+                    }
+
+                    over "Plant_08" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                    }
+                }
+
+                over "Walkways"
+                {
+                    over "Walkway_01" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_02" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_03" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_04" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_05" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_06" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+
+                    over "Walkway_07" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PathMat>
+                    }
+                }
+            }
+        }
+    }
+}
+

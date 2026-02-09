@@ -1,0 +1,244 @@
+#usda 1.0
+(
+    metersPerUnit = 1
+    upAxis = "Y"
+    doc = "Greenhouse plants: 8 beds (0.8x16m), 7 walkways (0.5m), plant_sprout_abstract instances per bed. Usable band X [-5,+5], 0.05m inner margin; beds centered Z=0 (1m entrance each end)."
+)
+
+def Xform "World"
+{
+    def Xform "Environment"
+    {
+        def Xform "Greenhouse"
+        {
+            def Xform "Plants" (
+                doc = "Beds, walkways, and placeholder plants. Variant set plantHealth in root/variants layer."
+            )
+            {
+                # --- 8 beds: 0.8m wide (X), 16m long (Z), 0.4m high. X centers: -4.55, -3.25, -1.95, -0.65, 0.65, 1.95, 3.25, 4.55. Z=0, 1m clear at each end. ---
+                def Xform "Bed_01"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_01" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-4.55, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_02"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_02" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-3.25, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_03"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_03" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-1.95, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_04"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_04" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (-0.65, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_05"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_05" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0.65, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_06"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_06" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (1.95, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_07"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_07" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (3.25, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+                def Xform "Bed_08"
+                {
+                    def Cube "Bed"
+                    {
+                        double size = 1
+                        matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def "Plant_08" (
+                        references = @../assets/plant_sprout/plant_sprout_abstract.usda@</Mesh>
+                        instanceable = false
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </World/Looks/PlantMat>
+                        matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0.55, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (4.55, 0, 0, 1) )
+                    uniform token[] xformOpOrder = ["xformOp:transform"]
+                }
+
+                # --- Walkways: 7 paths between 8 beds. Each 0.5m wide (X), 16m long (Z), 0.02m high at Y=0.01 ---
+                def Scope "Walkways"
+                {
+                    def Cube "Walkway_01"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (-3.9, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_02"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (-2.6, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_03"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (-1.3, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_04"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (0, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_05"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (1.3, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_06"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (2.6, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                    def Cube "Walkway_07"
+                    {
+                        double size = 1
+                        color3f[] primvars:displayColor = [(0.45, 0.45, 0.45)]
+                        matrix4d xformOp:transform = ( (0.5, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 16, 0), (3.9, 0.01, 0, 1) )
+                        uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+                }
+            }
+        }
+    }
+}

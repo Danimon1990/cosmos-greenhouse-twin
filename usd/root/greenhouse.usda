@@ -1,0 +1,250 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (0.5753584513504738, 4.764943889692047, 19.877680203835013)
+                double3 target = (-1.887379141862766e-15, 2.0000000000000027, 7.105427357601002e-15)
+            }
+            dictionary Right = {
+                double3 position = (-5, 0, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 5, 0)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./greenhouse.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    doc = "Root assembly for the greenhouse digital twin. Composes structure, devices, and plants. greenhouse_looks.usda assigns materials."
+    metersPerUnit = 1
+    sublayers = [@../variants/plant_states.usda@, @greenhouse_looks.usda@]
+    upAxis = "Y"
+)
+
+def Scope "World" (
+    doc = "Root scope for the scene. All referenced and payload content composes under here."
+    kind = "assembly"
+)
+{
+    def Scope "Environment"
+    {
+        def Scope "Greenhouse"
+        {
+            def "Structure" (
+                references = @../components/structure.usda@</World/Environment/Greenhouse/Structure>
+            )
+            {
+                over "Floor" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
+                    rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                        bindMaterialAs = "weakerThanDescendants"
+                    )
+                }
+
+                over "TunnelCover"
+                {
+                    token visibility = "inherited"
+                }
+            }
+
+            def "Devices" (
+                references = @../components/devices.usda@</World/Environment/Greenhouse/Devices>
+            )
+            {
+            }
+
+            def "Plants" (
+                payload = @../components/plants.usda@</World/Environment/Greenhouse/Plants>
+                variants = {
+                    string plantHealth = "healthy"
+                }
+                variantSets = "plantHealth"
+            )
+            {
+                over "Bed_06"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = None (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_07"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_05"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_04"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_08"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_03"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_02"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+
+                over "Bed_01"
+                {
+                    over "Bed" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
+                int omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}
+
