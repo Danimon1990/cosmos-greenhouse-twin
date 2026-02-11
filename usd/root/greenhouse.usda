@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (16.863866024356952, 3.9834822950798037, 19.097969547701755)
-                double3 target = (-2.201346321835313, -0.6142472223941216, 5.331831692228265)
+                double3 position = (0.4021709155668867, 7.302169010015855, 33.808329775454126)
+                double3 target = (-0.7552951264274577, -3.3283733947817415, 7.958782827283297)
             }
             dictionary Right = {
                 double3 position = (-5, 0, 0)
@@ -18,7 +18,7 @@
                 double3 position = (0, 5, 0)
                 double radius = 5
             }
-            string boundCamera = "/World/Camera"
+            string boundCamera = "/OmniverseKit_Persp"
         }
         dictionary metricsAssembler = {
             int version = 1
@@ -41,9 +41,11 @@
     metersPerUnit = 1
     startTimeCode = -1
     subLayers = [
-        @./greenhouse_looks.usda@
+        @../variants/plant_states.usda@,
+        @./greenhouse_looks.usda@,
+        @../layers/live_state.usda@
     ]
-    sublayers = [@../variants/plant_states.usda@, @greenhouse_looks.usda@]
+    sublayers = [@../variants/plant_states.usda@, @greenhouse_looks.usda@, @../layers/live_state.usda@]
     upAxis = "Y"
 )
 
@@ -79,6 +81,10 @@ def Scope "World" (
                 references = @../components/devices.usda@</World/Environment/Greenhouse/Devices>
             )
             {
+                over "Fan_01"
+                {
+                    matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (2, 1.64336307083902, 0, 1) )
+                }
             }
 
             def "Plants" (
@@ -5262,9 +5268,9 @@ def Scope "World" (
         float inputs:shaping:focus
         color3f inputs:shaping:focusTint
         asset inputs:shaping:ies:file
-        quatd xformOp:orient = (0.01567127719258241, 6.026523153065285e-17, 0.9998771979954106, 6.027275098474532e-17)
+        quatd xformOp:orient = (-1.6081226496766364e-16, 6.123233995736766e-17, 1, 6.123233995736766e-17)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (-5.5600084355022724e-30, 3.1143845123966507, -3.7356102200858364e-30)
+        double3 xformOp:translate = (-2.798995267228731e-30, 3.1143845123966507, -0.10686193411227057)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 
@@ -5273,10 +5279,11 @@ def Scope "World" (
         float2 clippingRange = (0.01, 10000000)
         float focalLength = 18.147562
         float focusDistance = 400
-        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -16.725269946088286)
-        quatd xformOp:orient = (0.9948029183778089, -0.1018192201256449, 0, 0)
+        bool omni:kit:cameraLock = 1
+        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -16.611480903045024)
+        quatd xformOp:orient = (0.9975458688293233, -0.07000126300443031, 0.001432707726228797, 0.00010053808399795543)
         double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (1.75, 4.106962604837959, 16.37848306145821)
+        double3 xformOp:translate = (0.37641214930956485, 3.0387021257668976, 14.966554717413269)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }
@@ -5299,7 +5306,7 @@ def "Render" (
                 no_delete = true
             )
             {
-                rel camera = </World/Camera>
+                rel camera = </OmniverseKit_Persp>
                 token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
                 token omni:rtx:background:source:type = "domeLight"
                 bool omni:rtx:dlss:frameGeneration = 0

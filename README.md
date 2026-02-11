@@ -33,11 +33,13 @@ cosmos-greenhouse-twin/
     root/
       greenhouse.usda          # Root assembly (open this in Composer)
       greenhouse_tunnel.usda   # Tunnel mesh + plastic material (generated)
-      greenhouse_looks.usda   # Materials (SoilMat, PlantMat, PathMat, PlasticMat)
+      greenhouse_looks.usda    # Materials (SoilMat, PlantMat, PathMat, PlasticMat)
     components/
       structure.usda           # Floor + TunnelCover reference
-      devices.usda             # Fan, vent, valve, sensor
+      devices.usda             # Fan, vent, valve, sensor (static defs)
       plants.usda              # 8 beds, 7 walkways, plant instances
+    layers/
+      live_state.usda          # Live telemetry + actuator overrides (strongest)
     variants/
       plant_states.usda        # plantHealth variant definitions
     assets/
@@ -45,10 +47,26 @@ cosmos-greenhouse-twin/
 
   src/
     usd_tools/
-      inspect_stage.py              # Print prim tree and sensor values
+      inspect_stage.py              # Print layer stack, prim tree, device/sensor values, variant
       generate_tunnel_greenhouse.py # Generate tunnel mesh (18×12×4 m)
       assign_greenhouse_materials.py # Create materials and bindings
 ```
+
+## Digital Twin Layering
+
+The scene is split into layers so that **static geometry** stays in components and **dynamic state** can be updated without touching the base assets:
+
+- **`components/*.usda`** — Static geometry and structure. `structure.usda` (floor, tunnel), `devices.usda` (device prims, types, transforms), `plants.usda` (beds, walkways, plant instances). These files **define** prims and fixed attributes.
+
+- **`variants/*.usda`** — Scenario or health variants (e.g. `plant_states.usda` with `plantHealth`: healthy / stressed). Composed as a **sublayer** so variant selections and overrides apply over the root.
+
+- **`layers/live_state.usda`** — **Live telemetry and actuator overrides only** (`over` prims, no new geometry). It authors dynamic attributes on existing device/sensor prims: `device:power`, `device:position`, `device:flow`, `sensor:temperatureC`, `sensor:humidityPct`, `sensor:soilMoisturePct`, `state:tick`, etc. This file is the **strongest** sublayer so its values win at runtime.
+
+- **`root/greenhouse.usda`** — Root stage. Composes everything via **sublayers** (plant_states → greenhouse_looks → live_state), **references** (structure, devices), and **payload** (plants). Open this file in Composer to view the full digital twin.
+
+**Sublayer order (strength):** In USD, sublayers are ordered from **weakest to strongest**. The **last** sublayer wins when the same attribute is authored in multiple layers. So `live_state.usda` is listed **last** in `greenhouse.usda`’s `sublayers`; any value it sets for a device or sensor overrides the same attribute from components or variants.
+
+**Editing live state:** To simulate new telemetry or actuator values, edit `usd/layers/live_state.usda` (e.g. change `sensor:temperatureC`, `device:power`, or `state:tick`). Save and reload the stage in Composer (or run `inspect_stage.py`) to see the updated composed values. No need to edit `devices.usda` for live data.
 
 ## How to open greenhouse.usda in USD Composer
 

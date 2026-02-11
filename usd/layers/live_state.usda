@@ -1,0 +1,47 @@
+#usda 1.0
+(
+    doc = "Live state override layer: telemetry and actuator values. Overrides only; no new geometry. Strongest sublayer so it wins composition."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "World"
+{
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Devices"
+            {
+                string state:lastUpdated = ""
+                int state:tick = 0
+
+                over "Fan_01"
+                {
+                    float device:power = 0.0
+                    bool device:enabled = true
+                }
+
+                over "Vent_01"
+                {
+                    float device:position = 0.0
+                    bool device:enabled = true
+                }
+
+                over "Valve_01"
+                {
+                    float device:flow = 0.0
+                    bool device:enabled = true
+                }
+
+                # Sensor_01: expand this prim in the layer view to see sensor:* attributes
+                over "Sensor_01"
+                {
+                    float sensor:temperatureC = 22.0
+                    float sensor:humidityPct = 50.0
+                    float sensor:soilMoisturePct = 40.0
+                }
+            }
+        }
+    }
+}
