@@ -18,30 +18,31 @@ over "World"
 
                 over "Fan_01"
                 {
-                    float device:power = 0.0
-                    bool device:enabled = true
+                    bool device:enabled = 1
+                    float device:power = 0
                 }
 
                 over "Vent_01"
                 {
-                    float device:position = 0.0
-                    bool device:enabled = true
+                    bool device:enabled = 1
+                    float device:position = 20
                 }
 
                 over "Valve_01"
                 {
-                    float device:flow = 0.0
-                    bool device:enabled = true
+                    bool device:enabled = 1
+                    float device:flow = 1
                 }
 
-                # Sensor_01: expand this prim in the layer view to see sensor:* attributes
                 over "Sensor_01"
                 {
-                    float sensor:temperatureC = 22.0
-                    float sensor:humidityPct = 50.0
-                    float sensor:soilMoisturePct = 40.0
+                    float sensor:humidityPct = 80
+                    float sensor:soilMoisturePct = 10
+                    float sensor:temperatureC = 40
+                    custom int state:tick = 4
                 }
             }
         }
     }
 }
+

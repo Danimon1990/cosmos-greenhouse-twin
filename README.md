@@ -48,8 +48,11 @@ cosmos-greenhouse-twin/
   src/
     usd_tools/
       inspect_stage.py              # Print layer stack, prim tree, device/sensor values, variant
+      update_state.py               # Update live_state.usda (telemetry and actuators)
       generate_tunnel_greenhouse.py # Generate tunnel mesh (18×12×4 m)
       assign_greenhouse_materials.py # Create materials and bindings
+    agent/
+      simple_agent.py               # Rule-based agent: read sensors → apply rules → write live_state
 ```
 
 ## Digital Twin Layering
@@ -100,6 +103,36 @@ Requires **USD Python bindings** (`pxr.Usd`). If you use Omniverse, its Python e
   ```bash
   python src/usd_tools/assign_greenhouse_materials.py
   ```
+
+### Day 4: Python Control Bridge
+
+**update_state.py** writes only to `usd/layers/live_state.usda` to update telemetry and actuator state. Reload the stage in Composer to see changes.
+
+```bash
+# Sensor and actuators
+python src/usd_tools/update_state.py --humidity 90 --fan 0.5 --vent 20
+python src/usd_tools/update_state.py --temp 28 --soil 25 --valve 1
+
+# Enable/disable and tick
+python src/usd_tools/update_state.py --enable-fan --tick --last-updated "2026-02-10T12:00:00"
+```
+
+Options: `--temp`, `--humidity`, `--soil`, `--fan`, `--vent`, `--valve`, `--enable-fan` / `--disable-fan`, `--enable-vent` / `--disable-vent`, `--enable-valve` / `--disable-valve`, `--tick`, `--last-updated <string>`.
+
+### Day 5: Simple Rule Agent
+
+**simple_agent.py** is a minimal closed-loop agent: it **reads** sensor values from the composed USD stage, **applies** simple threshold rules, and **writes** actuator updates only to `usd/layers/live_state.usda`. No Cosmos or physics; this proves read → rules → write before integration.
+
+- **Reads:** `sensor:humidityPct`, `sensor:soilMoisturePct` from Sensor_01.
+- **Rules:** If humidity > 80% → Fan 0.4 and Vent 20; else Fan 0. If soil < 30% → Valve 1; else Valve 0.
+- **Writes:** Sets `device:power`, `device:position`, `device:flow` on Fan_01, Vent_01, Valve_01; increments `state:tick` on Sensor_01.
+- **Edit target:** Same as `update_state.py` — only the live_state layer is modified.
+
+```bash
+python src/agent/simple_agent.py
+```
+
+Reload the stage in USD Composer to see actuator changes.
 
 ## Composition arcs used
 
