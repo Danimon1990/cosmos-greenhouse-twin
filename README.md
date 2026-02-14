@@ -1,166 +1,373 @@
-# cosmos-greenhouse-twin
+# GreenhouseBot: Spatial Reasoning Digital Twin
 
-Minimal OpenUSD greenhouse digital twin skeleton for an NVIDIA Cosmos Reason 2 hackathon submission.
+**A physical AI prototype that treats a greenhouse as a robot** — with eyes (vision), memory (OpenUSD digital twin), and a brain (Cosmos Reason 2).
 
-## Project overview
+Built for the [NVIDIA Cosmos Cookoff](https://www.nvidia.com/en-us/ai-data-science/cosmos-cookoff/) competition.
 
-This repo provides a **minimal OpenUSD greenhouse digital twin** with:
+---
 
-- **Structure**: floor + tunnel-style plastic cover (semi-cylindrical hoop house from `greenhouse_tunnel.usda`), 12×18 m footprint, 4 m arch height
-- **Devices**: fan, vent, valve, sensor (Xforms with attributes)
-- **Plants**: 8 beds, 7 walkways, plant instances (`plant_sprout_abstract.usda`) per bed; **plantHealth** variant set (healthy / stressed)
-- **Looks**: UsdPreviewSurface materials (SoilMat, PlantMat, PathMat, PlasticMat) in `greenhouse_looks.usda`, sublayered into the root
+## The Problem
 
-Human-readable `.usda`; loads in USD Composer / usdview / Isaac Sim. Meters, Y-up.
+Traditional greenhouse automation uses simple thresholds: "if humidity > 80%, turn on fan." But real greenhouses have **spatial variation** — one corner may be dry while another is overwatered. Existing systems can't reason about *where* problems occur, only *what* the sensor values are.
 
-## Greenhouse dimensions and layout
+## Our Solution: Spatial Reasoning
 
-- **Footprint**: 12 m wide (X) × 18 m long (Z); greenhouse centered at origin; Y-up.
-- **Floor**: Spans X ∈ [-6, +6], Z ∈ [-9, +9].
-- **Side clearance**: 1 m free space along each long wall (usable width band X ∈ [-5, +5]).
-- **Entrances**: 1 m free at each end along Z (beds span 16 m, centered at Z = 0).
-- **Beds**: 8 beds, each 0.8 m wide (X) × 16 m long (Z) × 0.4 m high, with 0.05 m inner margin on each side of the usable band.
-- **Walking paths**: 7 paths between the 8 beds, each 0.5 m wide × 16 m long; total path width 3.5 m; beds + paths fit in the 10 m usable width with 0.1 m slack (0.05 m margin per side).
+GreenhouseBot uses **Cosmos Reason 2** to perform **zone-level spatial reasoning** over a digital twin greenhouse:
 
-## Folder structure
+1. **See**: Camera images of the greenhouse
+2. **Remember**: OpenUSD digital twin with 24 spatial zones (8 beds × 3 zones each)
+3. **Think**: Cosmos Reason 2 analyzes image + zone telemetry to identify *where* problems are
+4. **Act**: Targeted interventions (e.g., "irrigate zone B03-C" not just "turn on water")
+
+**Key Differentiator**: Instead of global automation, we demonstrate **explainable, zone-aware decision making** — Cosmos can say "Zone B03-C in the middle-left of the greenhouse appears dry based on the image and telemetry data."
+
+---
+
+## Quick Start
+
+```bash
+# 1. Clone and navigate
+git clone https://github.com/your-repo/cosmos-greenhouse-twin.git
+cd cosmos-greenhouse-twin
+
+# 2. Set up environment (requires USD Python bindings)
+# Option A: Use Omniverse Python
+# Option B: pip install usd-core
+
+# 3. Simulate a problem
+python src/usd_tools/update_state.py --zone B03-C --zone-moisture 22 --zone-status dry
+
+# 4. Run the spatial reasoning agent (mock mode)
+python src/agent/cosmos_agent.py --image demo/frame.png --actuate
+
+# 5. Open in USD Composer to see the result
+# Plants in zone B03-C are now brownish (UnhealthyPlantMat)
+# Valve is open (device:flow = 1.0)
+```
+
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           GreenhouseBot Architecture                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                  │
+│  │   Camera     │    │  USD Stage   │    │   Cosmos     │                  │
+│  │   Image      │───▶│  (24 zones)  │───▶│  Reason 2    │                  │
+│  │  demo/*.png  │    │  telemetry   │    │  (or mock)   │                  │
+│  └──────────────┘    └──────────────┘    └──────┬───────┘                  │
+│                                                  │                          │
+│                                                  ▼                          │
+│                                    ┌─────────────────────────┐              │
+│                                    │  Spatial Reasoning      │              │
+│                                    │  "Zone B03-C is dry,    │              │
+│                                    │   open valve for        │              │
+│                                    │   targeted irrigation"  │              │
+│                                    └───────────┬─────────────┘              │
+│                                                │                            │
+│                          ┌─────────────────────┼─────────────────────┐      │
+│                          ▼                     ▼                     ▼      │
+│                   ┌────────────┐        ┌────────────┐        ┌──────────┐ │
+│                   │ Actuators  │        │ live_state │        │ Visual   │ │
+│                   │ Fan, Vent, │        │   .usda    │        │ Feedback │ │
+│                   │ Valve      │        │ (updated)  │        │ (plants) │ │
+│                   └────────────┘        └────────────┘        └──────────┘ │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Demo Flow (for Video)
+
+### Step 1: Show Healthy Greenhouse
+Open `usd/root/greenhouse.usda` in USD Composer. All plants are green.
+
+### Step 2: Simulate a Problem
+```bash
+python src/usd_tools/update_state.py --zone B03-C --zone-moisture 22 --zone-status dry
+```
+
+### Step 3: Capture Screenshot
+In USD Composer: File → Export Screenshot → save to `demo/frame.png`
+
+### Step 4: Run Cosmos Agent with Actuation
+```bash
+# With Cosmos API:
+export COSMOS_API_URL="https://your-endpoint/v1/chat/completions"
+export COSMOS_API_KEY="your-key"
+python src/agent/cosmos_agent.py --image demo/frame.png --actuate
+
+# Without API (mock mode for testing):
+python src/agent/cosmos_agent.py --image demo/frame.png --actuate
+```
+
+**Output:**
+```
+--- Summary ---
+[SPATIAL REASONING] Detected dry zones at B03-C. These zones show soil
+moisture below 30%, indicating water stress. The affected areas are
+visible in the greenhouse image as potentially wilted plants.
+
+Recommendations (2):
+  - set_valve = 1.0  // Irrigate dry zones: B03-C. Soil moisture critically low.
+  - set_fan = 0.0    // Humidity at 50% is within optimal range.
+
+--- Actuation (Day 7) ---
+  ✓ Valve_01 device:flow = 1.0
+  ✓ B03-C: 24 plants → UnhealthyPlantMat (status=dry)
+  ✓ Saved: live_state.usda
+```
+
+### Step 5: See Visual Feedback
+Reload in USD Composer — plants in zone B03-C are now **brownish/yellow** (`UnhealthyPlantMat`), visually showing the problem area.
+
+### Step 6: Recovery (Optional)
+```bash
+python src/usd_tools/update_state.py --zone B03-C --zone-moisture 45 --zone-status ok
+python src/usd_tools/update_plant_health.py --sync
+```
+Plants return to green.
+
+---
+
+## Features
+
+### Spatial Zoning (24 Zones)
+Each of the 8 beds is divided into 3 zones (A=north, B=center, C=south):
+
+| Zone ID | Location | Description |
+|---------|----------|-------------|
+| B01-A | Bed 1, North | Z ∈ [-8, -2.67] |
+| B01-B | Bed 1, Center | Z ∈ [-2.67, +2.67] |
+| B01-C | Bed 1, South | Z ∈ [+2.67, +8] |
+| ... | ... | ... |
+| B08-C | Bed 8, South | Last zone |
+
+**Zone Attributes** (in `live_state.usda`):
+- `zone:soilMoisturePct` — Soil moisture (0-100%)
+- `zone:lightPct` — Light level (0-100%)
+- `zone:healthScore` — Plant health (0-1)
+- `zone:status` — `ok` | `dry` | `wet` | `shaded` | `stressed`
+
+### Visual Feedback System
+Plants visually reflect zone health:
+
+| Zone Status | Material | Color |
+|-------------|----------|-------|
+| `ok` | PlantMat | Green (0.15, 0.55, 0.20) |
+| `dry`, `stressed`, etc. | UnhealthyPlantMat | Brownish-yellow (0.72, 0.58, 0.20) |
+
+This creates an **immediate visual correlation** between telemetry data and the 3D scene.
+
+### Cosmos Integration
+The agent sends to Cosmos Reason 2:
+- **Image**: Screenshot of the greenhouse
+- **Context**: JSON with sensors, devices, and all 24 zones
+- **Spatial Alerts**: Pre-computed list of dry/shaded zones
+
+Cosmos returns:
+- **Explanation**: Natural language spatial reasoning
+- **Recommendations**: Structured actions with zone references
+
+---
+
+## Project Structure
 
 ```
 cosmos-greenhouse-twin/
-  README.md
-  .gitignore
-
-  usd/
-    root/
-      greenhouse.usda          # Root assembly (open this in Composer)
-      greenhouse_tunnel.usda   # Tunnel mesh + plastic material (generated)
-      greenhouse_looks.usda    # Materials (SoilMat, PlantMat, PathMat, PlasticMat)
-    components/
-      structure.usda           # Floor + TunnelCover reference
-      devices.usda             # Fan, vent, valve, sensor (static defs)
-      plants.usda              # 8 beds, 7 walkways, plant instances
-    layers/
-      live_state.usda          # Live telemetry + actuator overrides (strongest)
-    variants/
-      plant_states.usda        # plantHealth variant definitions
-    assets/
-      plant_sprout/            # Plant mesh asset (referenced by plants.usda)
-
-  src/
-    usd_tools/
-      inspect_stage.py              # Print layer stack, prim tree, device/sensor values, variant
-      update_state.py               # Update live_state.usda (telemetry and actuators)
-      generate_tunnel_greenhouse.py # Generate tunnel mesh (18×12×4 m)
-      assign_greenhouse_materials.py # Create materials and bindings
-    agent/
-      simple_agent.py               # Rule-based agent: read sensors → apply rules → write live_state
+├── README.md
+├── demo/
+│   ├── frame.png              # Screenshot for Cosmos
+│   └── test_context.json      # Test context with dry zone
+├── logs/
+│   └── run_*.json             # Timestamped agent logs
+│
+├── src/
+│   ├── agent/
+│   │   ├── cosmos_agent.py    # Day 6 & 7: Vision + reasoning + actuation
+│   │   ├── cosmos_client.py   # Cosmos API client (with zone-aware mock)
+│   │   ├── simple_agent.py    # Rule-based agent (no Cosmos)
+│   │   └── schema.py          # Type definitions
+│   │
+│   └── usd_tools/
+│       ├── inspect_stage.py         # Print layer stack, zones, devices
+│       ├── update_state.py          # Update telemetry/actuators
+│       ├── update_plant_health.py   # Sync plant materials to zone status
+│       ├── generate_tunnel_greenhouse.py
+│       ├── assign_greenhouse_materials.py
+│       └── populate_bed_plants.py
+│
+└── usd/
+    ├── root/
+    │   ├── greenhouse.usda          # Root stage (open this)
+    │   ├── greenhouse_tunnel.usda   # Tunnel mesh
+    │   └── greenhouse_looks.usda    # Materials
+    ├── components/
+    │   ├── structure.usda           # Floor + tunnel
+    │   ├── devices.usda             # Fan, vent, valve, sensor
+    │   └── plants.usda              # 8 beds, ~560 plants
+    ├── layers/
+    │   └── live_state.usda          # Dynamic state (strongest layer)
+    ├── variants/
+    │   └── plant_states.usda        # plantHealth variant
+    └── assets/
+        └── plant_sprout/            # Plant mesh asset
 ```
 
-## Digital Twin Layering
+---
 
-The scene is split into layers so that **static geometry** stays in components and **dynamic state** can be updated without touching the base assets:
+## USD Layer Architecture
 
-- **`components/*.usda`** — Static geometry and structure. `structure.usda` (floor, tunnel), `devices.usda` (device prims, types, transforms), `plants.usda` (beds, walkways, plant instances). These files **define** prims and fixed attributes.
+The scene uses **composition arcs** to separate static geometry from dynamic state:
 
-- **`variants/*.usda`** — Scenario or health variants (e.g. `plant_states.usda` with `plantHealth`: healthy / stressed). Composed as a **sublayer** so variant selections and overrides apply over the root.
+```
+greenhouse.usda (root)
+    ├── sublayers:
+    │   ├── plant_states.usda      (weakest)  — variant opinions
+    │   ├── greenhouse_looks.usda  (medium)   — materials
+    │   └── live_state.usda        (strongest) — telemetry overrides
+    │
+    ├── references:
+    │   ├── structure.usda         — floor, tunnel
+    │   └── devices.usda           — actuators, sensors
+    │
+    └── payload:
+        └── plants.usda            — beds, walkways, plants
+```
 
-- **`layers/live_state.usda`** — **Live telemetry and actuator overrides only** (`over` prims, no new geometry). It authors dynamic attributes on existing device/sensor prims: `device:power`, `device:position`, `device:flow`, `sensor:temperatureC`, `sensor:humidityPct`, `sensor:soilMoisturePct`, `state:tick`, etc. This file is the **strongest** sublayer so its values win at runtime.
+**Key Insight**: `live_state.usda` is the **strongest sublayer**, so any attribute it sets wins at runtime. This allows the agent to update telemetry without modifying base geometry.
 
-- **`root/greenhouse.usda`** — Root stage. Composes everything via **sublayers** (plant_states → greenhouse_looks → live_state), **references** (structure, devices), and **payload** (plants). Open this file in Composer to view the full digital twin.
+---
 
-**Sublayer order (strength):** In USD, sublayers are ordered from **weakest to strongest**. The **last** sublayer wins when the same attribute is authored in multiple layers. So `live_state.usda` is listed **last** in `greenhouse.usda`’s `sublayers`; any value it sets for a device or sensor overrides the same attribute from components or variants.
+## CLI Reference
 
-**Editing live state:** To simulate new telemetry or actuator values, edit `usd/layers/live_state.usda` (e.g. change `sensor:temperatureC`, `device:power`, or `state:tick`). Save and reload the stage in Composer (or run `inspect_stage.py`) to see the updated composed values. No need to edit `devices.usda` for live data.
-
-## How to open greenhouse.usda in USD Composer
-
-1. Install [NVIDIA Omniverse](https://developer.nvidia.com/omniverse) and **USD Composer** (or **Isaac Sim** with Composer).
-2. In Composer: **File → Open** (or drag-and-drop).
-3. Open: `usd/root/greenhouse.usda` (use the full path or navigate from the project root).
-4. The stage will load with `World` as the default prim; structure, devices, and plants appear under `World/Environment/Greenhouse`.
-
-Paths in the root stage are relative to `usd/root/`, so `../components/structure.usda` etc. resolve correctly when opening from that directory.
-
-## How to run inspect_stage.py
-
-From the project root:
-
+### cosmos_agent.py (Main Agent)
 ```bash
-# Optional: use a venv with pxr (e.g. Omniverse Python or USD Python bindings)
+# Dry run (log only)
+python src/agent/cosmos_agent.py --image demo/frame.png
+
+# Full actuation (apply to USD)
+python src/agent/cosmos_agent.py --image demo/frame.png --actuate
+
+# With custom context (e.g., on cloud without USD)
+python src/agent/cosmos_agent.py --image demo/frame.png --context-file demo/test_context.json
+```
+
+### update_state.py (Telemetry)
+```bash
+# Update sensors
+python src/usd_tools/update_state.py --temp 28 --humidity 90 --soil 25
+
+# Update actuators
+python src/usd_tools/update_state.py --fan 0.5 --vent 20 --valve 1
+
+# Update zone
+python src/usd_tools/update_state.py --zone B03-C --zone-moisture 22 --zone-status dry
+```
+
+### update_plant_health.py (Visual Feedback)
+```bash
+# Update single zone
+python src/usd_tools/update_plant_health.py --zone B03-C --status dry
+
+# Sync all zones based on current status
+python src/usd_tools/update_plant_health.py --sync
+
+# List plants in a zone
+python src/usd_tools/update_plant_health.py --zone B03-C --list
+```
+
+### inspect_stage.py (Debugging)
+```bash
 python src/usd_tools/inspect_stage.py
 ```
+Prints: layer stack, prim tree, device values, zone table.
 
-The script resolves `usd/root/greenhouse.usda` relative to the project root, loads it with `pxr.Usd`, prints the prim tree, and prints sensor/device attributes (e.g. sensor temperature, humidity, soil moisture).
+---
 
-Requires **USD Python bindings** (`pxr.Usd`). If you use Omniverse, its Python environment usually includes these.
+## Environment Variables
 
-### Other scripts (run from project root, with pxr available)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `COSMOS_API_URL` | Cosmos Reason 2 endpoint | (none — uses mock) |
+| `COSMOS_API_KEY` | API key | (none — uses mock) |
+| `COSMOS_MODEL` | Model name | `cosmos-reason-2` |
 
-- **Tunnel generator** (creates/overwrites `usd/root/greenhouse_tunnel.usda`):
-  ```bash
-  python src/usd_tools/generate_tunnel_greenhouse.py
-  ```
-- **Materials / looks** (creates/overwrites `usd/root/greenhouse_looks.usda`; root already sublayers it):
-  ```bash
-  python src/usd_tools/assign_greenhouse_materials.py
-  ```
+**No secrets in code** — all credentials via environment variables.
 
-### Day 4: Python Control Bridge
+---
 
-**update_state.py** writes only to `usd/layers/live_state.usda` to update telemetry and actuator state. Reload the stage in Composer to see changes.
+## Competition Context
 
-```bash
-# Sensor and actuators
-python src/usd_tools/update_state.py --humidity 90 --fan 0.5 --vent 20
-python src/usd_tools/update_state.py --temp 28 --soil 25 --valve 1
+### Judging Criteria Alignment
 
-# Enable/disable and tick
-python src/usd_tools/update_state.py --enable-fan --tick --last-updated "2026-02-10T12:00:00"
-```
+| Criteria | How We Address It |
+|----------|-------------------|
+| **Quality of Ideas** | Spatial reasoning over 24 zones — Cosmos identifies *where* problems occur, not just *what* |
+| **Technical Implementation** | Clean USD layering, typed schemas, modular agents, reproducible CLI |
+| **Design** | Visual feedback (plants change color), clear separation of concerns |
+| **Impact** | Precision agriculture reduces water waste, enables targeted interventions |
 
-Options: `--temp`, `--humidity`, `--soil`, `--fan`, `--vent`, `--valve`, `--enable-fan` / `--disable-fan`, `--enable-vent` / `--disable-vent`, `--enable-valve` / `--disable-valve`, `--tick`, `--last-updated <string>`.
+### Why This Matters
 
-### Day 5: Simple Rule Agent
+1. **Explainability**: Cosmos explains its reasoning in natural language with zone references
+2. **Precision**: Zone-level control reduces resource waste (water, energy)
+3. **Scalability**: Digital twin pattern works for any spatial environment (warehouses, factories, farms)
+4. **Physical AI**: Demonstrates vision + spatial reasoning + actuation loop
 
-**simple_agent.py** is a minimal closed-loop agent: it **reads** sensor values from the composed USD stage, **applies** simple threshold rules, and **writes** actuator updates only to `usd/layers/live_state.usda`. No Cosmos or physics; this proves read → rules → write before integration.
+---
 
-- **Reads:** `sensor:humidityPct`, `sensor:soilMoisturePct` from Sensor_01.
-- **Rules:** If humidity > 80% → Fan 0.4 and Vent 20; else Fan 0. If soil < 30% → Valve 1; else Valve 0.
-- **Writes:** Sets `device:power`, `device:position`, `device:flow` on Fan_01, Vent_01, Valve_01; increments `state:tick` on Sensor_01.
-- **Edit target:** Same as `update_state.py` — only the live_state layer is modified.
+## Greenhouse Specifications
 
-```bash
-python src/agent/simple_agent.py
-```
+| Property | Value |
+|----------|-------|
+| Footprint | 12m × 18m |
+| Tunnel height | 4m |
+| Beds | 8 (0.8m × 16m × 0.4m each) |
+| Walkways | 7 (0.5m wide) |
+| Zones | 24 (3 per bed) |
+| Plants | ~560 (70 per bed, 2 staggered rows) |
+| Coordinate system | Meters, Y-up |
 
-Reload the stage in USD Composer to see actuator changes.
+---
 
-## Composition arcs used
+## Development Timeline
 
-- **References** (in `greenhouse.usda`):  
-  `structure.usda` and `devices.usda` are **referenced** into the root. They load with the stage and define the greenhouse structure and devices.
+| Day | Milestone |
+|-----|-----------|
+| Day 1-3 | USD scene structure, composition arcs |
+| Day 4 | Python control bridge (`update_state.py`) |
+| Day 5 | Rule-based agent (`simple_agent.py`) |
+| Day 6 | Cosmos integration, zone-aware context |
+| Day 7 | Actuation, visual feedback, demo polish |
 
-- **Payload** (in `greenhouse.usda`):  
-  `plants.usda` is attached as a **payload**. It can be loaded/unloaded in Composer (e.g. “Load Payloads” / “Unload Payloads”) to show or hide plant geometry without changing the root structure.
+---
 
-- **Variants** (in `greenhouse.usda` and `plant_states.usda`):  
-  The root defines a **variant set** `plantHealth` with values `healthy` and `stressed`. Variant opinions (e.g. overrides for plant appearance) can live in the root or in a separate file like `variants/plant_states.usda` that is applied via the variant set. Here, the variant set is on the root and the actual variant content (e.g. green vs stressed look) is intended to be authored in the variant blocks or in referenced payload/variant assets.
+## Requirements
 
-No physics or Cosmos-specific logic is included; this is a minimal skeleton for extension.
+- Python 3.10+
+- USD Python bindings (`pxr`) — via Omniverse or `pip install usd-core`
+- `requests` (for Cosmos API calls)
+- NVIDIA USD Composer or usdview (for visualization)
 
-## Troubleshooting: plants not visible
+---
 
-- **Payload vs reference**: The **Plants** prim (beds + walkways + plants) is loaded via a **payload** (`plants.usda`). The plants themselves are **references** to `usd/assets/plant_sprout/plant_sprout_abstract.usda` inside that payload. So if you see beds but not plants, the payload is loaded; the issue is usually the plant **reference** path or how instances are drawn.
+## License
 
-- **What to try**
-  1. **Open the stage from the project root** so relative paths resolve correctly:
-     ```bash
-     cd /path/to/cosmos-greenhouse-twin
-     usdview usd/root/greenhouse.usda
-     ```
-  2. **Ensure the Plants payload is loaded** (e.g. in usdview: select the Plants prim and load payloads if there is an unload indicator).
-  3. **Open the plant asset alone** to confirm it displays:
-     ```bash
-     usdview usd/assets/plant_sprout/plant_sprout_abstract.usda
-     ```
-  4. **Instancing**: Plant prims use `instanceable = false` so they always expand; some viewers do not draw instanceable masters by default.
-  5. **Path resolution**: References in `plants.usda` use `@../assets/plant_sprout/plant_sprout_abstract.usda@` (relative to `usd/components/`). Resolvers typically anchor this to the layer file; if your app resolves relative to the current working directory, run it from the project root.
+MIT License — see LICENSE file.
+
+---
+
+## Acknowledgments
+
+- **NVIDIA Cosmos Team** for the Reason 2 model and competition
+- **OpenUSD** for the composition architecture
+- Built with Claude Code assistance
+
+---
+
+*GreenhouseBot: Teaching AI to see, think, and act in physical spaces.*

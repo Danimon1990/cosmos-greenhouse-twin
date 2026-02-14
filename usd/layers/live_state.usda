@@ -1,6 +1,6 @@
 #usda 1.0
 (
-    doc = "Live state override layer: telemetry and actuator values. Overrides only; no new geometry. Strongest sublayer so it wins composition."
+    doc = "Live state override layer: telemetry, actuator, and zone values. Overrides only; no new geometry. Strongest sublayer so it wins composition."
     metersPerUnit = 1
     upAxis = "Y"
 )
@@ -25,21 +25,287 @@ over "World"
                 over "Vent_01"
                 {
                     bool device:enabled = 1
-                    float device:position = 20
+                    float device:position = 0
                 }
 
                 over "Valve_01"
                 {
                     bool device:enabled = 1
-                    float device:flow = 1
+                    float device:flow = 0
                 }
 
                 over "Sensor_01"
                 {
-                    float sensor:humidityPct = 80
+                    float sensor:humidityPct = 50
                     float sensor:soilMoisturePct = 10
-                    float sensor:temperatureC = 40
-                    custom int state:tick = 4
+                    float sensor:temperatureC = 28
+                }
+            }
+
+            over "Plants"
+            {
+                over "Bed_01"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B01-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B01-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B01-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_02"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B02-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B02-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B02-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_03"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B03-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B03-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B03-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 22
+                            string zone:status = "dry"
+                        }
+                    }
+                }
+
+                over "Bed_04"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B04-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B04-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B04-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_05"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B05-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B05-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B05-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_06"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B06-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B06-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B06-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_07"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B07-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B07-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B07-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
+                }
+
+                over "Bed_08"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B08-A"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_B"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B08-B"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.8
+                            string zone:id = "B08-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 40
+                            string zone:status = "ok"
+                        }
+                    }
                 }
             }
         }

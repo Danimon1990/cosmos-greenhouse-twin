@@ -99,6 +99,46 @@ def print_plants_variant(stage, world_path):
         print(f"    plantHealth (selected) = \"{sel}\"")
 
 
+def _get_attr(prim, name, default=None):
+    attr = prim.GetAttribute(name)
+    if not attr:
+        return default
+    try:
+        val = attr.Get()
+        return val if val is not None else default
+    except Exception:
+        return default
+
+
+def print_zone_table(stage, world_path):
+    """Print zone attributes for all beds in a compact table."""
+    plants_path = world_path.AppendPath("Environment/Greenhouse/Plants")
+    plants = stage.GetPrimAtPath(plants_path)
+    if not plants or not plants.IsValid():
+        print("  Zones: Plants prim not found.")
+        return
+    print("  Zone state (composed):")
+    print("  " + "-" * 72)
+    for bed_name in sorted(p.GetName() for p in plants.GetChildren() if p.GetName().startswith("Bed_")):
+        bed = stage.GetPrimAtPath(plants_path.AppendPath(bed_name))
+        if not bed or not bed.IsValid():
+            continue
+        zones_prim = stage.GetPrimAtPath(bed.GetPath().AppendPath("Zones"))
+        if not zones_prim or not zones_prim.IsValid():
+            continue
+        for zone_name in ["Zone_A", "Zone_B", "Zone_C"]:
+            zone = stage.GetPrimAtPath(zones_prim.GetPath().AppendPath(zone_name))
+            if not zone or not zone.IsValid():
+                continue
+            mid = _get_attr(zone, "zone:id", "")
+            moisture = _get_attr(zone, "zone:soilMoisturePct", 0)
+            light = _get_attr(zone, "zone:lightPct", 0)
+            health = _get_attr(zone, "zone:healthScore", 0)
+            status = _get_attr(zone, "zone:status", "")
+            print(f"  {bed_name}: {zone_name}  id={mid}  moisture={moisture}  light={light}  health={health}  status={status}")
+    print("  " + "-" * 72)
+
+
 def main():
     path = _greenhouse_stage_path()
     if not os.path.isfile(path):
@@ -128,6 +168,9 @@ def main():
 
     print("\n=== Variant: plantHealth on Plants ===\n")
     print_plants_variant(stage, default_prim.GetPath())
+
+    print("\n=== Zone table (leafy greens spatial) ===\n")
+    print_zone_table(stage, default_prim.GetPath())
 
 
 if __name__ == "__main__":

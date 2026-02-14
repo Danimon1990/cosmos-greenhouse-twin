@@ -65,6 +65,14 @@ def get_float(prim, name, default=None):
     return default
 
 
+def get_string(prim, name, default=None):
+    attr = prim.GetAttribute(name)
+    if attr:
+        val = attr.Get()
+        return val if val is not None else default
+    return default
+
+
 def set_float_attr(prim, name, value):
     attr = prim.CreateAttribute(name, Sdf.ValueTypeNames.Float)
     if attr:
@@ -79,6 +87,34 @@ def set_int_attr(prim, name, value):
         attr.Set(value)
         return True
     return False
+
+
+def set_string_attr(prim, name, value):
+    attr = prim.CreateAttribute(name, Sdf.ValueTypeNames.String)
+    if attr:
+        attr.Set(value)
+        return True
+    return False
+
+
+PATH_PLANTS = "/World/Environment/Greenhouse/Plants"
+
+
+def iter_zone_prims(stage):
+    """Yield (prim, bed_name, zone_name) for each Zone_A/B/C under Plants."""
+    plants = stage.GetPrimAtPath(PATH_PLANTS)
+    if not plants or not plants.IsValid():
+        return
+    for bed in sorted(plants.GetChildren(), key=lambda p: p.GetName()):
+        if not bed.GetName().startswith("Bed_"):
+            continue
+        zones_prim = stage.GetPrimAtPath(bed.GetPath().AppendPath("Zones"))
+        if not zones_prim or not zones_prim.IsValid():
+            continue
+        for zone_name in ["Zone_A", "Zone_B", "Zone_C"]:
+            zone = stage.GetPrimAtPath(zones_prim.GetPath().AppendPath(zone_name))
+            if zone and zone.IsValid():
+                yield zone, bed.GetName(), zone_name
 
 
 def main():
@@ -109,34 +145,41 @@ def main():
 
     # Read composed sensor values (from any layer)
     humidity = get_float(sensor, "sensor:humidityPct", 50.0)
-    soil = get_float(sensor, "sensor:soilMoisturePct", 40.0)
 
     print(f"Editing layer: {live_layer.GetIdentifier() if hasattr(live_layer, 'GetIdentifier') else live_layer}")
-    print(f"Sensor (composed): humidity={humidity}%, soilMoisture={soil}%")
+    print(f"Sensor (composed): humidity={humidity}%")
 
     # Set edit target so all writes go to live_state only
     stage.SetEditTarget(Usd.EditTarget(live_layer))
 
     actions = []
 
-    # Rule 1: humidity > 80 → fan 0.4, else 0
+    # Rule 1: humidity > 80 → fan 0.4, vent 20; else fan 0
     if humidity > 80:
         set_float_attr(fan, "device:power", 0.4)
-        actions.append(f"Humidity {humidity}% → Fan set to 0.4")
-        # Optional: open vent slightly
         set_float_attr(vent, "device:position", 20.0)
-        actions.append("Vent set to 20 (humidity high)")
+        actions.append(f"Humidity {humidity}% → Fan 0.4, Vent 20")
     else:
         set_float_attr(fan, "device:power", 0.0)
-        actions.append(f"Humidity {humidity}% → Fan set to 0.0")
+        actions.append(f"Humidity {humidity}% → Fan 0")
 
-    # Rule 2: soil < 30 → valve 1, else 0
-    if soil < 30:
+    # Rule 2: per-zone soil moisture and light; dry → valve 1 and mark status; shaded = annotate only
+    dry_zones = []
+    for zone_prim, bed_name, zone_name in iter_zone_prims(stage):
+        moisture = get_float(zone_prim, "zone:soilMoisturePct", 40.0)
+        light = get_float(zone_prim, "zone:lightPct", 70.0)
+        if moisture < 30:
+            set_string_attr(zone_prim, "zone:status", "dry")
+            dry_zones.append(f"{bed_name}/{zone_name}")
+        elif light < 40:
+            set_string_attr(zone_prim, "zone:status", "shaded")
+
+    if dry_zones:
         set_float_attr(valve, "device:flow", 1.0)
-        actions.append(f"Soil {soil}% → Valve opened (1.0)")
+        actions.append(f"Dry zones ({len(dry_zones)}): {', '.join(dry_zones)} → Valve 1")
     else:
         set_float_attr(valve, "device:flow", 0.0)
-        actions.append(f"Soil {soil}% → Valve closed (0.0)")
+        actions.append("No dry zones → Valve 0")
 
     # Increment state:tick on Sensor_01 (create if missing)
     tick_attr = sensor.CreateAttribute("state:tick", Sdf.ValueTypeNames.Int)
@@ -148,6 +191,11 @@ def main():
 
     live_layer.Save()
 
+    # Summary
+    print("\n--- Summary ---")
+    print(f"Dry zones: {len(dry_zones)}")
+    if dry_zones:
+        print(f"  {', '.join(dry_zones)}")
     for a in actions:
         print(a)
     print("\nReload the stage in USD Composer to see changes.")

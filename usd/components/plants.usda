@@ -1,5 +1,31 @@
 #usda 1.0
 (
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (14.962095573389503, 13.742230719770482, 16.922001537415404)
+                double3 target = (-0.2466805028057486, -1.466544993418207, 1.7132254612201532)
+            }
+            dictionary Right = {
+                double3 position = (-5, 0, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 5, 0)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./plants.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
     defaultPrim = "World"
     doc = "Greenhouse plants: 8 beds (0.8x16m), 7 walkways (0.5m), plant_sprout_abstract instances per bed. Usable band X [-5,+5], 0.05m inner margin; beds centered Z=0 (1m entrance each end)."
     metersPerUnit = 1
@@ -32,7 +58,38 @@ def Xform "World"
                         uniform token[] xformOpOrder = ["xformOp:transform"]
                     }
 
-                
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
 
                     def Mesh "Plant_01_A_000" (
                         prepend apiSchemas = ["MaterialBindingAPI"]
@@ -829,6 +886,39 @@ def Xform "World"
                         double size = 1
                         matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
                         uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
                     }
 
                     def Mesh "Plant_02_A_000" (
@@ -1628,6 +1718,39 @@ def Xform "World"
                         uniform token[] xformOpOrder = ["xformOp:transform"]
                     }
 
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+
                     def Mesh "Plant_03_A_000" (
                         prepend apiSchemas = ["MaterialBindingAPI"]
                         instanceable = false
@@ -2423,6 +2546,39 @@ def Xform "World"
                         double size = 1
                         matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
                         uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
                     }
 
                     def Mesh "Plant_04_A_000" (
@@ -3222,6 +3378,39 @@ def Xform "World"
                         uniform token[] xformOpOrder = ["xformOp:transform"]
                     }
 
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+
                     def Mesh "Plant_05_A_000" (
                         prepend apiSchemas = ["MaterialBindingAPI"]
                         instanceable = false
@@ -4019,6 +4208,48 @@ def Xform "World"
                         uniform token[] xformOpOrder = ["xformOp:transform"]
                     }
 
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                                bindMaterialAs = "weakerThanDescendants"
+                            )
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                                bindMaterialAs = "weakerThanDescendants"
+                            )
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            rel material:binding = </OmniKit_Viewport_LightRig/Looks/Ground_Material> (
+                                bindMaterialAs = "weakerThanDescendants"
+                            )
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+                    }
+
                     def Mesh "Plant_06_A_000" (
                         prepend apiSchemas = ["MaterialBindingAPI"]
                         instanceable = false
@@ -4811,6 +5042,39 @@ def Xform "World"
                         double size = 1
                         matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
                         uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
                     }
 
                     def Mesh "Plant_07_A_000" (
@@ -5608,6 +5872,39 @@ def Xform "World"
                         double size = 1
                         matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.4, 0, 0), (0, 0, 16, 0), (0, 0.2, 0, 1) )
                         uniform token[] xformOpOrder = ["xformOp:transform"]
+                    }
+
+                    def Scope "Zones"
+                    {
+                        def Cube "Zone_A" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, -5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_B" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 0, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
+
+                        def Cube "Zone_C" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+                            double size = 1
+                            matrix4d xformOp:transform = ( (0.8, 0, 0, 0), (0, 0.02, 0, 0), (0, 0, 5.333333333, 0), (0, 0.42, 5.333333333, 1) )
+                            uniform token[] xformOpOrder = ["xformOp:transform"]
+                        }
                     }
 
                     def Mesh "Plant_08_A_000" (
@@ -6467,3 +6764,65 @@ def Xform "World"
     }
 }
 
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
+                int omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}

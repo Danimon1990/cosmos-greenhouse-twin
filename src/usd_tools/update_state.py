@@ -36,6 +36,18 @@ PATH_FAN = "/World/Environment/Greenhouse/Devices/Fan_01"
 PATH_VENT = "/World/Environment/Greenhouse/Devices/Vent_01"
 PATH_VALVE = "/World/Environment/Greenhouse/Devices/Valve_01"
 PATH_DEVICES = "/World/Environment/Greenhouse/Devices"
+PATH_PLANTS = "/World/Environment/Greenhouse/Plants"
+
+
+def zone_id_to_prim_path(zone_id):
+    """Convert zone id (e.g. B01-A, B04-B) to prim path. Returns None if invalid."""
+    import re
+    m = re.match(r"^B(\d{2})-([ABC])$", zone_id.strip().upper())
+    if not m:
+        return None
+    bed_num = m.group(1)
+    zone_letter = m.group(2)
+    return f"{PATH_PLANTS}/Bed_{bed_num}/Zones/Zone_{zone_letter}"
 
 
 def find_live_state_layer(stage):
@@ -109,6 +121,11 @@ def main():
     ap.add_argument("--disable-valve", action="store_true", help="set Valve_01 device:enabled = false")
     ap.add_argument("--tick", action="store_true", help="increment state:tick on Devices")
     ap.add_argument("--last-updated", type=str, metavar="STR", help="set state:lastUpdated on Devices")
+    ap.add_argument("--zone", type=str, metavar="ID", help="zone id (e.g. B01-A, B03-C)")
+    ap.add_argument("--zone-moisture", type=float, metavar="FLOAT", help="zone:soilMoisturePct")
+    ap.add_argument("--zone-light", type=float, metavar="FLOAT", help="zone:lightPct")
+    ap.add_argument("--zone-health", type=float, metavar="FLOAT", help="zone:healthScore (0..1)")
+    ap.add_argument("--zone-status", type=str, metavar="STR", help="zone:status (ok|dry|wet|shaded|stressed)")
 
     args = ap.parse_args()
 
@@ -208,8 +225,31 @@ def main():
         if set_bool_attr(valve, "device:enabled", False):
             changes.append("Valve_01 device:enabled = false")
 
+    # Zone overrides (require --zone)
+    if args.zone is not None:
+        zone_path = zone_id_to_prim_path(args.zone)
+        if zone_path is None:
+            print(f"Error: Invalid zone id {args.zone!r}. Use format B01-A, B02-B, etc.", file=sys.stderr)
+            sys.exit(1)
+        zone_prim = ensure_prim(stage, zone_path)
+        if zone_prim is None:
+            print(f"Error: Zone prim not found: {zone_path}", file=sys.stderr)
+            sys.exit(1)
+        if args.zone_moisture is not None:
+            if set_float_attr(zone_prim, "zone:soilMoisturePct", args.zone_moisture):
+                changes.append(f"zone {args.zone} soilMoisturePct = {args.zone_moisture}")
+        if args.zone_light is not None:
+            if set_float_attr(zone_prim, "zone:lightPct", args.zone_light):
+                changes.append(f"zone {args.zone} lightPct = {args.zone_light}")
+        if args.zone_health is not None:
+            if set_float_attr(zone_prim, "zone:healthScore", args.zone_health):
+                changes.append(f"zone {args.zone} healthScore = {args.zone_health}")
+        if args.zone_status is not None:
+            if set_string_attr(zone_prim, "zone:status", args.zone_status):
+                changes.append(f"zone {args.zone} status = {args.zone_status!r}")
+
     if not changes:
-        print("No updates requested. Use --temp, --humidity, --fan, etc.")
+        print("No updates requested. Use --temp, --humidity, --fan, --zone B01-A --zone-moisture 22, etc.")
         return
 
     live_layer.Save()
