@@ -1,0 +1,6 @@
+# Core deps for Cosmos agent (run on GPU remote or local)
+requests>=2.28.0
+# For --max-image-size (resize image to reduce payload and avoid connection reset)
+Pillow>=10.0.0
+# Optional: for reading USD stage locally (omit on minimal/headless remotes)
+# usd-core>=24.0

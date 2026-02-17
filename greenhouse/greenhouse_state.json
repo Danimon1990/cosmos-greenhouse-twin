@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-02-14T13:27:19.650577Z",
+  "environment": {
+    "temperature_c": 21.67929451641121,
+    "humidity_percent": 48.22279550781396,
+    "co2_ppm": 428.57532396743807,
+    "light_lux": 7408.8079538207985
+  },
+  "zones": [
+    {
+      "crop": "lettuce",
+      "soil_moisture": 0.4039999999999999,
+      "plant_height_cm": 12.0,
+      "health": 0.9
+    },
+    {
+      "crop": "lettuce",
+      "soil_moisture": 0.3539999999999999,
+      "plant_height_cm": 10.0,
+      "health": 0.85
+    },
+    {
+      "crop": "lettuce",
+      "soil_moisture": 0.45399999999999996,
+      "plant_height_cm": 14.0,
+      "health": 0.92
+    }
+  ],
+  "actuators": {
+    "fan": 0.0,
+    "vent": 0.0,
+    "water_valve": false
+  }
+}

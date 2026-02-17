@@ -1,0 +1,55 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+)
+
+def Xform "World"
+{
+    def Scope "Greenhouse"
+    {
+        custom string timestamp = "2026-02-14T13:27:19.650577Z"
+
+        def Scope "Environment"
+        {
+            custom double co2_ppm = 428.57532396743807
+            custom double humidity_percent = 48.22279550781396
+            custom double light_lux = 7408.8079538207985
+            custom double temperature_c = 21.67929451641121
+        }
+
+        def Scope "Actuators"
+        {
+            custom double fan = 0
+            custom double vent = 0
+            custom bool water_valve = 0
+        }
+
+        def Scope "Zones"
+        {
+            def Scope "bed_1"
+            {
+                custom string crop = "lettuce"
+                custom string health = "0.9"
+                custom double plant_height_cm = 12
+                custom double soil_moisture = 0.4039999999999999
+            }
+
+            def Scope "bed_2"
+            {
+                custom string crop = "lettuce"
+                custom string health = "0.85"
+                custom double plant_height_cm = 10
+                custom double soil_moisture = 0.3539999999999999
+            }
+
+            def Scope "bed_3"
+            {
+                custom string crop = "lettuce"
+                custom string health = "0.92"
+                custom double plant_height_cm = 14
+                custom double soil_moisture = 0.45399999999999996
+            }
+        }
+    }
+}
+

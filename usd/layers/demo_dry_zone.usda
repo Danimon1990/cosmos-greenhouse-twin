@@ -1,0 +1,160 @@
+#usda 1.0
+(
+    doc = "Video demo: B03-C dry zone. Override only. Strongest when used as top sublayer. Run scripts/write_demo_dry_layer.py to regenerate from stage."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "World"
+{
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Plants"
+            {
+                over "Bed_03"
+                {
+                    over "Zones"
+                    {
+                        over "Zone_C"
+                        {
+                            float zone:healthScore = 0.5
+                            string zone:id = "B03-C"
+                            float zone:lightPct = 70
+                            float zone:soilMoisturePct = 22
+                            string zone:status = "dry"
+                        }
+                    }
+
+                    over "Plant_03_A_025"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_026"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_027"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_028"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_029"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_030"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_031"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_032"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_033"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_034"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_A_035"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_025"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_026"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_027"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_028"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_029"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_030"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_031"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_032"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_033"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                    over "Plant_03_B_034"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

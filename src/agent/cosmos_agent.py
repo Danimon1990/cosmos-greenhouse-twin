@@ -22,8 +22,9 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 try:
     from pxr import Sdf, Usd, UsdShade
@@ -45,6 +46,50 @@ PATH_SENSOR = "/World/Environment/Greenhouse/Devices/Sensor_01"
 PATH_FAN = "/World/Environment/Greenhouse/Devices/Fan_01"
 PATH_VENT = "/World/Environment/Greenhouse/Devices/Vent_01"
 PATH_VALVE = "/World/Environment/Greenhouse/Devices/Valve_01"
+
+
+def _parse_zone_id(zone_id: str) -> tuple[int | None, str | None]:
+    """Parse zone ID (e.g. B03-C) into (bed_num, zone_letter). Returns (None, None) if invalid."""
+    m = re.match(r"^B(\d{2})-([ABC])$", (zone_id or "").strip().upper())
+    if not m:
+        return None, None
+    return int(m.group(1)), m.group(2)
+
+
+def _apply_zone_status_from_context(stage, live_layer, context: dict) -> list[str]:
+    """
+    Set zone:status (and related attrs) in live_state for dry/shaded zones from context.
+    So plants in those zones will turn unhealthy when sync_plant_materials runs.
+    Returns list of actions taken.
+    """
+    actions = []
+    alerts = context.get("alerts") or {}
+    dry_zones = list(alerts.get("dryZones") or [])
+    shaded_zones = list(alerts.get("shadedZones") or [])
+
+    for zone_id in dry_zones:
+        bed_num, zone_letter = _parse_zone_id(zone_id)
+        if bed_num is None:
+            continue
+        zone_path = f"{PATH_PLANTS}/Bed_{bed_num:02d}/Zones/Zone_{zone_letter}"
+        prim = stage.OverridePrim(zone_path)
+        if prim:
+            prim.CreateAttribute("zone:status", Sdf.ValueTypeNames.String).Set("dry")
+            prim.CreateAttribute("zone:soilMoisturePct", Sdf.ValueTypeNames.Float).Set(22.0)
+            prim.CreateAttribute("zone:healthScore", Sdf.ValueTypeNames.Float).Set(0.5)
+            actions.append(f"Zone {zone_id}: status=dry (plants → unhealthy)")
+
+    for zone_id in shaded_zones:
+        bed_num, zone_letter = _parse_zone_id(zone_id)
+        if bed_num is None:
+            continue
+        zone_path = f"{PATH_PLANTS}/Bed_{bed_num:02d}/Zones/Zone_{zone_letter}"
+        prim = stage.OverridePrim(zone_path)
+        if prim:
+            prim.CreateAttribute("zone:status", Sdf.ValueTypeNames.String).Set("shaded")
+            actions.append(f"Zone {zone_id}: status=shaded (plants → unhealthy)")
+
+    return actions
 
 
 def _project_root() -> str:
@@ -143,10 +188,28 @@ def read_snapshot(stage_path: str) -> ContextPayload:
     }
 
 
-def load_image_base64(path: str) -> str:
-    """Read image file and return base64-encoded string."""
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode("ascii")
+def load_image_base64(path: str, max_longest_side: int = 0) -> str:
+    """Read image file and return base64-encoded string (JPEG). If max_longest_side > 0, resize to reduce payload."""
+    if max_longest_side <= 0:
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode("ascii")
+    try:
+        from PIL import Image
+        import io
+        img = Image.open(path).convert("RGB")
+        w, h = img.size
+        if max(w, h) > max_longest_side:
+            if w >= h:
+                new_w, new_h = max_longest_side, int(h * max_longest_side / w)
+            else:
+                new_w, new_h = int(w * max_longest_side / h), max_longest_side
+            img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=85)
+        return base64.b64encode(buf.getvalue()).decode("ascii")
+    except ImportError:
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode("ascii")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -265,9 +328,11 @@ def sync_plant_materials(stage, live_layer) -> list[str]:
             material = UsdShade.Material.Get(stage, material_path)
 
             if plants and material:
+                # Stronger-than-descendants so our opinion wins over root's weakerThanDescendants
+                strength = UsdShade.Tokens.strongerThanDescendants
                 for plant_prim in plants:
                     binding_api = UsdShade.MaterialBindingAPI(plant_prim)
-                    binding_api.Bind(material)
+                    binding_api.Bind(material, strength)
 
                 zone_id = f"B{bed_num:02d}-{zone_letter}"
                 mat_name = "PlantMat" if healthy else "UnhealthyPlantMat"
@@ -277,9 +342,13 @@ def sync_plant_materials(stage, live_layer) -> list[str]:
     return actions
 
 
-def apply_recommendations(stage_path: str, recommendations: list[dict]) -> list[str]:
+def apply_recommendations(stage_path: str, recommendations: list[dict], context: dict | None = None) -> list[str]:
     """
     Apply Cosmos recommendations to live_state.usda.
+
+    If context is provided with alerts.dryZones / alerts.shadedZones, zone status
+    is set so plants in those zones switch to the unhealthy material (visual feedback).
+    Then plant materials are synced to zone status.
 
     Returns list of actions taken (for logging/display).
     """
@@ -301,6 +370,11 @@ def apply_recommendations(stage_path: str, recommendations: list[dict]) -> list[
     stage.SetEditTarget(Usd.EditTarget(live_layer))
 
     actions_taken = []
+
+    # Set zone status for dry/shaded zones from context so plants turn unhealthy visually
+    if context:
+        zone_actions = _apply_zone_status_from_context(stage, live_layer, context)
+        actions_taken.extend(zone_actions)
 
     for rec in recommendations:
         action = rec.get("action", "")
@@ -335,12 +409,11 @@ def apply_recommendations(stage_path: str, recommendations: list[dict]) -> list[
                 actions_taken.append(f"Valve_01 device:flow = {value}")
 
     # Update timestamp
-    from datetime import datetime
     sensor = stage.GetPrimAtPath(PATH_SENSOR)
     if sensor and sensor.IsValid():
         ts_attr = sensor.CreateAttribute("state:lastUpdated", Sdf.ValueTypeNames.String)
         if ts_attr:
-            ts_attr.Set(datetime.utcnow().isoformat() + "Z")
+            ts_attr.Set(datetime.now(timezone.utc).isoformat() + "Z")
         tick_attr = sensor.CreateAttribute("state:tick", Sdf.ValueTypeNames.Int)
         if tick_attr:
             prev = tick_attr.Get() or 0
@@ -354,7 +427,8 @@ def apply_recommendations(stage_path: str, recommendations: list[dict]) -> list[
     # Save only the live_state layer
     if actions_taken:
         live_layer.Save()
-        actions_taken.append(f"Saved: {live_layer.GetIdentifier()}")
+        ident = live_layer.GetIdentifier() if hasattr(live_layer, "GetIdentifier") else live_layer.identifier
+        actions_taken.append(f"Saved: {ident}")
 
     return actions_taken
 
@@ -365,6 +439,7 @@ def main() -> None:
     parser.add_argument("--stage", default=None, help="Path to greenhouse.usda (default: usd/root/greenhouse.usda)")
     parser.add_argument("--context-file", default=None, help="JSON file with sensors/devices context (use when pxr not available, e.g. on cloud)")
     parser.add_argument("--actuate", action="store_true", help="Day 7: Apply recommendations to live_state.usda (default: log only)")
+    parser.add_argument("--max-image-size", type=int, default=0, metavar="N", help="Resize image so longest side is N px (e.g. 1024) to reduce payload; 0 = no resize")
     args = parser.parse_args()
 
     root = _project_root()
@@ -392,7 +467,7 @@ def main() -> None:
         else:
             print(f"Note: Stage not found: {stage_path}; using default context.", file=sys.stderr)
         context = DEFAULT_CONTEXT
-    image_b64 = load_image_base64(image_path)
+    image_b64 = load_image_base64(image_path, max_longest_side=args.max_image_size)
 
     if not is_configured():
         print("DRY RUN: COSMOS_API_URL or COSMOS_API_KEY not set; using mock response.")
@@ -400,10 +475,10 @@ def main() -> None:
     payload, raw = call_cosmos(context, image_b64)
 
     log_dir = _logs_dir()
-    ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     log_path = os.path.join(log_dir, f"run_{ts}.json")
     log_data = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
         "image_path": image_path,
         "sensor_snapshot": context,
         "explanation": payload.get("explanation", ""),
@@ -433,7 +508,7 @@ def main() -> None:
     # ─────────────────────────────────────────────────────────────────────────
     if args.actuate:
         print("\n--- Actuation (Day 7) ---")
-        actions = apply_recommendations(stage_path, recs)
+        actions = apply_recommendations(stage_path, recs, context)
         if actions:
             for a in actions:
                 print(f"  ✓ {a}")

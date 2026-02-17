@@ -23,8 +23,17 @@ COSMOS_MODEL = os.environ.get("COSMOS_MODEL", "cosmos-reason-2").strip() or "cos
 
 
 def is_configured() -> bool:
-    """True if both API URL and key are set."""
-    return bool(COSMOS_API_URL and COSMOS_API_KEY)
+    """True if API URL is set. Key optional for localhost (e.g. local NIM/vLLM)."""
+    if not COSMOS_API_URL:
+        return False
+    try:
+        from urllib.parse import urlparse
+        host = urlparse(COSMOS_API_URL).hostname or ""
+        if host in ("127.0.0.1", "localhost", "::1"):
+            return True  # local server often has no auth
+    except Exception:
+        pass
+    return bool(COSMOS_API_KEY)
 
 
 def _mock_response(context: ContextPayload) -> CosmosResponsePayload:
@@ -191,18 +200,56 @@ def call_cosmos(
         return _mock_response(context), None
 
     body = build_request_payload(context, image_base64)
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {COSMOS_API_KEY}",
-    }
+    headers = {"Content-Type": "application/json"}
+    if COSMOS_API_KEY:
+        headers["Authorization"] = f"Bearer {COSMOS_API_KEY}"
     try:
         r = requests.post(COSMOS_API_URL, json=body, headers=headers, timeout=60)
         r.raise_for_status()
-        raw = r.json()
-    except Exception as e:
+        if not r.text or not r.text.strip():
+            return (
+                {
+                    "explanation": f"API call failed: empty response body (status {r.status_code})",
+                    "recommendations": [],
+                },
+                None,
+            )
+        try:
+            raw = r.json()
+        except json.JSONDecodeError as je:
+            preview = (r.text[:500] + "…") if len(r.text) > 500 else r.text
+            return (
+                {
+                    "explanation": f"API call failed: response is not JSON (status {r.status_code}). First 500 chars: {preview!r}",
+                    "recommendations": [],
+                },
+                None,
+            )
+    except requests.exceptions.RequestException as e:
+        err_msg = str(e)
+        if hasattr(e, "response") and e.response is not None:
+            try:
+                err_msg = f"{e.response.status_code} {e.response.reason}: {(e.response.text or '')[:300]}"
+            except Exception:
+                pass
+        hint = ""
+        if "reset" in err_msg.lower() or "aborted" in err_msg.lower():
+            hint = " (Server may have closed the connection: check NIM/vLLM logs; try --max-image-size 1024 to send a smaller image.)"
         return (
             {
-                "explanation": f"API call failed: {e}",
+                "explanation": f"API call failed: {err_msg}{hint}",
+                "recommendations": [],
+            },
+            None,
+        )
+    except Exception as e:
+        err_msg = str(e)
+        hint = ""
+        if "reset" in err_msg.lower() or "aborted" in err_msg.lower():
+            hint = " (Check server logs; try --max-image-size 1024.)"
+        return (
+            {
+                "explanation": f"API call failed: {err_msg}{hint}",
                 "recommendations": [],
             },
             None,
@@ -219,16 +266,23 @@ def call_cosmos(
     # Parse JSON from model output
     try:
         if isinstance(content, str):
-            # Allow markdown code block
             s = content.strip()
-            if s.startswith("```"):
+
+            # Strip <think>...</think> reasoning blocks (Cosmos Reason 2)
+            import re
+            s = re.sub(r"<think>.*?</think>", "", s, flags=re.DOTALL).strip()
+
+            # Extract JSON from markdown code block (```json ... ```)
+            code_block_match = re.search(r"```(?:json)?\s*\n(.*?)```", s, flags=re.DOTALL)
+            if code_block_match:
+                s = code_block_match.group(1).strip()
+            elif s.startswith("```"):
+                # Fallback: strip opening/closing fences
                 lines = s.split("\n")
-                for i, line in enumerate(lines):
-                    if line.strip().startswith("```"):
-                        s = "\n".join(lines[i + 1 :])
-                        break
+                s = "\n".join(lines[1:])
                 if s.strip().endswith("```"):
                     s = s.strip()[:-3].strip()
+
             parsed = json.loads(s)
         else:
             parsed = content if isinstance(content, dict) else {}

@@ -1,0 +1,27 @@
+{
+  "sensors": {
+    "temperatureC": 28.0,
+    "humidityPct": 50.0,
+    "soilMoisturePct": 10.0
+  },
+  "devices": {
+    "fanPower": 0.0,
+    "ventPosition": 0.0,
+    "valveFlow": 0.0
+  },
+  "zones": [
+    {"zoneId": "B01-A", "bedNumber": 1, "position": "A", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B01-B", "bedNumber": 1, "position": "B", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B01-C", "bedNumber": 1, "position": "C", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B02-A", "bedNumber": 2, "position": "A", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B02-B", "bedNumber": 2, "position": "B", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B02-C", "bedNumber": 2, "position": "C", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B03-A", "bedNumber": 3, "position": "A", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B03-B", "bedNumber": 3, "position": "B", "soilMoisturePct": 40.0, "lightPct": 70.0, "healthScore": 0.8, "status": "ok"},
+    {"zoneId": "B03-C", "bedNumber": 3, "position": "C", "soilMoisturePct": 22.0, "lightPct": 70.0, "healthScore": 0.5, "status": "dry"}
+  ],
+  "alerts": {
+    "dryZones": ["B03-C"],
+    "shadedZones": []
+  }
+}

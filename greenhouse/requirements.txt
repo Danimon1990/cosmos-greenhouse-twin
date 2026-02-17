@@ -1,0 +1,2 @@
+# Greenhouse digital twin data pipeline
+# Python 3.10+ stdlib only; no external dependencies required.

@@ -144,13 +144,11 @@ def update_plant_materials(stage, live_layer, plant_paths: list[str], healthy: b
         if not prim or not prim.IsValid():
             continue
 
-        # Get or create the material binding relationship
-        # We use UsdShade.MaterialBindingAPI for proper USD semantics
+        # Stronger-than-descendants so live_state wins over root's weakerThanDescendants
         binding_api = UsdShade.MaterialBindingAPI(prim)
         material = UsdShade.Material.Get(stage, material_path)
-
         if material:
-            binding_api.Bind(material)
+            binding_api.Bind(material, UsdShade.Tokens.strongerThanDescendants)
             count += 1
 
     return count

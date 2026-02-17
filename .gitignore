@@ -21,3 +21,7 @@ Thumbs.db
 # USD / Omniverse
 *.usdc
 *.usdz
+
+# Local outputs and logs
+logs/
+outputs/

@@ -125,6 +125,8 @@ Recommendations (2):
 ### Step 5: See Visual Feedback
 Reload in USD Composer — plants in zone B03-C are now **brownish/yellow** (`UnhealthyPlantMat`), visually showing the problem area.
 
+**Video shortcut (if plants don’t change color in your viewer):** Open **`usd/root/greenhouse_dry_demo.usda`** instead. That scene stacks a small override layer on top so B03-C plants are forced to `UnhealthyPlantMat` for a reliable “dry zone” shot.
+
 ### Step 6: Recovery (Optional)
 ```bash
 python src/usd_tools/update_state.py --zone B03-C --zone-moisture 45 --zone-status ok
@@ -181,8 +183,18 @@ Cosmos returns:
 cosmos-greenhouse-twin/
 ├── README.md
 ├── demo/
-│   ├── frame.png              # Screenshot for Cosmos
-│   └── test_context.json      # Test context with dry zone
+│   ├── frame.png              # Screenshot for Cosmos agent
+│   ├── image_style.json       # Config for Cosmos Transfer (style-over-video)
+│   ├── test_context.json      # Test context with dry zone
+│   ├── scenario_1_dry_zone.json
+│   ├── scenario_2_humid_and_shaded.json
+│   └── scenario_3_multi_crisis.json
+├── examples/
+│   └── inference.py          # Run Cosmos Transfer from JSON config (-i config -o dir)
+├── scripts/
+│   ├── cosmos_transfer.py     # 3D render → photorealistic video (NVIDIA Cosmos Transfer API)
+│   └── write_demo_dry_layer.py
+├── outputs/                   # Cosmos Transfer results (e.g. outputs/greenhouse_style/*.mp4)
 ├── logs/
 │   └── run_*.json             # Timestamped agent logs
 │
@@ -201,9 +213,12 @@ cosmos-greenhouse-twin/
 │       ├── assign_greenhouse_materials.py
 │       └── populate_bed_plants.py
 │
+├── serve_cosmos.py            # Optional: local Cosmos Reason 2 server
+├── greenhouse/                # Simulation loop, state, USD sync (see greenhouse/README.md)
 └── usd/
     ├── root/
     │   ├── greenhouse.usda          # Root stage (open this)
+    │   ├── greenhouse_dry_demo.usda # Demo override (B03-C brown)
     │   ├── greenhouse_tunnel.usda   # Tunnel mesh
     │   └── greenhouse_looks.usda    # Materials
     ├── components/
@@ -211,7 +226,8 @@ cosmos-greenhouse-twin/
     │   ├── devices.usda             # Fan, vent, valve, sensor
     │   └── plants.usda              # 8 beds, ~560 plants
     ├── layers/
-    │   └── live_state.usda          # Dynamic state (strongest layer)
+    │   ├── live_state.usda          # Dynamic state (strongest layer)
+    │   └── demo_dry_zone.usda
     ├── variants/
     │   └── plant_states.usda        # plantHealth variant
     └── assets/
@@ -287,6 +303,20 @@ python src/usd_tools/inspect_stage.py
 ```
 Prints: layer stack, prim tree, device values, zone table.
 
+### Cosmos Transfer (Photorealistic video from 3D)
+Turn a greenhouse render (or control video) into photorealistic video via NVIDIA Cosmos Transfer API:
+
+```bash
+export NVIDIA_API_KEY="nvapi-YOUR_KEY"
+
+# Single image → video with a condition (daylight, rainy, night, etc.)
+python scripts/cosmos_transfer.py --image demo/frame.png --condition daylight --output demo/transfer_daylight.mp4
+
+# From JSON config (video_path or image_context_path + prompt)
+python examples/inference.py -i demo/image_style.json -o outputs/greenhouse_style
+```
+Outputs land under the given `-o` directory (e.g. `outputs/greenhouse_style/<name>.mp4`).
+
 ---
 
 ## Environment Variables
@@ -294,8 +324,9 @@ Prints: layer stack, prim tree, device values, zone table.
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `COSMOS_API_URL` | Cosmos Reason 2 endpoint | (none — uses mock) |
-| `COSMOS_API_KEY` | API key | (none — uses mock) |
+| `COSMOS_API_KEY` | API key for Reason 2 | (none — uses mock) |
 | `COSMOS_MODEL` | Model name | `cosmos-reason-2` |
+| `NVIDIA_API_KEY` | API key for Cosmos Transfer (build.nvidia.com) | (required for Transfer/inference) |
 
 **No secrets in code** — all credentials via environment variables.
 

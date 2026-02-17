@@ -39,6 +39,8 @@ over "World"
                     float sensor:humidityPct = 50
                     float sensor:soilMoisturePct = 10
                     float sensor:temperatureC = 28
+                    custom string state:lastUpdated = "2026-02-15T03:35:06.574791+00:00Z"
+                    custom int state:tick = 6
                 }
             }
 
@@ -75,6 +77,503 @@ over "World"
                             string zone:status = "ok"
                         }
                     }
+
+                    over "Plant_01_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_01_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
                 }
 
                 over "Bed_02"
@@ -108,6 +607,503 @@ over "World"
                             string zone:status = "ok"
                         }
                     }
+
+                    over "Plant_02_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_02_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
                 }
 
                 over "Bed_03"
@@ -134,12 +1130,509 @@ over "World"
 
                         over "Zone_C"
                         {
-                            float zone:healthScore = 0.8
+                            float zone:healthScore = 0.5
                             string zone:id = "B03-C"
                             float zone:lightPct = 70
                             float zone:soilMoisturePct = 22
                             string zone:status = "dry"
                         }
+                    }
+
+                    over "Plant_03_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_025"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_026"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_027"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_028"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_029"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_030"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_031"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_032"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_033"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_034"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_A_035"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_024"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_025"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_026"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_027"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_028"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_029"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_030"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_031"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_032"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_033"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_03_B_034"
+                    {
+                        rel material:binding = </World/Looks/UnhealthyPlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
                     }
                 }
 
@@ -174,6 +1667,503 @@ over "World"
                             string zone:status = "ok"
                         }
                     }
+
+                    over "Plant_04_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_04_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
                 }
 
                 over "Bed_05"
@@ -206,6 +2196,503 @@ over "World"
                             float zone:soilMoisturePct = 40
                             string zone:status = "ok"
                         }
+                    }
+
+                    over "Plant_05_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_05_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
                     }
                 }
 
@@ -240,6 +2727,503 @@ over "World"
                             string zone:status = "ok"
                         }
                     }
+
+                    over "Plant_06_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_06_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
                 }
 
                 over "Bed_07"
@@ -273,6 +3257,503 @@ over "World"
                             string zone:status = "ok"
                         }
                     }
+
+                    over "Plant_07_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_07_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
                 }
 
                 over "Bed_08"
@@ -305,6 +3786,503 @@ over "World"
                             float zone:soilMoisturePct = 40
                             string zone:status = "ok"
                         }
+                    }
+
+                    over "Plant_08_A_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_000"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_001"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_002"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_003"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_004"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_005"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_006"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_007"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_008"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_009"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_010"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_011"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_012"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_013"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_014"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_015"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_016"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_017"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_018"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_019"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_020"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_021"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_022"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_023"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_A_035"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_024"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_025"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_026"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_027"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_028"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_029"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_030"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_031"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_032"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_033"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
+                    }
+
+                    over "Plant_08_B_034"
+                    {
+                        rel material:binding = </World/Looks/PlantMat> (
+                            bindMaterialAs = "strongerThanDescendants"
+                        )
                     }
                 }
             }

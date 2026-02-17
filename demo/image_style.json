@@ -1,0 +1,7 @@
+{
+  "name": "greenhouse_style_daylight",
+  "prompt": "daylight, realistic greenhouse interior, natural colors, high detail",
+  "video_path": "demo/control.mp4",
+  "image_context_path": "demo/frame.png",
+  "seed": 1
+}

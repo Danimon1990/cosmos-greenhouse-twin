@@ -1,0 +1,11 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    doc = "Video demo: same as greenhouse.usda but with demo_dry_zone on top so B03-C plants show as brown (UnhealthyPlantMat)."
+    metersPerUnit = 1
+    subLayers = [
+        @./greenhouse.usda@,
+        @../layers/demo_dry_zone.usda@
+    ]
+    upAxis = "Y"
+)
