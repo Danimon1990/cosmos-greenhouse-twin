@@ -1,5 +1,5 @@
 """
-Cosmos Reason 2 HTTP client for the greenhouse digital twin.
+Cosmos 3 Reasoner HTTP client for the greenhouse digital twin.
 
 If COSMOS_API_URL or COSMOS_API_KEY is missing, returns a mocked response
 based on sensor values (e.g. humidity > 80 → recommend fan 0.4).
@@ -19,7 +19,11 @@ from schema import ContextPayload, CosmosResponsePayload, parse_response
 # Environment variables (no secrets in code)
 COSMOS_API_URL = os.environ.get("COSMOS_API_URL", "").strip()
 COSMOS_API_KEY = os.environ.get("COSMOS_API_KEY", "").strip()
-COSMOS_MODEL = os.environ.get("COSMOS_MODEL", "cosmos-reason-2").strip() or "cosmos-reason-2"
+COSMOS_MODEL = (
+    os.environ.get("COSMOS_MODEL", "nvidia/cosmos3-nano-reasoner").strip()
+    or "nvidia/cosmos3-nano-reasoner"
+)
+COSMOS_TIMEOUT_SECONDS = float(os.environ.get("COSMOS_TIMEOUT_SECONDS", "120"))
 
 
 def is_configured() -> bool:
@@ -122,19 +126,24 @@ def _mock_response(context: ContextPayload) -> CosmosResponsePayload:
     }
 
 
+def _image_data_uri(image_base64: str) -> str:
+    """Build a correctly typed data URI for the PNG/JPEG inputs used by Cosmos 3."""
+    try:
+        prefix = base64.b64decode(image_base64[:32], validate=False)
+    except Exception:
+        prefix = b""
+    media_type = "image/png" if prefix.startswith(b"\x89PNG\r\n\x1a\n") else "image/jpeg"
+    return f"data:{media_type};base64,{image_base64}"
+
+
 def build_request_payload(
     context: ContextPayload,
     image_base64: str,
     model: str = COSMOS_MODEL,
 ) -> dict[str, Any]:
-    """
-    Build the HTTP request body for the Cosmos endpoint.
-    Isolated so you can adjust format for different API shapes (e.g. OpenAI-compatible
-    chat/completions with vision, or custom vision field).
-    """
+    """Build an OpenAI-compatible Cosmos 3 Reasoner chat-completions request."""
     context_str = json.dumps(context, indent=2)
 
-    # Extract zone alerts for the prompt
     alerts = context.get("alerts", {})
     dry_zones = alerts.get("dryZones", [])
     shaded_zones = alerts.get("shadedZones", [])
@@ -146,40 +155,44 @@ def build_request_payload(
             zone_alert_text += f"- DRY ZONES (need irrigation): {', '.join(dry_zones)}\n"
         if shaded_zones:
             zone_alert_text += f"- SHADED ZONES (low light): {', '.join(shaded_zones)}\n"
-        zone_alert_text += "Reference these zones in your explanation to demonstrate spatial reasoning.\n"
+        zone_alert_text += "Reference these zones in your explanation.\n"
 
     instructions = (
-        "You are GreenhouseBot, an AI that performs SPATIAL REASONING over a digital twin greenhouse. "
-        "The greenhouse has 8 beds (Bed_01 to Bed_08), each divided into 3 zones (A=north, B=center, C=south). "
-        "You receive an image of the greenhouse AND zone-level telemetry data.\n\n"
-        "YOUR TASK: Analyze the image and telemetry to identify problems at the ZONE level, "
-        "explain the spatial location of issues (e.g., 'Zone B03-C in the middle-left of the greenhouse appears dry'), "
-        "and recommend targeted actions.\n"
+        "Analyze the greenhouse image and zone telemetry as a physical-AI reasoner. "
+        "Identify problems at the zone level, explain their spatial location, and propose targeted actions.\n"
         f"{zone_alert_text}\n"
-        "Return JSON only, no other text, with this exact shape:\n"
-        '{"explanation": "string describing spatial observations and reasoning", '
+        "After reasoning, return a JSON object with exactly this shape:\n"
+        '{"explanation": "spatial observations grounded in image and telemetry", '
         '"recommendations": [{"action": "set_fan"|"set_vent"|"set_valve"|"send_alert"|"no_action", '
-        '"value": number|null, "why": "string with zone references", "confidence": number}]}\n\n'
-        "Actions: set_fan (0-1), set_vent (0-100 degrees), set_valve (0-1 flow). "
-        "Mention specific zone IDs (like B03-C) in your explanation and recommendations."
+        '"value": number|null, "why": "reason with zone references", "confidence": number}]}\n'
+        "Action ranges: set_fan 0-1, set_vent 0-100 degrees, set_valve 0-1.\n\n"
+        "Answer using this format:\n<think>\nYour analysis.\n</think>\n"
+        "Write the JSON object immediately after </think>, without prose or Markdown fences."
     )
-    # Common OpenAI-compatible vision format; adjust if your endpoint differs
+
+    # NVIDIA's Cosmos 3 prompt guide requires media before user text.
     messages = [
+        {
+            "role": "system",
+            "content": "You are a helpful physical-AI assistant for a robot-assisted greenhouse.",
+        },
         {
             "role": "user",
             "content": [
+                {"type": "image_url", "image_url": {"url": _image_data_uri(image_base64)}},
                 {"type": "text", "text": f"Context (JSON):\n{context_str}\n\n{instructions}"},
-                {
-                    "type": "image_url",
-                    "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"},
-                },
             ],
         },
     ]
     return {
         "model": model,
         "messages": messages,
-        "max_tokens": 1024,
+        "max_tokens": 4096,
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "presence_penalty": 0.0,
+        "seed": 0,
+        "stream": False,
     }
 
 
@@ -188,7 +201,7 @@ def call_cosmos(
     image_base64: str,
 ) -> tuple[CosmosResponsePayload, dict[str, Any] | None]:
     """
-    Call Cosmos Reason 2 (or mock). Returns (parsed response, raw response or None).
+    Call Cosmos 3 Reasoner (or mock). Returns (parsed response, raw response or None).
     """
     if not is_configured():
         payload = _mock_response(context)
@@ -204,7 +217,7 @@ def call_cosmos(
     if COSMOS_API_KEY:
         headers["Authorization"] = f"Bearer {COSMOS_API_KEY}"
     try:
-        r = requests.post(COSMOS_API_URL, json=body, headers=headers, timeout=60)
+        r = requests.post(COSMOS_API_URL, json=body, headers=headers, timeout=COSMOS_TIMEOUT_SECONDS)
         r.raise_for_status()
         if not r.text or not r.text.strip():
             return (
@@ -268,7 +281,7 @@ def call_cosmos(
         if isinstance(content, str):
             s = content.strip()
 
-            # Strip <think>...</think> reasoning blocks (Cosmos Reason 2)
+            # Cosmos 3 reasoning is prompt-controlled and emitted in <think> tags.
             import re
             s = re.sub(r"<think>.*?</think>", "", s, flags=re.DOTALL).strip()
 

@@ -1,4 +1,4 @@
-# Running on a GPU Remote (e.g. Cosmos2)
+# Running on a GPU Remote
 
 Use this when your project files are on a remote machine with GPU and you want to run the Cosmos agent (or full demo).
 
@@ -23,12 +23,13 @@ pip install usd-core   # or use Omniverse Python on that host
 
 ## 2. Cosmos API (real model on GPU)
 
-To use Cosmos Reason 2 instead of the built-in mock, set the **endpoint** (not the shareable URL). See **[docs/COSMOS_ENDPOINT.md](docs/COSMOS_ENDPOINT.md)** for where to get it.
+To use Cosmos 3 Reasoner instead of the built-in mock, set the **endpoint** (not the shareable URL). See **[docs/COSMOS_ENDPOINT.md](docs/COSMOS_ENDPOINT.md)** for where to get it.
 
 **Same machine as the model (e.g. NIM or vLLM on port 8000):**
 ```bash
 export COSMOS_API_URL="http://127.0.0.1:8000/v1/chat/completions"
 export COSMOS_API_KEY=""   # optional for localhost
+export COSMOS_MODEL="nvidia/cosmos3-nano-reasoner"
 ```
 
 **Remote/tunnel URL:**

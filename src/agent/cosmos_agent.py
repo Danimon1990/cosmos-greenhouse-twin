@@ -3,7 +3,7 @@
 Day 6 & 7: Cosmos Integration with Actuation.
 
 Reads sensor/device snapshot from the USD stage and a camera image,
-sends both to Cosmos Reason 2 (or uses mock when API not configured),
+sends both to Cosmos 3 Reasoner (or uses mock when API not configured),
 logs explanation + recommendations, and optionally EXECUTES actions (Day 7).
 
 Usage (from project root):

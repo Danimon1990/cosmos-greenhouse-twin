@@ -1,6 +1,6 @@
 # GreenhouseBot: Spatial Reasoning Digital Twin
 
-**A physical AI prototype that treats a greenhouse as a robot** — with eyes (vision), memory (OpenUSD digital twin), and a brain (Cosmos Reason 2).
+**A physical AI prototype that treats a greenhouse as a robot** — with eyes (vision), memory (OpenUSD digital twin), and a brain (Cosmos 3 Reasoner).
 
 Built for the [NVIDIA Cosmos Cookoff](https://www.nvidia.com/en-us/ai-data-science/cosmos-cookoff/) competition.
 
@@ -12,11 +12,11 @@ Traditional greenhouse automation uses simple thresholds: "if humidity > 80%, tu
 
 ## Our Solution: Spatial Reasoning
 
-GreenhouseBot uses **Cosmos Reason 2** to perform **zone-level spatial reasoning** over a digital twin greenhouse:
+GreenhouseBot uses **Cosmos 3 Reasoner** to perform **zone-level spatial reasoning** over a digital twin greenhouse:
 
 1. **See**: Camera images of the greenhouse
 2. **Remember**: OpenUSD digital twin with 24 spatial zones (8 beds × 3 zones each)
-3. **Think**: Cosmos Reason 2 analyzes image + zone telemetry to identify *where* problems are
+3. **Think**: Cosmos 3 Reasoner analyzes image + zone telemetry to identify *where* problems are
 4. **Act**: Targeted interventions (e.g., "irrigate zone B03-C" not just "turn on water")
 
 **Key Differentiator**: Instead of global automation, we demonstrate **explainable, zone-aware decision making** — Cosmos can say "Zone B03-C in the middle-left of the greenhouse appears dry based on the image and telemetry data."
@@ -56,7 +56,7 @@ python src/agent/cosmos_agent.py --image demo/frame.png --actuate
 │                                                                             │
 │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                  │
 │  │   Camera     │    │  USD Stage   │    │   Cosmos     │                  │
-│  │   Image      │───▶│  (24 zones)  │───▶│  Reason 2    │                  │
+│  │   Image      │───▶│  (24 zones)  │───▶│  3 Reasoner  │                  │
 │  │  demo/*.png  │    │  telemetry   │    │  (or mock)   │                  │
 │  └──────────────┘    └──────────────┘    └──────┬───────┘                  │
 │                                                  │                          │
@@ -165,7 +165,7 @@ Plants visually reflect zone health:
 This creates an **immediate visual correlation** between telemetry data and the 3D scene.
 
 ### Cosmos Integration
-The agent sends to Cosmos Reason 2:
+The agent sends to Cosmos 3 Reasoner:
 - **Image**: Screenshot of the greenhouse
 - **Context**: JSON with sensors, devices, and all 24 zones
 - **Spatial Alerts**: Pre-computed list of dry/shaded zones
@@ -173,6 +173,9 @@ The agent sends to Cosmos Reason 2:
 Cosmos returns:
 - **Explanation**: Natural language spatial reasoning
 - **Recommendations**: Structured actions with zone references
+
+The exact OpenAI-compatible request and response boundary is documented in
+[`docs/COSMOS3_PROTOCOL.md`](docs/COSMOS3_PROTOCOL.md).
 
 ---
 
@@ -212,7 +215,6 @@ cosmos-greenhouse-twin/
 │       ├── assign_greenhouse_materials.py
 │       └── populate_bed_plants.py
 │
-├── serve_cosmos.py            # Optional: local Cosmos Reason 2 server
 ├── greenhouse/                # Simulation loop, state, USD sync (see greenhouse/README.md)
 └── usd/
     ├── scenes/
@@ -330,9 +332,10 @@ Outputs land under the given `-o` directory (e.g. `outputs/greenhouse_style/<nam
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `COSMOS_API_URL` | Cosmos Reason 2 endpoint | (none — uses mock) |
-| `COSMOS_API_KEY` | API key for Reason 2 | (none — uses mock) |
-| `COSMOS_MODEL` | Model name | `cosmos-reason-2` |
+| `COSMOS_API_URL` | Cosmos 3 Reasoner endpoint | (none — uses mock) |
+| `COSMOS_API_KEY` | API key for Cosmos 3 Reasoner | (none — uses mock) |
+| `COSMOS_MODEL` | Model name | `nvidia/cosmos3-nano-reasoner` |
+| `COSMOS_TIMEOUT_SECONDS` | HTTP timeout in seconds | `120` |
 | `NVIDIA_API_KEY` | API key for Cosmos Transfer (build.nvidia.com) | (required for Transfer/inference) |
 
 **No secrets in code** — all credentials via environment variables.
@@ -402,7 +405,7 @@ MIT License — see LICENSE file.
 
 ## Acknowledgments
 
-- **NVIDIA Cosmos Team** for the Reason 2 model and competition
+- **NVIDIA Cosmos Team** for the Cosmos 3 Reasoner model and competition
 - **OpenUSD** for the composition architecture
 - Built with Claude Code assistance
 

@@ -1,106 +1,68 @@
-# Where to get your Cosmos Reason 2 endpoint
+# Cosmos 3 Reasoner endpoint
 
-The **shareable URL** from Brev (or similar) is usually a **machine or tunnel URL**, not the API endpoint. The agent needs the **chat completions** URL.
+GreenhouseBot uses the Cosmos 3 **Reasoner-only** serving path. NVIDIA NIM and
+vLLM expose the same OpenAI-compatible API on port 8000.
 
-**Important:** On Brev, port **8888** is typically **Jupyter Server**, not the model API. Use port **8000** for Cosmos Reason 2 (NIM/vLLM). You must **start** the model server yourself—it does not run by default.
-
----
-
-## If the agent runs on the **same machine** as Cosmos (e.g. same Brev VM)
-
-Cosmos Reason 2 (NIM or vLLM) listens on port **8000** by default. Use **localhost**:
+## Client configuration
 
 ```bash
 export COSMOS_API_URL="http://127.0.0.1:8000/v1/chat/completions"
-# No API key needed for localhost
 export COSMOS_API_KEY=""
+export COSMOS_MODEL="nvidia/cosmos3-nano-reasoner"
 ```
 
-Or with a placeholder key (client accepts empty key for localhost):
+Use `nvidia/cosmos3-super-reasoner` only when the server was launched with the
+Super model. For a protected remote endpoint, set its bearer token in
+`COSMOS_API_KEY`. If `COSMOS_API_URL` is unset, GreenhouseBot uses its local
+mock reasoner.
 
-```bash
-export COSMOS_API_URL="http://127.0.0.1:8000/v1/chat/completions"
-export COSMOS_API_KEY="none"
-```
-
-**Check that the model is actually running** on that machine:
+Check a running server with:
 
 ```bash
 curl -s http://127.0.0.1:8000/v1/models
-# or
 curl -s http://127.0.0.1:8000/v1/health/ready
 ```
 
-If you get connection refused, start the NIM or vLLM server first (see below).
+## Recommended deployment: NVIDIA NIM
 
----
-
-## If you use Brev’s **tunnel** (shareable URL)
-
-Brev can expose port 8000 via a tunnel. That gives you a URL like `https://something.brev.dev`.
-
-- **Endpoint to set:**  
-  `https://<that-host>/v1/chat/completions`  
-  Example: `https://abc123.brev.dev/v1/chat/completions`
-
-- **API key:**  
-  Depends on the tunnel. If Brev requires auth, use the key/token they give you for `COSMOS_API_KEY`. If the tunnel has no auth, you can try `COSMOS_API_KEY=""` or a placeholder.
-
-Note: Brev’s docs say that for **direct API access without browser auth**, port forwarding may work better than the tunnel. If the tunnel does a browser redirect, scripted calls may fail.
-
----
-
-## How to run Cosmos Reason 2 on the GPU machine
-
-You need the model serving on port 8000 on that machine.
-
-### Option A: NVIDIA NIM (Docker)
-
-From [NVIDIA’s Brev + NIM guide](https://docs.nvidia.com/brev/latest/deploying-nims.html) and Cosmos Reason 2:
-
-1. NGC API key: create at [ngc.nvidia.com](https://ngc.nvidia.com), then:
-   ```bash
-   echo "$NGC_CLI_API_KEY" | docker login nvcr.io --username '$oauthtoken' --password-stdin
-   ```
-2. Run the Cosmos Reason 2 NIM (image name may vary; check NGC for `cosmos-reason2`):
-   ```bash
-   export NGC_API_KEY="your-ngc-key"
-   docker run -it --rm --name cosmos-reason2 --runtime=nvidia --gpus all \
-     --shm-size=32GB -e NGC_API_KEY=$NGC_API_KEY \
-     -v ~/.cache/nim:/opt/nim/.cache -p 8000:8000 \
-     nvcr.io/nim/nvidia/cosmos-reason2-2b:1.6.0
-   ```
-3. When it’s up, use:
-   ```bash
-   export COSMOS_API_URL="http://127.0.0.1:8000/v1/chat/completions"
-   export COSMOS_API_KEY=""
-   ```
-
-### Option B: vLLM (from cosmos-reason2 repo)
-
-If you use the [nvidia-cosmos/cosmos-reason2](https://github.com/nvidia-cosmos/cosmos-reason2) repo and start the server with vLLM:
+The commands below follow NVIDIA's Cosmos 3 Reasoner cookbook. An NGC API key
+is required.
 
 ```bash
-vllm serve nvidia/Cosmos-Reason2-2B \
-  --allowed-local-media-path "$(pwd)" \
-  --max-model-len 16384 \
-  --port 8000
+export NGC_API_KEY="your-ngc-key"
+export LOCAL_NIM_CACHE="$HOME/.cache/nim"
+mkdir -p "$LOCAL_NIM_CACHE"
+
+docker run -it --rm \
+  --name=nvidia-cosmos3-reasoner \
+  --runtime=nvidia \
+  --gpus all \
+  --shm-size=32GB \
+  -e NGC_API_KEY="$NGC_API_KEY" \
+  -e NIM_MODEL_SIZE=nano \
+  -v "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
+  -u "$(id -u)" \
+  -p 8000:8000 \
+  nvcr.io/nim/nvidia/cosmos3-reasoner:1.7.0
 ```
 
-Then again:
+Set `NIM_MODEL_SIZE=super` for Super. The corresponding served model IDs are
+`nvidia/cosmos3-nano-reasoner` and `nvidia/cosmos3-super-reasoner`.
 
-```bash
-export COSMOS_API_URL="http://127.0.0.1:8000/v1/chat/completions"
-export COSMOS_API_KEY=""
-```
+## vLLM alternative
 
----
+NVIDIA's Cosmos repository also supports a vLLM reasoner-only backend. Follow
+the repository environment setup and launch instructions, then point
+GreenhouseBot to the server's `/v1/chat/completions` endpoint. The client
+resolves no local model weights; the configured server owns model loading.
 
-## Summary
+## Request and response
 
-| Scenario | COSMOS_API_URL | COSMOS_API_KEY |
-|----------|-----------------|-----------------|
-| Agent and model on **same** machine | `http://127.0.0.1:8000/v1/chat/completions` | `""` or `none` |
-| Model exposed via **Brev tunnel** | `https://<tunnel-host>/v1/chat/completions` | Whatever Brev/tunnel requires (or `""`) |
+See [COSMOS3_PROTOCOL.md](COSMOS3_PROTOCOL.md) for the exact multimodal request,
+model response, and GreenhouseBot parsing boundary.
 
-The **shareable URL** is the host (and maybe path) of the tunnel or VM; the **endpoint** is that host + **`/v1/chat/completions`**.
+Official references:
+
+- [NVIDIA Cosmos repository](https://github.com/NVIDIA/cosmos)
+- [Cosmos 3 Reasoner cookbook](https://github.com/NVIDIA/cosmos/tree/main/cookbooks/cosmos3/reasoner)
+- [Cosmos 3 Reasoner prompt guide](https://github.com/NVIDIA/cosmos/blob/main/cookbooks/cosmos3/reasoner/reasoner_prompt_guide.md)

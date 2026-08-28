@@ -3,7 +3,7 @@
   "decisionId": "decision-000001",
   "snapshotId": "snapshot-000001",
   "createdAt": "2026-08-27T15:00:01Z",
-  "model": "cosmos3-reasoner",
+  "model": "nvidia/cosmos3-nano-reasoner",
   "summary": "Bed 3 is dry and should be inspected before targeted irrigation.",
   "riskLevel": "medium",
   "confidence": 0.86,
