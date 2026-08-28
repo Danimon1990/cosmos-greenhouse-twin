@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenhouse.local/contracts/v1/device-registry.schema.json",
+  "title": "Greenhouse Device Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "siteId", "zones", "devices"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "siteId": {"$ref": "#/$defs/id"},
+    "zones": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/zone"}
+    },
+    "devices": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/device"}
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "usdPath": {"type": "string", "pattern": "^/World(?:/[A-Za-z_][A-Za-z0-9_]*)+$"},
+    "zone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zoneId", "displayName", "kind", "usdPrimPath"],
+      "properties": {
+        "zoneId": {"$ref": "#/$defs/id"},
+        "displayName": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["site", "interior", "exterior", "air", "bed", "bed-section", "service"]},
+        "parentZoneId": {"$ref": "#/$defs/id"},
+        "usdPrimPath": {"$ref": "#/$defs/usdPath"}
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "valueType"],
+      "properties": {
+        "name": {"$ref": "#/$defs/id"},
+        "valueType": {"enum": ["number", "boolean", "string"]},
+        "unit": {"type": "string"},
+        "minimum": {"type": "number"},
+        "maximum": {"type": "number"},
+        "writable": {"type": "boolean", "default": false}
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deviceId", "displayName", "deviceType", "zoneId", "source", "usdPrimPath", "capabilities"],
+      "properties": {
+        "deviceId": {"$ref": "#/$defs/id"},
+        "displayName": {"type": "string", "minLength": 1},
+        "deviceType": {"enum": ["air-station", "soil-station", "fan", "window", "irrigation-valve", "sprayer", "pump", "flow-meter", "light", "door", "camera"]},
+        "zoneId": {"$ref": "#/$defs/id"},
+        "source": {"enum": ["physical", "simulated", "derived", "manual"]},
+        "usdPrimPath": {"$ref": "#/$defs/usdPath"},
+        "observedZoneIds": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+        "capabilities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/capability"}},
+        "enabled": {"type": "boolean", "default": true}
+      }
+    }
+  }
+}
+

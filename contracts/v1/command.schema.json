@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenhouse.local/contracts/v1/command.schema.json",
+  "title": "Greenhouse Actuator Command",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "commandId", "siteId", "targetId", "actionType", "parameters", "requestedBy", "requestedAt", "expiresAt", "approval", "status"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "commandId": {"type": "string", "minLength": 1},
+    "siteId": {"type": "string", "minLength": 1},
+    "sourceDecisionId": {"type": "string"},
+    "sourceSnapshotId": {"type": "string"},
+    "targetId": {"type": "string", "minLength": 1},
+    "actionType": {"enum": ["set-fan-speed", "set-window-position", "irrigate-zone", "set-sprayer", "set-light-level", "set-door-position"]},
+    "parameters": {"type": "object", "minProperties": 1},
+    "requestedBy": {"enum": ["operator", "rule-controller", "cosmos", "system"]},
+    "requestedAt": {"type": "string", "format": "date-time"},
+    "expiresAt": {"type": "string", "format": "date-time"},
+    "approval": {"enum": ["not-required", "pending", "approved", "rejected"]},
+    "approvedBy": {"type": "string"},
+    "status": {"enum": ["proposed", "validated", "approved", "rejected", "dispatched", "acknowledged", "completed", "failed", "timed-out", "expired"]},
+    "reason": {"type": "string"}
+  }
+}
+

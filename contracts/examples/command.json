@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "commandId": "command-000001",
+  "siteId": "greenhouse-01",
+  "sourceDecisionId": "decision-000001",
+  "sourceSnapshotId": "snapshot-000001",
+  "targetId": "irrigation-valve-bed-03",
+  "actionType": "irrigate-zone",
+  "parameters": {"durationSeconds": 90, "maximumVolumeLiters": 12},
+  "requestedBy": "operator",
+  "requestedAt": "2026-08-27T15:00:10Z",
+  "expiresAt": "2026-08-27T15:02:10Z",
+  "approval": "approved",
+  "approvedBy": "operator-demo",
+  "status": "approved",
+  "reason": "Approved Cosmos proposal after operator review."
+}
+

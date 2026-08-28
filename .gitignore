@@ -22,6 +22,10 @@ Thumbs.db
 *.usdc
 *.usdz
 
+# Blender authoring files (kept local; USD is the shared source of truth)
+*.blend
+*.blend[0-9]*
+
 # Local outputs and logs
 logs/
 outputs/

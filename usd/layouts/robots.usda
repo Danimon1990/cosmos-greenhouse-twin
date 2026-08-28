@@ -1,0 +1,33 @@
+#usda 1.0
+(
+    doc = "Robot composition boundary. Robot articulations are referenced here without coupling them to greenhouse geometry."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over Xform "World"
+{
+    over Xform "Robots" (
+        kind = "group"
+    )
+    {
+        custom uniform token robot:layerRole = "articulationPlacement"
+
+        def Scope "Interfaces"
+        {
+            def Xform "DefaultSpawn"
+            {
+                custom uniform token robot:frameRole = "spawn"
+            }
+
+            def Xform "GreenhouseDock"
+            {
+                custom uniform token robot:frameRole = "dock"
+            }
+
+            def Scope "RestrictedAreas"
+            {
+            }
+        }
+    }
+}

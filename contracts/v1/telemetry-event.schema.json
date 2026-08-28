@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenhouse.local/contracts/v1/telemetry-event.schema.json",
+  "title": "Greenhouse Telemetry Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "messageId", "siteId", "deviceId", "zoneId", "observedAt", "receivedAt", "sequence", "quality", "source", "measurements"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "messageId": {"type": "string", "minLength": 1},
+    "siteId": {"type": "string", "minLength": 1},
+    "deviceId": {"type": "string", "minLength": 1},
+    "zoneId": {"type": "string", "minLength": 1},
+    "observedAt": {"type": "string", "format": "date-time"},
+    "receivedAt": {"type": "string", "format": "date-time"},
+    "sequence": {"type": "integer", "minimum": 0},
+    "quality": {"enum": ["good", "stale", "suspect", "offline", "simulated"]},
+    "source": {"enum": ["physical", "simulated", "derived", "manual"]},
+    "measurements": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": ["number", "boolean", "string", "null"]}
+    },
+    "raw": {"type": "object"}
+  }
+}
+

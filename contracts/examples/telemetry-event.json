@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "messageId": "telemetry-000001",
+  "siteId": "greenhouse-01",
+  "deviceId": "soil-station-bed-03",
+  "zoneId": "bed-03",
+  "observedAt": "2026-08-27T15:00:00Z",
+  "receivedAt": "2026-08-27T15:00:00.117Z",
+  "sequence": 1,
+  "quality": "simulated",
+  "source": "simulated",
+  "measurements": {
+    "soil-temperature-c": 24.3,
+    "soil-water-content-ratio": 0.22
+  }
+}
+

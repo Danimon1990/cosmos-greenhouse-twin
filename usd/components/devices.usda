@@ -53,6 +53,9 @@ def Xform "World"
                     doc = "Environmental sensor; sensor:* attributes hold readings."
                 )
                 {
+                    float sensor:temperatureC = 22
+                    float sensor:humidityPct = 50
+                    float sensor:soilMoisturePct = 40
                     string device:type = "sensor"
                     bool device:enabled = true
                     matrix4d xformOp:transform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 1.0, -2, 1) )

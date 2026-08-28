@@ -1,0 +1,75 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    doc = "Published interface opinions for the greenhouse exchange asset. Geometry remains in the immutable Blender export during migration."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over Xform "World" (
+    kind = "assembly"
+)
+{
+    over Xform "Environment" (
+        kind = "group"
+    )
+    {
+        over Xform "Greenhouse" (
+            kind = "assembly"
+        )
+        {
+            over Xform "Structure"
+            {
+                custom uniform token greenhouse:simulationClass = "staticCollider"
+            }
+
+            over Xform "GrowingAreas"
+            {
+                custom uniform token greenhouse:simulationClass = "staticCollider"
+            }
+
+            over Xform "Navigation"
+            {
+                custom uniform token greenhouse:simulationClass = "navigationInterface"
+            }
+
+            over Xform "Irrigation"
+            {
+                custom uniform token greenhouse:simulationClass = "commandedInfrastructure"
+            }
+
+            over Xform "Ventilation"
+            {
+                custom uniform token greenhouse:simulationClass = "commandedInfrastructure"
+
+                over Xform "GH_Side_Curtain_R"
+                {
+                    float3 xformOp:scale = (1, 1, -0.3)
+                    double3 xformOp:translate = (0, 0, 2.502)
+                }
+
+                over Xform "GH_Side_Curtain_L"
+                {
+                    float3 xformOp:scale = (1, 1, -0.3)
+                    double3 xformOp:translate = (0, 0, 2.502)
+                }
+            }
+
+            over Xform "Doors"
+            {
+                custom uniform token greenhouse:simulationClass = "kinematicCollider"
+            }
+
+            over Xform "Utilities"
+            {
+                custom uniform token greenhouse:simulationClass = "staticCollider"
+            }
+        }
+
+        over Xform "Exterior" (
+            kind = "group"
+        )
+        {
+        }
+    }
+}

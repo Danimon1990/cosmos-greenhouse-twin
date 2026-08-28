@@ -26,7 +26,7 @@ def _project_root():
 
 
 def _greenhouse_stage_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 def print_layer_stack(stage):
@@ -52,7 +52,7 @@ def print_layer_stack(stage):
     if live_state_found:
         print("  live_state.usda is present; dynamic device/sensor values come from this layer.")
     else:
-        print("  Warning: live_state.usda not found in layer stack. Add it as the last sublayer in greenhouse.usda.")
+        print("  Warning: live_state.usda not found in the greenhouse_main.usda layer stack.")
     print()
 
 

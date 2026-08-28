@@ -1,0 +1,59 @@
+#usda 1.0
+(
+    doc = "Strong non-destructive cleanup opinions that exclude exchange-stage editor artifacts from production scenes."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "PhysicsScene" (
+    active = false
+)
+{
+}
+
+over "env_light" (
+    active = false
+)
+{
+}
+
+over Xform "World"
+{
+    over Xform "Camera" (
+        active = false
+    )
+    {
+    }
+
+    over Xform "DiskLight" (
+        active = false
+    )
+    {
+    }
+
+    over Xform "DiskLight_01" (
+        active = false
+    )
+    {
+    }
+
+    over "Indoor" (
+        active = false
+    )
+    {
+    }
+
+    over "conveyors_material" (
+        active = false
+        payload = None
+    )
+    {
+    }
+
+    over "conveyors_material_01" (
+        active = false
+        payload = None
+    )
+    {
+    }
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Update live telemetry and actuator state by writing ONLY to usd/layers/live_state.usda.
+Update live telemetry and actuator state by writing ONLY to usd/runtime/live_state.usda.
 
 Uses pxr (Usd, Sdf). Sets edit target to the live_state layer, then creates/updates
 attributes on device and sensor prims. Saves only the live_state layer.
@@ -27,7 +27,7 @@ def _project_root():
 
 
 def _greenhouse_stage_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 # Prim paths under /World/Environment/Greenhouse/Devices
@@ -105,7 +105,7 @@ def set_int_attr(prim, name, value):
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Update live telemetry and actuator state in usd/layers/live_state.usda"
+        description="Update live telemetry and actuator state in usd/runtime/live_state.usda"
     )
     ap.add_argument("--temp", type=float, metavar="FLOAT", help="sensor:temperatureC")
     ap.add_argument("--humidity", type=float, metavar="FLOAT", help="sensor:humidityPct")
@@ -141,7 +141,7 @@ def main():
 
     live_layer = find_live_state_layer(stage)
     if not live_layer:
-        print("Error: live_state.usda not found in layer stack. Add it as the last sublayer in greenhouse.usda.", file=sys.stderr)
+        print("Error: live_state.usda not found in the greenhouse_main.usda layer stack.", file=sys.stderr)
         sys.exit(1)
 
     stage.SetEditTarget(Usd.EditTarget(live_layer))

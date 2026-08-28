@@ -7,7 +7,7 @@ shot so the plants visibly turn brown regardless of viewer binding resolution.
 Usage (from project root):
   python scripts/write_demo_dry_layer.py
 
-Then open usd/root/greenhouse_dry_demo.usda in USD Composer for the dry-zone shot.
+Then sublayer the generated override above usd/scenes/greenhouse_main.usda for the dry-zone shot.
 """
 
 import os
@@ -26,7 +26,7 @@ def _project_root():
 
 
 def _stage_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 # Zone C: Z > 2.67
@@ -133,7 +133,7 @@ def main():
         f.write("\n".join(lines))
 
     print(f"Wrote {len(plant_paths)} plant overrides to {out_path}")
-    print("For the video: open usd/root/greenhouse_dry_demo.usda to see B03-C plants as brown.")
+    print("For the video: sublayer this override above usd/scenes/greenhouse_main.usda.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,402 @@
+#usda 1.0
+(
+    doc = "Simulation configuration boundary. Physics behavior is authored here after pivot and collision validation, never in the Blender exchange layer."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over Xform "World"
+{
+    def Scope "Simulation"
+    {
+        custom uniform token simulation:gravityAxis = "Y"
+        custom double simulation:gravityMagnitude = 9.81
+        custom uniform token simulation:stateAuthority = "../runtime/live_state.usda"
+
+        def Scope "Zones"
+        {
+        }
+
+        def Scope "Devices"
+        {
+        }
+
+        def Scope "State"
+        {
+        }
+
+        def PhysicsScene "PhysicsScene"
+        {
+            vector3f physics:gravityDirection = (0, -1, 0)
+            float physics:gravityMagnitude = 9.81
+        }
+    }
+
+    over Xform "Environment"
+    {
+        over Xform "Greenhouse"
+        {
+            over Xform "Structure"
+            {
+                over Xform "Floor"
+                {
+                    over Mesh "Floor" (
+                        prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+                    )
+                    {
+                        uniform token physics:approximation = "convexHull"
+                        bool physics:collisionEnabled = 1
+                    }
+                }
+            }
+
+            over Xform "Doors"
+            {
+                over Xform "GH_Door_Front_Automatic"
+                {
+                    over Xform "GH_Door_Front_Panel_L" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        custom uniform token simulation:class = "kinematicRigidBody"
+                        custom string simulation:nextStep = "author prismatic joint and travel limits"
+                        float physics:mass = 35
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+
+                        over Mesh "GH_Door_Front_Panel_L_Mesh" (
+                            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+                        )
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+
+                        over Xform "GH_Door_Front_Hanger_L"
+                        {
+                            over Mesh "GH_Door_Front_Hanger_L_Mesh" (
+                                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+                            )
+                            {
+                                uniform token physics:approximation = "convexHull"
+                                bool physics:collisionEnabled = 1
+                            }
+                        }
+                    }
+
+                    over Xform "GH_Door_Front_Panel_R" (
+                        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+                    )
+                    {
+                        custom uniform token simulation:class = "kinematicRigidBody"
+                        custom string simulation:nextStep = "author prismatic joint and travel limits"
+                        float physics:mass = 35
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+
+                        over Mesh "GH_Door_Front_Panel_R_Mesh" (
+                            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+                        )
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+
+                        over Xform "GH_Door_Front_Hanger_R"
+                        {
+                            over Mesh "GH_Door_Front_Hanger_R_Mesh" (
+                                prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+                            )
+                            {
+                                uniform token physics:approximation = "convexHull"
+                                bool physics:collisionEnabled = 1
+                            }
+                        }
+                    }
+                }
+            }
+
+            over Xform "Plants"
+            {
+                over Xform "Walkways"
+                {
+                    over Xform "Walkway_01" {
+                        over Mesh "Walkway_01" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                    over Xform "Walkway_02" {
+                        over Mesh "Walkway_02" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                    over Xform "Walkway_03" {
+                        over Mesh "Walkway_03" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                    over Xform "Walkway_04" {
+                        over Mesh "Walkway_04" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                }
+
+                over Xform "Bed_01" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_02" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_03" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_04" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_05" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_06" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_07" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+                over Xform "Bed_08" {
+                        over PointInstancer "PlantInstances" (prepend apiSchemas = ["PhysicsRigidBodyAPI"])
+                        {
+                        bool physics:kinematicEnabled = 1
+                        bool physics:rigidBodyEnabled = 1
+                        over "Prototypes" {
+                        over Mesh "PlantSprout" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI", "PhysicsMassAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                            float physics:mass = 0.05
+                        }
+                    }
+                }
+            }
+            }
+        }
+
+        over Xform "Exterior"
+        {
+            over Xform "RA_Robot_Access_ROOT"
+            {
+                over Xform "RA_Grass_Ground" {
+                        over Mesh "Cube_062" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Entry_Threshold" {
+                        over Mesh "Cube_063" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_01" {
+                        over Mesh "Cube_064" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_02" {
+                        over Mesh "Cube_065" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_03" {
+                        over Mesh "Cube_066" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_04" {
+                        over Mesh "Cube_067" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_05" {
+                        over Mesh "Cube_068" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_06" {
+                        over Mesh "Cube_069" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_07" {
+                        over Mesh "Cube_070" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_08" {
+                        over Mesh "Cube_071" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_09" {
+                        over Mesh "Cube_072" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_10" {
+                        over Mesh "Cube_073" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_11" {
+                        over Mesh "Cube_074" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_12" {
+                        over Mesh "Cube_075" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Stone_Path_13" {
+                        over Mesh "Cube_076" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Path_Edge_L" {
+                        over Mesh "Cube_077" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+                over Xform "RA_Path_Edge_R" {
+                        over Mesh "Cube_078" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+                        {
+                            uniform token physics:approximation = "convexHull"
+                            bool physics:collisionEnabled = 1
+                        }
+                    }
+            }
+        }
+    }
+}

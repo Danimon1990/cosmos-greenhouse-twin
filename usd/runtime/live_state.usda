@@ -1,0 +1,54 @@
+#usda 1.0
+(
+    doc = "Canonical generated runtime state. Cosmos and simulation writers may overwrite values in this layer, but must not author geometry."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over Xform "World"
+{
+    over Xform "Environment"
+    {
+        over Xform "Greenhouse"
+        {
+            over Xform "Doors"
+            {
+                over Xform "GH_Door_Front_Automatic"
+                {
+                    custom float command:openRatio = 0
+                }
+            }
+
+            over Xform "Ventilation"
+            {
+                over Xform "Fan_01"
+                {
+                    custom float command:speed = 0
+                }
+                over Xform "Fan_02"
+                {
+                    custom float command:speed = 0
+                }
+                over Xform "Fan_03"
+                {
+                    custom float command:speed = 0
+                }
+            }
+
+            over Xform "Irrigation"
+            {
+                custom bool command:sprayEnabled = false
+                custom float command:flow = 0
+            }
+        }
+    }
+
+    over Scope "Simulation"
+    {
+        over Scope "State"
+        {
+            custom string state:source = "cosmos"
+            custom string state:timestamp = ""
+        }
+    }
+}

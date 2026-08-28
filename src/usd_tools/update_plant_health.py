@@ -39,7 +39,7 @@ def _project_root():
 
 
 def _greenhouse_stage_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 # Material paths

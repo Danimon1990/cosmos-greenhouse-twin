@@ -13,7 +13,7 @@ Usage (from project root):
   # Full actuation (apply recommendations to live_state.usda):
   python src/agent/cosmos_agent.py --image demo/frame.png --actuate
 
-With USD (local): reads context from usd/root/greenhouse.usda.
+With USD (local): reads context from usd/scenes/greenhouse_main.usda.
 Without USD (e.g. cloud instance): use --context-file or default context.
   python src/agent/cosmos_agent.py --image demo/frame.png --context-file context.json
 """
@@ -98,7 +98,7 @@ def _project_root() -> str:
 
 
 def _greenhouse_stage_path() -> str:
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 def _logs_dir() -> str:
@@ -436,7 +436,7 @@ def apply_recommendations(stage_path: str, recommendations: list[dict], context:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Cosmos agent: image + USD context → explanation + recommendations + optional actuation")
     parser.add_argument("--image", required=True, help="Path to PNG/JPG frame (e.g. demo/frame.png)")
-    parser.add_argument("--stage", default=None, help="Path to greenhouse.usda (default: usd/root/greenhouse.usda)")
+    parser.add_argument("--stage", default=None, help="Path to greenhouse.usda (default: usd/scenes/greenhouse_main.usda)")
     parser.add_argument("--context-file", default=None, help="JSON file with sensors/devices context (use when pxr not available, e.g. on cloud)")
     parser.add_argument("--actuate", action="store_true", help="Day 7: Apply recommendations to live_state.usda (default: log only)")
     parser.add_argument("--max-image-size", type=int, default=0, metavar="N", help="Resize image so longest side is N px (e.g. 1024) to reduce payload; 0 = no resize")

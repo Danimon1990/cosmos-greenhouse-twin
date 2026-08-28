@@ -3,7 +3,7 @@
 Simple rule-based agent for the OpenUSD greenhouse digital twin.
 
 Reads sensor values from the composed stage, applies threshold rules,
-and writes actuator updates only to usd/layers/live_state.usda.
+and writes actuator updates only to usd/runtime/live_state.usda.
 Represents a closed-loop control step before Cosmos integration.
 
 Run from project root (no arguments):
@@ -28,7 +28,7 @@ def _project_root():
 
 
 def _greenhouse_stage_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 PATH_SENSOR = "/World/Environment/Greenhouse/Devices/Sensor_01"

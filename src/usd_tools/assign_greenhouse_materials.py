@@ -39,7 +39,7 @@ def _output_path():
 
 
 def _root_usda_path():
-    return os.path.join(_project_root(), "usd", "root", "greenhouse.usda")
+    return os.path.join(_project_root(), "usd", "scenes", "greenhouse_main.usda")
 
 
 def create_material(stage, path, diffuse_color, roughness=0.5, metallic=0.0, opacity=1.0):

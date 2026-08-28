@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://greenhouse.local/contracts/v1/greenhouse-snapshot.schema.json",
+  "title": "Synchronized Greenhouse Snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "snapshotId", "siteId", "observedAt", "freshnessMs", "operatingMode", "zones", "actuators", "cameras", "activeAlerts"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "snapshotId": {"type": "string", "minLength": 1},
+    "siteId": {"type": "string", "minLength": 1},
+    "observedAt": {"type": "string", "format": "date-time"},
+    "freshnessMs": {"type": "integer", "minimum": 0},
+    "operatingMode": {"enum": ["observe", "supervised", "automatic", "maintenance"]},
+    "zones": {"type": "array", "items": {"$ref": "#/$defs/zoneState"}},
+    "actuators": {"type": "array", "items": {"$ref": "#/$defs/actuatorState"}},
+    "cameras": {"type": "array", "items": {"$ref": "#/$defs/cameraState"}},
+    "activeAlerts": {"type": "array", "items": {"$ref": "#/$defs/alert"}}
+  },
+  "$defs": {
+    "quality": {"enum": ["good", "stale", "suspect", "offline", "simulated"]},
+    "zoneState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zoneId", "quality", "measurements"],
+      "properties": {
+        "zoneId": {"type": "string"},
+        "quality": {"$ref": "#/$defs/quality"},
+        "measurements": {"type": "object", "additionalProperties": {"type": ["number", "boolean", "string", "null"]}},
+        "trends": {"type": "object", "additionalProperties": {"type": ["number", "string", "null"]}}
+      }
+    },
+    "actuatorState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deviceId", "zoneId", "desired", "reported", "mode", "health", "reportedAt"],
+      "properties": {
+        "deviceId": {"type": "string"},
+        "zoneId": {"type": "string"},
+        "desired": {"type": "object"},
+        "reported": {"type": "object"},
+        "mode": {"enum": ["manual", "automatic", "disabled", "maintenance"]},
+        "health": {"enum": ["online", "degraded", "offline", "fault"]},
+        "reportedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "cameraState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cameraId", "observedZoneIds", "capturedAt", "mediaRef", "health"],
+      "properties": {
+        "cameraId": {"type": "string"},
+        "observedZoneIds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "mediaRef": {"type": "string", "minLength": 1},
+        "health": {"enum": ["online", "degraded", "offline", "fault"]}
+      }
+    },
+    "alert": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alertId", "severity", "code", "message", "raisedAt"],
+      "properties": {
+        "alertId": {"type": "string"},
+        "severity": {"enum": ["info", "warning", "critical"]},
+        "code": {"type": "string"},
+        "message": {"type": "string"},
+        "zoneId": {"type": "string"},
+        "deviceId": {"type": "string"},
+        "raisedAt": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}
+

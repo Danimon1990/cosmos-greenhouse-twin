@@ -84,7 +84,7 @@ python src/agent/cosmos_agent.py --image demo/frame.png --actuate
 ## Demo Flow (for Video)
 
 ### Step 1: Show Healthy Greenhouse
-Open `usd/root/greenhouse.usda` in USD Composer. All plants are green.
+Open `usd/scenes/greenhouse_main.usda` in USD Composer. All plants are green.
 
 ### Step 2: Simulate a Problem
 ```bash
@@ -125,7 +125,6 @@ Recommendations (2):
 ### Step 5: See Visual Feedback
 Reload in USD Composer — plants in zone B03-C are now **brownish/yellow** (`UnhealthyPlantMat`), visually showing the problem area.
 
-**Video shortcut (if plants don’t change color in your viewer):** Open **`usd/root/greenhouse_dry_demo.usda`** instead. That scene stacks a small override layer on top so B03-C plants are forced to `UnhealthyPlantMat` for a reliable “dry zone” shot.
 
 ### Step 6: Recovery (Optional)
 ```bash
@@ -216,17 +215,19 @@ cosmos-greenhouse-twin/
 ├── serve_cosmos.py            # Optional: local Cosmos Reason 2 server
 ├── greenhouse/                # Simulation loop, state, USD sync (see greenhouse/README.md)
 └── usd/
+    ├── scenes/
+    │   ├── greenhouse_main.usda     # Production stage (open this)
+    │   └── greenhouse_animation_preview.usda
     ├── root/
-    │   ├── greenhouse.usda          # Root stage (open this)
-    │   ├── greenhouse_dry_demo.usda # Demo override (B03-C brown)
     │   ├── greenhouse_tunnel.usda   # Tunnel mesh
     │   └── greenhouse_looks.usda    # Materials
     ├── components/
     │   ├── structure.usda           # Floor + tunnel
     │   ├── devices.usda             # Fan, vent, valve, sensor
     │   └── plants.usda              # 8 beds, ~560 plants
+    ├── runtime/
+    │   └── live_state.usda          # Canonical dynamic state (strongest layer)
     ├── layers/
-    │   ├── live_state.usda          # Dynamic state (strongest layer)
     │   └── demo_dry_zone.usda
     ├── variants/
     │   └── plant_states.usda        # plantHealth variant
@@ -238,10 +239,16 @@ cosmos-greenhouse-twin/
 
 ## USD Layer Architecture
 
+> **New professional composition:** Open `usd/scenes/greenhouse_main.usda` for
+> the phase 1 production scene, or
+> `usd/scenes/greenhouse_animation_preview.usda` for the door, fan, and sprinkler
+> animation preview. The migration design and layer ownership rules are documented
+> in `docs/USD_ARCHITECTURE_PLAN.md`.
+
 The scene uses **composition arcs** to separate static geometry from dynamic state:
 
 ```
-greenhouse.usda (root)
+greenhouse_main.usda (scene entry point)
     ├── sublayers:
     │   ├── plant_states.usda      (weakest)  — variant opinions
     │   ├── greenhouse_looks.usda  (medium)   — materials

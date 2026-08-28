@@ -1,0 +1,52 @@
+#usda 1.0
+(
+    doc = "Default presentation lighting and camera. Kept separate from greenhouse assets and simulation state."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    over Xform "Cameras"
+    {
+        def Camera "MainCamera"
+        {
+            float2 clippingRange = (0.1, 10000)
+            float focalLength = 28
+            float horizontalAperture = 36
+            double3 xformOp:rotateXYZ = (-15, 34, 0)
+            double3 xformOp:translate = (12, 8, 18)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+
+    def Xform "Lights"
+    {
+        def DomeLight "Sky"
+        {
+            color3f color = (0.72, 0.82, 1)
+            float intensity = 450
+        }
+
+        def DistantLight "Sun"
+        {
+            float angle = 0.53
+            color3f color = (1, 0.94, 0.82)
+            float intensity = 3000
+            double3 xformOp:rotateXYZ = (-35, -25, 0)
+            uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+        }
+
+        def RectLight "GreenhouseInteriorFill"
+        {
+            color3f inputs:color = (1, 0.92, 0.8)
+            float inputs:exposure = 0.5
+            float inputs:height = 16.5
+            float inputs:intensity = 1200
+            float inputs:width = 9.5
+            double3 xformOp:translate = (0, 0, 3.8)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+        }
+    }
+}
+

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "decisionId": "decision-000001",
+  "snapshotId": "snapshot-000001",
+  "createdAt": "2026-08-27T15:00:01Z",
+  "model": "cosmos3-reasoner",
+  "summary": "Bed 3 is dry and should be inspected before targeted irrigation.",
+  "riskLevel": "medium",
+  "confidence": 0.86,
+  "evidence": ["device:soil-station-bed-03", "camera:camera-interior-01"],
+  "proposedActions": [
+    {
+      "actionId": "action-000001",
+      "actionType": "irrigate-zone",
+      "targetId": "irrigation-valve-bed-03",
+      "parameters": {"durationSeconds": 90, "maximumVolumeLiters": 12},
+      "reason": "Soil water content is low in bed 3.",
+      "confidence": 0.86,
+      "evidence": ["device:soil-station-bed-03"],
+      "approvalPolicy": "operator-required"
+    }
+  ]
+}
+
