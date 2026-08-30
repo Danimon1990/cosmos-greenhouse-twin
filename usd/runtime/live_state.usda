@@ -25,20 +25,42 @@ over Xform "World"
                 {
                     custom float command:speed = 0
                 }
+
                 over Xform "Fan_02"
                 {
                     custom float command:speed = 0
                 }
+
                 over Xform "Fan_03"
                 {
                     custom float command:speed = 0
+                }
+
+                over Xform "GH_Side_Curtain_L"
+                {
+                    custom float command:openRatio = 0
+                }
+
+                over Xform "GH_Side_Curtain_R"
+                {
+                    custom float command:openRatio = 0
                 }
             }
 
             over Xform "Irrigation"
             {
-                custom bool command:sprayEnabled = false
                 custom float command:flow = 0
+                custom bool command:sprayEnabled = 0
+            }
+
+            over Xform "Devices"
+            {
+                over Xform "Sensor_01"
+                {
+                    custom float sensor:humidityPct = 50
+                    custom float sensor:soilMoisturePct = 10
+                    custom float sensor:temperatureC = 28
+                }
             }
         }
     }
@@ -52,3 +74,4 @@ over Xform "World"
         }
     }
 }
+

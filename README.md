@@ -25,6 +25,12 @@ GreenhouseBot uses **Cosmos 3 Reasoner** to perform **zone-level spatial reasoni
 
 ## Quick Start
 
+### Isaac Sim gantry extension
+
+The repository includes `exts/com.greenhouse.gantry`, an Isaac Sim extension for positioning the two-axis inspection gantry, selecting/capturing its scan camera, sending a frame to the existing Cosmos 3 client, and approving validated recommendations into `usd/runtime/live_state.usda`.
+
+Add this repository’s `exts` directory to **Window > Extensions > Settings > Extension Search Paths**, then enable **Greenhouse Gantry and Cosmos**. Detailed instructions are in [`exts/com.greenhouse.gantry/README.md`](exts/com.greenhouse.gantry/README.md).
+
 ```bash
 # 1. Clone and navigate
 git clone https://github.com/your-repo/cosmos-greenhouse-twin.git

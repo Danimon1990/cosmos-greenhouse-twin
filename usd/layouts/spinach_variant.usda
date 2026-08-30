@@ -1,0 +1,358 @@
+#usda 1.0
+(
+    doc = "Adds reusable plantSpecies prototypes to Beds 01-08 and exposes one all-bed species switch on the Plants prim."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "World"
+{
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Plants" (
+                variants = {
+                    string plantSpecies = "spinach"
+                }
+                prepend variantSets = "plantSpecies"
+            )
+            {
+                over "Bed_01"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_01/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_02"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_02/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_03"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_03/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_04"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_04/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_05"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_05/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_06"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_06/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_07"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_07/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                over "Bed_08"
+                {
+                    over "PlantInstances"
+                    {
+                        rel prototypes = </World/Environment/Greenhouse/Plants/Bed_08/PlantInstances/Prototypes/PlantPrototype>
+
+                        over "Prototypes"
+                        {
+                            def Xform "PlantPrototype" (
+                                prepend references = @../assets/plants/plant_prototype.usda@</PlantPrototype>
+                            )
+                            {
+                            }
+                        }
+                    }
+                }
+
+                variantSet "plantSpecies" = {
+                    "spinach" {
+                        over "Bed_01" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_02" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_03" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_04" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_05" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_06" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_07" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_08" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "spinach"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    "sprout" {
+                        over "Bed_01" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_02" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_03" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_04" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_05" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_06" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_07" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                        over "Bed_08" {
+                            over "PlantInstances" {
+                                over "Prototypes" {
+                                    over "PlantPrototype" (
+                                        variants = {
+                                            string plantSpecies = "sprout"
+                                        }
+                                    ) {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -18,6 +18,8 @@ over Xform "World"
             def Xform "DefaultSpawn"
             {
                 custom uniform token robot:frameRole = "spawn"
+                double3 xformOp:translate = (0, -12.5, 0.2)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
             }
 
             def Xform "GreenhouseDock"
@@ -27,6 +29,50 @@ over Xform "World"
 
             def Scope "RestrictedAreas"
             {
+            }
+        }
+
+        def Xform "MuviRobot"
+        {
+            custom uniform token robot:sourceUpAxis = "Z"
+            custom uniform token robot:stageUpAxis = "Y"
+            custom uniform token robot:placementRole = "shootingSpawn"
+            double3 xformOp:translate = (0, -12.5, 0.2)
+            uniform token[] xformOpOrder = ["xformOp:translate"]
+
+            def Xform "Articulation" (
+                kind = "component"
+                prepend references = @../assets/robots/muvi/source/scenes/MuviRobot_PhysicsScene.usda@</World/Robots/MuviRobot>
+            )
+            {
+                over "PhysicsScene" (
+                    active = false
+                )
+                {
+                }
+            }
+        }
+
+        def "MuviRobotControls" (
+            prepend references = @../assets/robots/muvi/source/scenes/MuviRobot_PhysicsScene.usda@</Graphs>
+        )
+        {
+            custom uniform token robot:controlScheme = "WASD"
+
+            over "differential_controller"
+            {
+                over "ArticulationController"
+                {
+                    custom rel inputs:targetPrim = </World/Robots/MuviRobot/Articulation>
+                }
+            }
+
+            over "Ros2_Lidar"
+            {
+                over "isaac_read_lidar_beams_node"
+                {
+                    custom rel inputs:lidarPrim = </World/Robots/MuviRobot/Articulation/Front_Sensor/Lidar>
+                }
             }
         }
     }

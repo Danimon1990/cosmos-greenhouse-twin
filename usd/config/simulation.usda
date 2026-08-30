@@ -25,6 +25,19 @@ over Xform "World"
         {
         }
 
+        def Cube "RobotAccessGroundCollider" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            custom uniform token simulation:class = "staticCollider"
+            custom string simulation:purpose = "Stable shooting surface beneath the exterior robot path"
+            uniform token purpose = "guide"
+            token visibility = "invisible"
+            float3 xformOp:scale = (3.0, 7.0, 0.05)
+            double3 xformOp:translate = (0, -15.5, 0.15)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
         def PhysicsScene "PhysicsScene"
         {
             vector3f physics:gravityDirection = (0, -1, 0)

@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (-12.098737471776705, 3.8740209282125715, -10.102238796801455)
-                double3 target = (-1.130726794529993, -1.587659567432632, 3.5400842437387663)
+                double3 position = (4.73260369582744, 24.177394952853927, 19.862197301649964)
+                double3 target = (3.6946488798696056, 0.23048319125713945, -3.287145562914098)
             }
             dictionary Right = {
                 double3 position = (-5, 0, 0)
@@ -19,6 +19,19 @@
                 double radius = 5
             }
             string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary metricsAssembler = {
+            dictionary "/World/Boxwood" = {
+            }
+            dictionary "/World/Daphne" = {
+            }
+            dictionary "/World/Fountain_Grass_Short" = {
+            }
+            dictionary "/World/Gray_Birch" = {
+            }
+            dictionary "/World/Gray_Birch_01" = {
+            }
+            int version = 1
         }
         dictionary omni_layer = {
             string authoring_layer = "./greenhouse_animation_preview.usda"
@@ -78,6 +91,18 @@ over Xform "World" (
             over "Utilities"
             {
                 token visibility = "inherited"
+
+                over "US_Utility_Station_ROOT"
+                {
+                    over "US_Canopy_Solar_Panel" (
+                        prepend apiSchemas = ["MaterialBindingAPI"]
+                    )
+                    {
+                        rel material:binding = </_materials/US_Black> (
+                            bindMaterialAs = "weakerThanDescendants"
+                        )
+                    }
+                }
             }
 
             over "Ventilation"
@@ -90,6 +115,17 @@ over Xform "World" (
                     float3 xformOp:scale = (1, 1, 1)
                     double3 xformOp:translate = (0, 0, 0)
                     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                }
+            }
+        }
+
+        over "Exterior"
+        {
+            over "RA_Robot_Access_ROOT"
+            {
+                over "Plants"
+                {
+                    token visibility = "invisible"
                 }
             }
         }
@@ -122,6 +158,164 @@ over Xform "World" (
         )
         {
         }
+    }
+
+    over "Robots"
+    {
+        over "MuviRobotControls"
+        {
+            over "differential_controller"
+            {
+                over "ArrayNames"
+                {
+                    custom token inputs:input0 (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string resolvedType = "token"
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+
+        over "MuviRobot"
+        {
+            over "Top"
+            {
+            }
+
+            over "wheels"
+            {
+                over "Rear_Left_wheel"
+                {
+                }
+
+                over "Rear_Right_wheel"
+                {
+                }
+
+                over "Front_Right_wheel"
+                {
+                }
+
+                over "Front_Left_wheel"
+                {
+                }
+            }
+
+            over "Front_Sensor"
+            {
+            }
+
+            over "Articulation"
+            {
+                over "Top"
+                {
+                }
+
+                over "wheels"
+                {
+                    over "Rear_Left_wheel"
+                    {
+                    }
+
+                    over "Rear_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Left_wheel"
+                    {
+                    }
+                }
+
+                over "Front_Sensor"
+                {
+                }
+            }
+        }
+    }
+
+    over "Sensors"
+    {
+        over "PlantInspectionGantry"
+        {
+            over "Horizontal_Mount"
+            {
+                double3 xformOp:translate = (0.2, -4.550000067800283, 2.15)
+
+                over "Cam_mount"
+                {
+                    double3 xformOp:translate = (0.3500000052154064, 0, 0)
+
+                    over "PlantScanCamera"
+                    {
+                        float focalLength = 16
+                        double3 xformOp:scale = (0.10000000149011612, 0.10000000149011612, 0.05000000074505806)
+                        double3 xformOp:translate = (0, 0, -0.07)
+                    }
+
+                    over "Carriage"
+                    {
+                        double3 xformOp:scale = (0.12, 0.09, 0.07)
+                    }
+                }
+            }
+        }
+    }
+
+    def "Daphne" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Daphne.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7400545, 0.6725469, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-2.273719423297465, -15.790090702072543, -0.0273651952879607)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Fountain_Grass_Short" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Fountain_Grass_Short.usd@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-3.0822323120217168, -22.704150194434764, 0.6754352938919574)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (9.838088649338028, 0.00000533914962560202, -0.035923273972166256)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch_01" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.66405165, 0.66405165, 0.24297202, 0.24297203)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (10.291821401882308, 11.165299632460984, -0.04087447036596277)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
     }
 }
 
@@ -165,10 +359,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -18.336853328615675)
-    float3 xformOp:rotateXYZ = (162.67133, -38.798218, -180)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -33.32302519548331)
+    float3 xformOp:rotateXYZ = (-45.941452, 2.5672705, -5.7705475e-14)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (-12.098737471776705, 3.8740209282125715, -10.102238796801455)
+    double3 xformOp:translate = (4.73260369582744, 24.177394952853927, 19.862197301649964)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -246,3 +440,4 @@ over "OmniverseKit_Top" (
     double3 xformOp:translate = (0, 5, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
+

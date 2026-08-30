@@ -1,0 +1,20 @@
+[package]
+version = "0.1.4"
+title = "Greenhouse Gantry and Cosmos"
+description = "Operate the plant inspection gantry, capture its camera, and review Cosmos 3 recommendations."
+category = "Greenhouse"
+authors = ["GreenhouseBot"]
+readme = "../README.md"
+keywords = ["isaac sim", "gantry", "camera", "cosmos"]
+
+[dependencies]
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.viewport.utility" = {}
+
+[[python.module]]
+name = "com.greenhouse.gantry"
+
+[[test]]
+dependencies = ["omni.kit.test"]
+

@@ -283,7 +283,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_01_02"
-                double3 xformOp:translate = (-3.1000, -5.6667, 2.0952)
+                double3 xformOp:translate = (-3.1000, -5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -298,7 +298,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_01_04"
-                double3 xformOp:translate = (-3.1000, -0.0000, 2.0952)
+                double3 xformOp:translate = (-3.1000, -0.0000, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -313,7 +313,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_01_06"
-                double3 xformOp:translate = (-3.1000, 5.6667, 2.0952)
+                double3 xformOp:translate = (-3.1000, 5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -328,7 +328,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_02_02"
-                double3 xformOp:translate = (0.0000, -5.6667, 2.0952)
+                double3 xformOp:translate = (0.0000, -5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -343,7 +343,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_02_04"
-                double3 xformOp:translate = (0.0000, -0.0000, 2.0952)
+                double3 xformOp:translate = (0.0000, -0.0000, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -358,7 +358,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_02_06"
-                double3 xformOp:translate = (0.0000, 5.6667, 2.0952)
+                double3 xformOp:translate = (0.0000, 5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -373,7 +373,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_03_02"
-                double3 xformOp:translate = (3.1000, -5.6667, 2.0952)
+                double3 xformOp:translate = (3.1000, -5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -388,7 +388,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_03_04"
-                double3 xformOp:translate = (3.1000, -0.0000, 2.0952)
+                double3 xformOp:translate = (3.1000, -0.0000, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }
@@ -403,7 +403,7 @@ over Xform "World"
                 custom float emitter:flow = 1
                 custom float emitter:lifetimeSeconds = 0.82
                 custom uniform string emitter:sourcePrim = "/World/Environment/Greenhouse/Irrigation/GH_Sprinkler_Nozzle_03_06"
-                double3 xformOp:translate = (3.1000, 5.6667, 2.0952)
+                double3 xformOp:translate = (3.1000, 5.6667, 2.2490)
                 double xformOp:rotateX = 90
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX"]
             }

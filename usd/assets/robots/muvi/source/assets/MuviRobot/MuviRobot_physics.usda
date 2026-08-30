@@ -1,0 +1,833 @@
+#usda 1.0
+(
+    doc = "Non-destructive physics overrides for the MUVI robot asset."
+)
+
+def "MuviRobot"
+{
+    over "wheels"
+    {
+        over "Rear_Left_wheel" (
+            prepend apiSchemas = ["PhysicsMassAPI"]
+        )
+        {
+            vector3f physics:angularVelocity = (0, 0, 0)
+            bool physics:kinematicEnabled = 0
+            float physics:mass = 1.5
+            vector3f physics:velocity = (0, 0, 0)
+            custom float physxRigidBody:angularDamping = 0.8
+            custom float physxRigidBody:linearDamping = 0.2
+            float physxRigidBody:maxAngularVelocity = 100
+            double3 xformOp:translate = (-0.42, -0.252202257514, 0.312523260713)
+
+            over "Front_Right_10in_wheel_003"
+            {
+                double3 xformOp:translate = (0, 0, 0)
+
+                over "RevoluteJoint" (
+                    active = false
+                )
+                {
+                }
+
+                over "Cylinder_102"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            def PhysicsRevoluteJoint "RevoluteJoint" (
+                active = false
+                prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+            )
+            {
+                uniform token physics:axis = "X"
+                rel physics:body0 = </MuviRobot/Top>
+                rel physics:body1 = </MuviRobot/wheels/Rear_Left_wheel>
+                float physics:breakForce = inf
+                float physics:breakTorque = inf
+                bool physics:collisionEnabled = 0
+                float drive:angular:physics:damping = 10000
+                float drive:angular:physics:stiffness = 0
+                float drive:angular:physics:targetVelocity = 50
+                uniform bool physics:excludeFromArticulation = 0
+                bool physics:jointEnabled = 1
+                point3f physics:localPos0 = (-0.42, -0.25220227, 0.31252328)
+                point3f physics:localPos1 = (0, 0, 0)
+                quatf physics:localRot0 = (1, 0, 0, 0)
+                quatf physics:localRot1 = (1, 0, 0, 0)
+                float physics:lowerLimit = -inf
+                float physics:upperLimit = inf
+            }
+
+            over "Front_Right_motor_mount_003"
+            {
+                double3 xformOp:translate = (-0.06499934196472168, -0.00027683377265930176, 0)
+
+                over "Cylinder_103"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            def Scope "Colliders"
+            {
+                def Cylinder "Wheel" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    double height = 0.1
+                    bool physics:collisionEnabled = 1
+                    uniform token purpose = "guide"
+                    double radius = 0.127
+                }
+            }
+        }
+
+        over "Rear_Right_wheel" (
+            prepend apiSchemas = ["PhysicsMassAPI"]
+        )
+        {
+            vector3f physics:angularVelocity = (0, 0, 0)
+            bool physics:kinematicEnabled = 0
+            float physics:mass = 1.5
+            vector3f physics:velocity = (0, 0, 0)
+            custom float physxRigidBody:angularDamping = 0.8
+            custom float physxRigidBody:linearDamping = 0.2
+            float physxRigidBody:maxAngularVelocity = 100
+            double3 xformOp:translate = (0.42, -0.252202257514, 0.312523260713)
+
+            over "RevoluteJoint" (
+                active = false
+                prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+            )
+            {
+                rel physics:body0 = </MuviRobot/Top>
+                rel physics:body1 = </MuviRobot/wheels/Rear_Right_wheel>
+                float drive:angular:physics:damping = 10000
+                float drive:angular:physics:stiffness = 0
+                float drive:angular:physics:targetVelocity = 50
+                point3f physics:localPos0 = (0.42, -0.25220227, 0.31252328)
+                point3f physics:localPos1 = (0, 0, 0)
+                quatf physics:localRot0 = (1, 0, 0, 0)
+                quatf physics:localRot1 = (1, 0, 0, 0)
+            }
+
+            over "Front_Right_motor_mount_002"
+            {
+                double3 xformOp:translate = (0.06499993801116943, 0, 0)
+
+                over "Cylinder_101"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_Right_10in_wheel_002"
+            {
+                double3 xformOp:translate = (0, 0, 0)
+
+                over "Cylinder_100"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            def Scope "Colliders"
+            {
+                def Cylinder "Wheel" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    double height = 0.1
+                    bool physics:collisionEnabled = 1
+                    uniform token purpose = "guide"
+                    double radius = 0.127
+                }
+            }
+
+            def PhysicsRevoluteJoint "RevoluteJoint0" (
+                active = false
+            )
+            {
+                uniform token physics:axis = "X"
+                rel physics:body0 = </MuviRobot/Top/Axis/Cylinder>
+                rel physics:body1 = </MuviRobot/wheels/Rear_Right_wheel>
+                float physics:breakForce = 3.4028235e38
+                float physics:breakTorque = 3.4028235e38
+                point3f physics:localPos0 = (-0.38871348, -0.47291312, -1.0816901)
+                point3f physics:localPos1 = (0, 0, 0)
+                quatf physics:localRot0 = (0.70710677, 0, 0.70710677, 0)
+                quatf physics:localRot1 = (1, 0, 0, 0)
+            }
+        }
+
+        over "Front_Right_wheel" (
+            prepend apiSchemas = ["PhysicsMassAPI"]
+        )
+        {
+            vector3f physics:angularVelocity = (0, 0, 0)
+            bool physics:kinematicEnabled = 0
+            float physics:mass = 1.5
+            vector3f physics:velocity = (0, 0, 0)
+            custom float physxRigidBody:angularDamping = 0.8
+            custom float physxRigidBody:linearDamping = 0.2
+            float physxRigidBody:maxAngularVelocity = 100
+            double3 xformOp:translate = (0.42053237557411194, 0.292466402053833, 0.3193775713443756)
+
+            over "RevoluteJoint" (
+                active = false
+            )
+            {
+            }
+
+            over "Front_Right_10in_wheel_001"
+            {
+                double3 xformOp:translate = (0, 0, 0)
+
+                over "Cylinder_098"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_Right_motor_mount_001"
+            {
+                double3 xformOp:translate = (0.06499993801116943, 0, 0)
+
+                over "Cylinder_099"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            def Scope "Colliders"
+            {
+                def Cylinder "Wheel" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    double height = 0.1
+                    bool physics:collisionEnabled = 1
+                    uniform token purpose = "guide"
+                    double radius = 0.127
+                }
+            }
+        }
+
+        over "Front_Left_wheel" (
+            prepend apiSchemas = ["PhysicsMassAPI"]
+        )
+        {
+            vector3f physics:angularVelocity = (0, 0, 0)
+            bool physics:kinematicEnabled = 0
+            float physics:mass = 1.5
+            vector3f physics:velocity = (0, 0, 0)
+            custom float physxRigidBody:angularDamping = 0.8
+            custom float physxRigidBody:linearDamping = 0.2
+            float physxRigidBody:maxAngularVelocity = 100
+            double3 xformOp:translate = (-0.41976964473724365, 0.28615081310272217, 0.3056689500808716)
+
+            over "RevoluteJoint" (
+                active = false
+            )
+            {
+            }
+
+            over "Front_Right_motor_mount_004"
+            {
+                double3 xformOp:translate = (-0.06499934196472168, -0.00027683377265930176, 0)
+
+                over "Cylinder_105"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_Right_10in_wheel_004"
+            {
+                double3 xformOp:translate = (0, 0, 0)
+
+                over "Cylinder_104"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            def Scope "Colliders"
+            {
+                def Cylinder "Wheel" (
+                    prepend apiSchemas = ["PhysicsCollisionAPI"]
+                )
+                {
+                    uniform token axis = "X"
+                    double height = 0.1
+                    bool physics:collisionEnabled = 1
+                    uniform token purpose = "guide"
+                    double radius = 0.127
+                }
+            }
+        }
+    }
+
+    def Scope "Joints"
+    {
+        def PhysicsRevoluteJoint "RearLeftWheelJoint" (
+            active = true
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </MuviRobot/Top>
+            rel physics:body1 = </MuviRobot/wheels/Rear_Left_wheel>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            bool physics:collisionEnabled = 0
+            uniform bool physics:excludeFromArticulation = 0
+            bool physics:jointEnabled = 1
+            float drive:angular:physics:damping = 10000
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            point3f physics:localPos0 = (-0.42, -0.25220227, 0.31252328)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+        }
+
+        def PhysicsRevoluteJoint "RearRightWheelJoint" (
+            active = true
+            prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+        )
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </MuviRobot/Top>
+            rel physics:body1 = </MuviRobot/wheels/Rear_Right_wheel>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            bool physics:collisionEnabled = 0
+            uniform bool physics:excludeFromArticulation = 0
+            bool physics:jointEnabled = 1
+            float drive:angular:physics:damping = 10000
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            point3f physics:localPos0 = (0.42, -0.25220227, 0.31252328)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+        }
+
+        def PhysicsRevoluteJoint "FrontRightWheelJoint"
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </MuviRobot/Top>
+            rel physics:body1 = </MuviRobot/wheels/Front_Right_wheel>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            bool physics:collisionEnabled = 0
+            uniform bool physics:excludeFromArticulation = 0
+            bool physics:jointEnabled = 1
+            point3f physics:localPos0 = (0.42053238, 0.2924664, 0.31937757)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+        }
+
+        def PhysicsRevoluteJoint "FrontLeftWheelJoint"
+        {
+            uniform token physics:axis = "X"
+            rel physics:body0 = </MuviRobot/Top>
+            rel physics:body1 = </MuviRobot/wheels/Front_Left_wheel>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            bool physics:collisionEnabled = 0
+            uniform bool physics:excludeFromArticulation = 0
+            bool physics:jointEnabled = 1
+            point3f physics:localPos0 = (-0.41976964, 0.2861508, 0.30566895)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+        }
+    }
+
+    over "Top" (
+        prepend apiSchemas = ["PhysicsMassAPI"]
+    )
+    {
+        vector3f physics:angularVelocity = (0, 0, 0)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 20
+        vector3f physics:velocity = (0, 0, 0)
+        custom float physxRigidBody:angularDamping = 0.8
+        custom float physxRigidBody:linearDamping = 0.2
+
+        over "Deck_center_recess"
+        {
+            over "Cube_010"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_007"
+        {
+            over "Cylinder_007"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_005"
+        {
+            over "Cylinder_005"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_003"
+        {
+            over "Cylinder_003"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_002"
+        {
+            over "Cylinder_002"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_004"
+        {
+            over "Cylinder_004"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Modular_mount_006"
+        {
+            over "Cylinder_006"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Text"
+        {
+            over "Text"
+            {
+                bool physics:collisionEnabled = 0
+            }
+        }
+
+        over "Shell"
+        {
+            over "Main_lower_shell"
+            {
+                over "Cube_004"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Side_armor_001"
+            {
+                over "Cube_008"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Rear_bumper"
+            {
+                over "Cube_006"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Side_armor"
+            {
+                over "Cube_007"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_nose"
+            {
+                over "Cube_005"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Upper_deck"
+            {
+                over "Cube_009"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+
+        over "Robot_cam"
+        {
+            over "Camera_pod_FL"
+            {
+                over "Cube_016"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_pod_FR"
+            {
+                over "Cube_017"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_lens_FL"
+            {
+                over "Cylinder_089"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_lens_FR"
+            {
+                over "Cylinder_090"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Modular_mount_008"
+            {
+                over "Cylinder_008"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Modular_mount_009"
+            {
+                over "Cylinder_009"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_pod_RL"
+            {
+                over "Cube_018"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_pod_RR"
+            {
+                over "Cube_019"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_lens_RL"
+            {
+                over "Cylinder_091"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Camera_lens_RR"
+            {
+                over "Cylinder_092"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Modular_mount_001"
+            {
+                over "Cylinder_001"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Modular_mount"
+            {
+                over "Cylinder"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+
+        over "Sensors"
+        {
+            over "Proximity_front_0"
+            {
+                over "Cylinder_093"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Proximity_front_1"
+            {
+                over "Cylinder_094"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Proximity_front_2"
+            {
+                over "Cylinder_095"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_sensor_lens"
+            {
+                over "Cylinder_010"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_sensor_lens_001"
+            {
+                over "Cylinder_011"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_sensor_lens_002"
+            {
+                over "Cylinder_012"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_sensor_band"
+            {
+                over "Cube_011"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Proximity_rear_1"
+            {
+                over "Cylinder_097"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Proximity_rear_0"
+            {
+                over "Cylinder_096"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+
+        over "Robot_light"
+        {
+            over "Front_LED_bar"
+            {
+                over "Cube_012"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_corner_light"
+            {
+                over "Cube_014"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Front_corner_light_001"
+            {
+                over "Cube_015"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Rear_LED_bar"
+            {
+                over "Cube_013"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+
+        over "Axis"
+        {
+            over "Cylinder_001"
+            {
+                over "Cylinder_107"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Cylinder"
+            {
+                over "Cylinder_106"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "back_mount"
+            {
+                over "Cube_021"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+
+            over "Frontmount"
+            {
+                over "Cube"
+                {
+                    bool physics:collisionEnabled = 0
+                }
+            }
+        }
+
+        def Scope "Colliders"
+        {
+            def Cube "LowerBody" (
+                prepend apiSchemas = ["PhysicsCollisionAPI"]
+            )
+            {
+                bool physics:collisionEnabled = 1
+                uniform token purpose = "guide"
+                double size = 1
+                float3 xformOp:scale = (0.76, 0.96, 0.18)
+                double3 xformOp:translate = (0, 0, 0.5407)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "UpperDeck" (
+                prepend apiSchemas = ["PhysicsCollisionAPI"]
+            )
+            {
+                bool physics:collisionEnabled = 1
+                uniform token purpose = "guide"
+                double size = 1
+                float3 xformOp:scale = (0.68, 1, 0.055)
+                double3 xformOp:translate = (0, 0, 0.7159)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "FrontNose" (
+                prepend apiSchemas = ["PhysicsCollisionAPI"]
+            )
+            {
+                bool physics:collisionEnabled = 1
+                uniform token purpose = "guide"
+                double size = 1
+                float3 xformOp:scale = (0.76, 0.13, 0.16)
+                double3 xformOp:translate = (0, 0.537, 0.6207)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+
+            def Cube "RearBumper" (
+                prepend apiSchemas = ["PhysicsCollisionAPI"]
+            )
+            {
+                bool physics:collisionEnabled = 1
+                uniform token purpose = "guide"
+                double size = 1
+                float3 xformOp:scale = (0.76, 0.07, 0.12)
+                double3 xformOp:translate = (0, -0.532, 0.6107)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+            }
+        }
+    }
+
+    def Xform "GroundPlane_01"
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.16368800664402158)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "CollisionMesh"
+        {
+            uniform bool doubleSided = 0
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)]
+            point3f[] points = [(-25, -25, 0), (25, -25, 0), (25, 25, 0), (-25, 25, 0)]
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "varying"
+            )
+        }
+
+        def Plane "CollisionPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            uniform token purpose = "guide"
+        }
+    }
+}
+
+over "PhysicsScene" (
+    prepend apiSchemas = ["PhysxSceneAPI"]
+)
+{
+}
+
+over "Render"
+{
+    over "OmniverseKit"
+    {
+        over "HydraTextures"
+        {
+            over "omni_kit_widget_viewport_ViewportTexture_0"
+            {
+                bool omni:rtx:rt:ecoMode:enabled
+            }
+        }
+    }
+}

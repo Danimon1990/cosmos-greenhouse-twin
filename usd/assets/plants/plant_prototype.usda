@@ -1,0 +1,33 @@
+#usda 1.0
+(
+    defaultPrim = "PlantPrototype"
+    doc = "Reusable greenhouse plant prototype with a plantSpecies variant set."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "PlantPrototype" (
+    kind = "component"
+    variants = {
+        string plantSpecies = "spinach"
+    }
+    prepend variantSets = "plantSpecies"
+)
+{
+    variantSet "plantSpecies" = {
+        "spinach" {
+            def "Geometry" (
+                prepend references = @./spinach/spinach.usdc@</Spinach>
+            )
+            {
+            }
+        }
+        "sprout" {
+            def "Geometry" (
+                prepend references = @../plant_sprout/plant_sprout_abstract.usda@</Mesh>
+            )
+            {
+            }
+        }
+    }
+}

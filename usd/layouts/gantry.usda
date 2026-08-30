@@ -1,0 +1,711 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    doc = "Plant inspection gantry, structural brackets, materials, and irrigation clearance overrides."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over Xform "World"
+{
+    def Scope "Sensors"
+    {
+        def Xform "PlantInspectionGantry" (
+            kind = "assembly"
+        )
+        {
+            custom uniform token gantry:cameraAxis = "X"
+            custom double2 gantry:cameraLimits = (-5.75, 5.75)
+            custom uniform token gantry:longitudinalAxis = "Y"
+            custom double2 gantry:longitudinalLimits = (-7.4, 7.4)
+
+            def Xform "Frame"
+            {
+                def Cube "Rail_Left"
+                {
+                    rel material:binding = </World/Looks/GantryAluminum>
+                    double size = 1
+                    double3 xformOp:scale = (0.05, 15, 0.05)
+                    double3 xformOp:translate = (-5.8, 0, 2.2)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Cube "Rail_Right"
+                {
+                    rel material:binding = </World/Looks/GantryAluminum>
+                    double size = 1
+                    double3 xformOp:scale = (0.05, 15, 0.05)
+                    double3 xformOp:translate = (5.2, 0, 2.2)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                }
+
+                def Scope "CrossTieBrackets"
+                {
+                    def Cube "Bracket_Left_Front"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (-5.8, -5.6666665, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+
+                    def Cube "Bracket_Left_Center"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (-5.8, 0, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+
+                    def Cube "Bracket_Left_Rear"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (-5.8, 5.6666665, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+
+                    def Cube "Bracket_Right_Front"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (5.2, -5.6666665, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+
+                    def Cube "Bracket_Right_Center"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (5.2, 0, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+
+                    def Cube "Bracket_Right_Rear"
+                    {
+                        rel material:binding = </World/Looks/GantrySteel>
+                        double size = 1
+                        double3 xformOp:scale = (0.24, 0.22, 0.245)
+                        double3 xformOp:translate = (5.2, 5.6666665, 2.3225)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+                    }
+                }
+            }
+
+            def Xform "Horizontal_Mount"
+            {
+                custom uniform token motion:axis = "Y"
+                custom double2 motion:limits = (-7.4, 7.4)
+                double3 xformOp:translate = (0.2, 0, 2.15)
+                uniform token[] xformOpOrder = ["xformOp:translate"]
+
+                def Cube "CrossBeam"
+                {
+                    rel material:binding = </World/Looks/GantryAluminum>
+                    double size = 1
+                    double3 xformOp:scale = (12, 0.05, 0.05)
+                    uniform token[] xformOpOrder = ["xformOp:scale"]
+                }
+
+                def Xform "Cam_mount"
+                {
+                    custom uniform token motion:axis = "X"
+                    custom double2 motion:limits = (-5.75, 5.75)
+                    double3 xformOp:translate = (-1.750000026077032, 0, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+                    def Cube "Carriage"
+                    {
+                        rel material:binding = </World/Looks/GantryCarriage>
+                        double size = 1
+                        double3 xformOp:scale = (0.1, 0.07, 0.07)
+                        uniform token[] xformOpOrder = ["xformOp:scale"]
+                    }
+
+                    def Camera "PlantScanCamera" (
+                        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+                    )
+                    {
+                        float2 clippingRange = (0.01, 10000000)
+                        float exposure:fStop = 5
+                        float exposure:responsivity = 1.1026709
+                        float exposure:time = 0.02
+                        float focalLength = 18.147562
+                        float focusDistance = 400
+                        bool omni:kit:cameraLock = 1
+                        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -22.82967390556285)
+                        token visibility = "inherited"
+                        float3 xformOp:rotateYXZ = (0, -0, -0)
+                        double3 xformOp:scale = (0.10000000149011612, 0.10000000149011612, 0.05000000074505806)
+                        double3 xformOp:translate = (0, 0, 2.500000037252903)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+                    }
+                }
+            }
+        }
+    }
+
+    def Scope "Looks"
+    {
+        def Material "GantryAluminum"
+        {
+            token outputs:surface.connect = </World/Looks/GantryAluminum/Shader.outputs:surface>
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.32, 0.36, 0.4)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
+        def Material "GantrySteel"
+        {
+            token outputs:surface.connect = </World/Looks/GantrySteel/Shader.outputs:surface>
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.18, 0.2, 0.22)
+                float inputs:metallic = 0.9
+                float inputs:roughness = 0.38
+                token outputs:surface
+            }
+        }
+
+        def Material "GantryCarriage"
+        {
+            token outputs:surface.connect = </World/Looks/GantryCarriage/Shader.outputs:surface>
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.95, 0.46, 0.04)
+                float inputs:metallic = 0.35
+                float inputs:roughness = 0.3
+                token outputs:surface
+            }
+        }
+    }
+
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Irrigation"
+            {
+                over "GH_Sprinkler_Drop_01_02"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (-3.0999999, -5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_01_02"
+                {
+                    double3 xformOp:translate = (-3.0999999, -5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_01_02"
+                {
+                    double3 xformOp:translate = (-3.0999999, -5.6666665, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_01_04"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (-3.0999999, 0, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_01_04"
+                {
+                    double3 xformOp:translate = (-3.0999999, 0, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_01_04"
+                {
+                    double3 xformOp:translate = (-3.0999999, 0, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_01_06"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (-3.0999999, 5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_01_06"
+                {
+                    double3 xformOp:translate = (-3.0999999, 5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_01_06"
+                {
+                    double3 xformOp:translate = (-3.0999999, 5.6666665, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_02_02"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (0, -5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_02_02"
+                {
+                    double3 xformOp:translate = (0, -5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_02_02"
+                {
+                    double3 xformOp:translate = (0, -5.6666665, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_02_04"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (0, 0, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_02_04"
+                {
+                    double3 xformOp:translate = (0, 0, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_02_04"
+                {
+                    double3 xformOp:translate = (0, 0, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_02_06"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (0, 5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_02_06"
+                {
+                    double3 xformOp:translate = (0, 5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_02_06"
+                {
+                    double3 xformOp:translate = (0, 5.6666665, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_03_02"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (3.0999999, -5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_03_02"
+                {
+                    double3 xformOp:translate = (3.0999999, -5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_03_02"
+                {
+                    double3 xformOp:translate = (3.0999999, -5.6666665, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_03_04"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (3.0999999, 0, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_03_04"
+                {
+                    double3 xformOp:translate = (3.0999999, 0, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_03_04"
+                {
+                    double3 xformOp:translate = (3.0999999, 0, 2.2489881)
+                }
+
+                over "GH_Sprinkler_Drop_03_06"
+                {
+                    float3 xformOp:scale = (1, 1, 0.5400258)
+                    double3 xformOp:translate = (3.0999999, 5.6666665, 2.434277)
+                }
+
+                over "GH_Sprinkler_Body_03_06"
+                {
+                    double3 xformOp:translate = (3.0999999, 5.6666665, 2.3195315)
+                }
+
+                over "GH_Sprinkler_Nozzle_03_06"
+                {
+                    double3 xformOp:translate = (3.0999999, 5.6666665, 2.2489881)
+                }
+            }
+
+            over "Ventilation"
+            {
+                over "GH_Side_Curtain_L"
+                {
+                    float3 xformOp:scale = (1, 1, -0.5)
+                }
+            }
+
+            over "Structure"
+            {
+                over "TunnelCover"
+                {
+                    token visibility = "inherited"
+                }
+            }
+        }
+    }
+
+    over "Simulation"
+    {
+        over "PhysicsScene" (
+            prepend apiSchemas = ["PhysxSceneAPI"]
+        )
+        {
+        }
+    }
+
+    def Camera "Shot_drone" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        hide_in_stage_window = false
+        no_delete = false
+    )
+    {
+        float4[] clippingPlanes = []
+        float2 clippingRange = (0.01, 10000000)
+        float exposure = 0
+        float exposure:fStop = 5
+        float exposure:iso = 100
+        float exposure:responsivity = 1.1026709
+        float exposure:time = 0.02
+        float focalLength = 18.147562
+        float focusDistance = 400
+        float fStop = 0
+        float horizontalAperture = 20.955
+        float horizontalApertureOffset = 0
+        custom vector3d omni:kit:centerOfInterest = (0, 0, -34.07463231126343)
+        custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+        custom bool omni:rtx:autoExposure:enabled = 0
+        custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+        custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+        custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+        custom token omni:rtx:autoExposure:histogramFilter = "median"
+        custom float omni:rtx:autoExposure:whitePointScale = 10
+        token projection = "perspective"
+        uniform token purpose = "default"
+        double shutter:close = 0
+        double shutter:open = 0
+        uniform token stereoRole = "mono"
+        float verticalAperture = 15.2908
+        float verticalApertureOffset = 0
+        token visibility = "inherited"
+        float3 xformOp:rotateYXZ = (65.9, -8.190251e-9, 0.097229764)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.20341329069711023, -37.46510873113019, 11.15402116068263)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera_01" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    )
+    {
+        float exposure:fStop = 5
+        float exposure:responsivity = 1.1026709
+        float exposure:time = 0.02
+        token visibility = "invisible"
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def OmniGraph "PushGraph"
+    {
+        token evaluationMode = "Automatic"
+        token evaluator:type = "push"
+        token fabricCacheBacking = "StageWithoutHistory"
+        int2 fileFormatVersion = (1, 9)
+        token pipelineStage = "pipelineStageSimulation"
+
+        def OmniGraphNode "Shot_droneCurveNode"
+        {
+            custom string inputs:IndividualOutputs
+            custom rel inputs:Prim = </World/Shot_drone> (
+                customData = {
+                    dictionary omni = {
+                        dictionary graph = {
+                            string relType = "target"
+                        }
+                    }
+                }
+            )
+            custom timecode inputs:Time
+            custom bool inputs:UseGlobalTime
+            token node:type = "omni.anim.curve.core.AnimCurve"
+            int node:typeVersion = 5
+            custom rel outputs_AnimFrame (
+                customData = {
+                    dictionary omni = {
+                        dictionary graph = {
+                            string relType = "bundle"
+                        }
+                    }
+                }
+            )
+            uniform token visibility:x:defaultTangentType = "auto"
+            uniform int64[] visibility:x:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] visibility:x:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] visibility:x:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] visibility:x:outTangentTimes = [0, 0, 0, 0, 0, 0]
+            uniform token[] visibility:x:outTangentTypes = ["step", "step", "step", "step", "step", "step"]
+            uniform double[] visibility:x:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token visibility:x:postInfinityType = "constant"
+            uniform token visibility:x:preInfinityType = "constant"
+            uniform bool[] visibility:x:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] visibility:x:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] visibility:x:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] visibility:x:values = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:rotateYXZ:x:defaultTangentType = "auto"
+            uniform int64[] xformOp:rotateYXZ:x:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:rotateYXZ:x:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:x:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:x:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:rotateYXZ:x:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:x:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:rotateYXZ:x:postInfinityType = "constant"
+            uniform token xformOp:rotateYXZ:x:preInfinityType = "constant"
+            uniform bool[] xformOp:rotateYXZ:x:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:rotateYXZ:x:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:x:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:rotateYXZ:x:values = [66.02517700195312, 66.02517700195312, 76.80000305175781, 76.80000305175781, 76.80000305175781, 76.80000305175781]
+            uniform token xformOp:rotateYXZ:y:defaultTangentType = "auto"
+            uniform int64[] xformOp:rotateYXZ:y:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:rotateYXZ:y:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:y:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:y:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:rotateYXZ:y:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:y:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:rotateYXZ:y:postInfinityType = "constant"
+            uniform token xformOp:rotateYXZ:y:preInfinityType = "constant"
+            uniform bool[] xformOp:rotateYXZ:y:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:rotateYXZ:y:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:y:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:rotateYXZ:y:values = [-8.190251143957994e-9, -8.190251143957994e-9, -8.190251143957994e-9, -8.190251143957994e-9, -8.190251143957994e-9, -8.190251143957994e-9]
+            uniform token xformOp:rotateYXZ:z:defaultTangentType = "auto"
+            uniform int64[] xformOp:rotateYXZ:z:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:rotateYXZ:z:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:z:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:z:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:rotateYXZ:z:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:rotateYXZ:z:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:rotateYXZ:z:postInfinityType = "constant"
+            uniform token xformOp:rotateYXZ:z:preInfinityType = "constant"
+            uniform bool[] xformOp:rotateYXZ:z:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:rotateYXZ:z:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:rotateYXZ:z:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:rotateYXZ:z:values = [0.09722976386547089, 0.09722976386547089, 0.09722976386547089, 0.09722976386547089, -41.70000076293945, 37.70000076293945]
+            uniform token xformOp:scale:x:defaultTangentType = "auto"
+            uniform int64[] xformOp:scale:x:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:scale:x:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:x:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:x:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:scale:x:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:x:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:scale:x:postInfinityType = "constant"
+            uniform token xformOp:scale:x:preInfinityType = "constant"
+            uniform bool[] xformOp:scale:x:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:scale:x:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:x:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:scale:x:values = [1, 1, 1, 1, 1, 1]
+            uniform token xformOp:scale:y:defaultTangentType = "auto"
+            uniform int64[] xformOp:scale:y:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:scale:y:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:y:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:y:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:scale:y:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:y:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:scale:y:postInfinityType = "constant"
+            uniform token xformOp:scale:y:preInfinityType = "constant"
+            uniform bool[] xformOp:scale:y:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:scale:y:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:y:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:scale:y:values = [1, 1, 1, 1, 1, 1]
+            uniform token xformOp:scale:z:defaultTangentType = "auto"
+            uniform int64[] xformOp:scale:z:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:scale:z:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:z:inTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:z:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:scale:z:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:scale:z:outTangentValues = [0, 0, 0, 0, 0, 0]
+            uniform token xformOp:scale:z:postInfinityType = "constant"
+            uniform token xformOp:scale:z:preInfinityType = "constant"
+            uniform bool[] xformOp:scale:z:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:scale:z:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:scale:z:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:scale:z:values = [1, 1, 1, 1, 1, 1]
+            uniform token xformOp:translate:x:defaultTangentType = "auto"
+            uniform int64[] xformOp:translate:x:inTangentTimes = [0, -231280000, -90160000, -7840000, -94079999, -29399999, -135239999]
+            uniform token[] xformOp:translate:x:inTangentTypes = ["auto", "fixed", "fixed", "fixed", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:x:inTangentValues = [0, 0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:translate:x:outTangentTimes = [231280000, 90160000, 7840000, 94079999, 29399999, 135239999, 0]
+            uniform token[] xformOp:translate:x:outTangentTypes = ["auto", "fixed", "fixed", "fixed", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:x:outTangentValues = [0, 0, 0, 0, 0, 0, 0]
+            uniform token xformOp:translate:x:postInfinityType = "constant"
+            uniform token xformOp:translate:x:preInfinityType = "constant"
+            uniform bool[] xformOp:translate:x:tangentBrokens = [0, 0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:translate:x:tangentWeighteds = [0, 0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:translate:x:times = [-693840000, 0, 270480000, 294000000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:translate:x:values = [0.20341329069711023, 0.20341329069711023, 0.20341329069711023, 0.20341329069711023, 0.20341329069711023, 0.20341329069711023, 0.20341329069711023]
+            uniform token xformOp:translate:y:defaultTangentType = "auto"
+            uniform int64[] xformOp:translate:y:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:translate:y:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:y:inTangentValues = [0, 0, -4.281615628261598, -4.81194037021096, 0, 0]
+            uniform int64[] xformOp:translate:y:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:translate:y:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:y:outTangentValues = [0, 0, 4.840087231947891, 1.388059722176239, 0, 0]
+            uniform token xformOp:translate:y:postInfinityType = "constant"
+            uniform token xformOp:translate:y:preInfinityType = "constant"
+            uniform bool[] xformOp:translate:y:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:translate:y:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:translate:y:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:translate:y:values = [-37.46510873113019, -37.46510873113019, -27.3000004068017, -10.100000150501728, -8.700000129640102, -8.700000129640102]
+            uniform token xformOp:translate:z:defaultTangentType = "auto"
+            uniform int64[] xformOp:translate:z:inTangentTimes = [0, -231280000, -90160000, -101919999, -29399999, -135239999]
+            uniform token[] xformOp:translate:z:inTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:z:inTangentValues = [0, 0, 1.416615550856969, 0, 0, 0]
+            uniform int64[] xformOp:translate:z:outTangentTimes = [231280000, 90160000, 101919999, 29399999, 135239999, 0]
+            uniform token[] xformOp:translate:z:outTangentTypes = ["auto", "auto", "auto", "auto", "auto", "auto"]
+            uniform double[] xformOp:translate:z:outTangentValues = [0, 0, -1.6013914922730947, 0, 0, 0]
+            uniform token xformOp:translate:z:postInfinityType = "constant"
+            uniform token xformOp:translate:z:preInfinityType = "constant"
+            uniform bool[] xformOp:translate:z:tangentBrokens = [0, 0, 0, 0, 0, 0]
+            uniform bool[] xformOp:translate:z:tangentWeighteds = [0, 0, 0, 0, 0, 0]
+            uniform int64[] xformOp:translate:z:times = [-693840000, 0, 270480000, 576240000, 664440000, 1070160000]
+            uniform double[] xformOp:translate:z:values = [11.15402116068263, 11.15402116068263, 5.900000087916851, 2.1000000312924385, 2.1000000312924385, 2.1000000312924385]
+        }
+    }
+
+    over "Robots"
+    {
+        over "MuviRobot"
+        {
+            over "Articulation"
+            {
+                over "Top"
+                {
+                }
+
+                over "wheels"
+                {
+                    over "Rear_Left_wheel"
+                    {
+                    }
+
+                    over "Rear_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Left_wheel"
+                    {
+                    }
+                }
+
+                over "Front_Sensor"
+                {
+                    over "Lidar"
+                    {
+                        bool drawLines = 0
+                        bool drawPoints = 0
+                        bool enabled = 0
+                    }
+                }
+            }
+        }
+    }
+
+    over "Cameras"
+    {
+        over "MainCamera"
+        {
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            double3 xformOp:rotateXYZ = (-15, 33.80000050365925, 0)
+        }
+    }
+
+    def Camera "indoor" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        hide_in_stage_window = false
+        no_delete = false
+    )
+    {
+        float4[] clippingPlanes = []
+        float2 clippingRange = (0.01, 10000000)
+        float exposure = 0
+        float exposure:fStop = 5
+        float exposure:iso = 100
+        float exposure:responsivity = 1.1026709
+        float exposure:time = 0.02
+        float focalLength = 18.147562
+        float focusDistance = 400
+        float fStop = 0
+        float horizontalAperture = 20.955
+        float horizontalApertureOffset = 0
+        bool omni:kit:cameraLock = 1
+        custom vector3d omni:kit:centerOfInterest = (0, 0, -14.50145330638333)
+        custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+        custom bool omni:rtx:autoExposure:enabled = 0
+        custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+        custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+        custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+        custom token omni:rtx:autoExposure:histogramFilter = "median"
+        custom float omni:rtx:autoExposure:whitePointScale = 10
+        token projection = "perspective"
+        uniform token purpose = "default"
+        double shutter:close = 0
+        double shutter:open = 0
+        uniform token stereoRole = "mono"
+        float verticalAperture = 15.2908
+        float verticalApertureOffset = 0
+        token visibility = "inherited"
+        float3 xformOp:rotateYXZ = (75.50301, -0.0000046591267, 36.491913)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (5.058951961292067, -8.900000132620336, 2.3043249384110207)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Camera "Camera_02" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    )
+    {
+        token visibility = "invisible"
+    }
+}
+
+over "Render"
+{
+    over "OmniverseKit"
+    {
+        over "HydraTextures"
+        {
+            over "omni_kit_widget_viewport_ViewportTexture_0"
+            {
+                bool omni:rtx:rt:ecoMode:enabled
+            }
+        }
+    }
+}
+

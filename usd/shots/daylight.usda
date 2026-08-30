@@ -9,7 +9,9 @@ def Xform "World"
 {
     over Xform "Cameras"
     {
-        def Camera "MainCamera"
+        def Camera "MainCamera" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        )
         {
             float2 clippingRange = (0.1, 10000)
             float focalLength = 28

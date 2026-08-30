@@ -3,107 +3,115 @@
     customLayerData = {
         dictionary cameraSettings = {
             dictionary Front = {
-                double3 position = (0, 0, 5)
+                double3 position = (5, 0, 0)
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (1.0547527219891848, 0.6476905571271119, 7.686909003911558)
-                double3 target = (3.950175658746172, 0.43585976839179996, -24.931161954612882)
+                double3 position = (-0.8766420699040492, 2.9816988209246054, 1.455090460251612)
+                double3 target = (-0.6478774894440986, -0.35054937707494194, 0.7183625967363443)
             }
             dictionary Right = {
-                double3 position = (-5, 0, 0)
+                double3 position = (0, -5, 0)
                 double radius = 5
             }
             dictionary Top = {
-                double3 position = (0, 5, 0)
+                double3 position = (0, 0, 5)
                 double radius = 5
             }
             string boundCamera = "/OmniverseKit_Persp"
         }
         dictionary omni_layer = {
-            string authoring_layer = "../config/animation.usda"
+            string authoring_layer = "./MuviRobot_physics.usda"
         }
         dictionary renderSettings = {
         }
     }
-    defaultPrim = "World"
-    doc = "Production greenhouse assembly. The raw Blender exchange layer is weakest and remains untouched during migration."
-    endTimeCode = 240
-    framesPerSecond = 24
+    defaultPrim = "MuviRobot"
+    doc = "Reusable MUVI robot asset. Geometry is referenced from the Blender-generated source layer."
     metersPerUnit = 1
-    startTimeCode = 0
     subLayers = [
-        @../runtime/live_state.usda@,
-        @../shots/daylight.usda@,
-        @../config/scene_cleanup.usda@,
-        @../config/animation.usda@,
-        @../config/simulation.usda@,
-        @../layouts/robots.usda@,
-        @../layouts/gantry.usda@,
-        @../layouts/plants.usda@,
-        @../assets/greenhouse/greenhouse.usda@,
-        @../source/blender/greenhouse_exchange.usdc@
+        @./MuviRobot_physics.usda@
     ]
-    timeCodesPerSecond = 24
-    upAxis = "Y"
+    upAxis = "Z"
 )
 
-over Xform "World" (
-    kind = "assembly"
+def Xform "MuviRobot" (
+    assetInfo = {
+        string identifier = "MuviRobot"
+        string name = "MuviRobot"
+    }
+    kind = "component"
+    prepend references = @../../Robot_muvi/Muvi_Futuristic_physic.usda@</root>
 )
 {
-    over "Environment"
+    over "Area" (
+        active = false
+    )
     {
-        over "Greenhouse"
-        {
-            over "Doors"
-            {
-                over "GH_Door_Front_Automatic"
-                {
-                    over "GH_Door_Front_Panel_R"
-                    {
-                        quatf xformOp:orient = (1, 0, 0, 0)
-                        float3 xformOp:scale = (1, 1, 1)
-                        double3 xformOp:translate = (0.6, -9.0649995803833, 0.629420578479767)
-                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:actuation", "xformOp:orient", "xformOp:scale"]
-                    }
-
-                    over "GH_Door_Front_Panel_L"
-                    {
-                        quatf xformOp:orient = (1, 0, 0, 0)
-                        float3 xformOp:scale = (1, 1, 1)
-                        double3 xformOp:translate = (-0.6, -9.0649995803833, 0.629420578479767)
-                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:actuation", "xformOp:orient", "xformOp:scale"]
-                    }
-                }
-            }
-        }
     }
 
-    over "Robots"
+    over "Area_001" (
+        active = false
+    )
     {
-        over "MuviRobotControls"
+    }
+
+    over "MUVI_Exterior_Camera" (
+        active = false
+    )
+    {
+    }
+
+    over "env_light" (
+        active = false
+    )
+    {
+    }
+
+    over "PhysicsScene" (
+        active = false
+    )
+    {
+    }
+
+    over "Env" (
+        active = false
+    )
+    {
+    }
+
+    over "GroundPlane" (
+        active = false
+    )
+    {
+    }
+
+    over "Top"
+    {
+    }
+
+    over "wheels"
+    {
+        over "Front_Left_wheel"
         {
-            over "differential_controller"
-            {
-                over "ArrayNames"
-                {
-                    custom token inputs:input0 (
-                        customData = {
-                            dictionary omni = {
-                                dictionary graph = {
-                                    string resolvedType = "token"
-                                }
-                            }
-                        }
-                    )
-                }
-            }
+        }
+
+        over "Front_Right_wheel"
+        {
+        }
+
+        over "Rear_Left_wheel"
+        {
+        }
+
+        over "Rear_Right_wheel"
+        {
         }
     }
 }
 
 def "Render" (
+    hide_in_stage_window = true
     no_delete = true
 )
 {
@@ -140,6 +148,7 @@ def "Render" (
                 token omni:rtx:rendermode = "RealTimePathTracing"
                 color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
                 bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
                 bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
                 int omni:rtx:rt:sss:samples = 1
                 uint omni:rtx:rtpt:maxVolumeBounces = 15
@@ -148,7 +157,7 @@ def "Render" (
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1093, 644)
+                uniform int2 resolution = (1920, 1139)
             }
         }
     }
@@ -194,11 +203,17 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -32.747013593930824)
-    float3 xformOp:rotateXYZ = (-0.3706321, -5.0727043, -1.1881056e-13)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -3.4203770598026177)
+    float3 xformOp:rotateXYZ = (77.56137, -4.373263e-15, -176.07271)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (1.0547527219891848, 0.6476905571271119, 7.686909003911558)
+    double3 xformOp:translate = (-0.8766420699040492, 2.9816988209246054, 1.455090460251612)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+def PhysicsScene "PhysicsScene" (
+    prepend apiSchemas = ["PhysxSceneAPI", "NewtonSceneAPI"]
+)
+{
 }
 
 over "OmniverseKit_Front" (
@@ -220,9 +235,9 @@ over "OmniverseKit_Front" (
     custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
     token projection = "orthographic"
     float verticalAperture = 50
-    float3 xformOp:rotateXYZ = (0, 0, 0)
+    float3 xformOp:rotateXYZ = (90, -1.2722219e-14, 90)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, 0, 5)
+    double3 xformOp:translate = (5, 0, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -245,9 +260,9 @@ over "OmniverseKit_Right" (
     custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
     token projection = "orthographic"
     float verticalAperture = 50
-    float3 xformOp:rotateXYZ = (0, -90, 0)
+    float3 xformOp:rotateXYZ = (90, -1.41245e-30, 1.2722219e-14)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (-5, 0, 0)
+    double3 xformOp:translate = (0, -5, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
@@ -270,9 +285,9 @@ over "OmniverseKit_Top" (
     custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
     token projection = "orthographic"
     float verticalAperture = 50
-    float3 xformOp:rotateXYZ = (90, -4.961563e-15, 180)
+    float3 xformOp:rotateXYZ = (-1.2722219e-14, -7.016709e-15, -90)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, 5, 0)
+    double3 xformOp:translate = (0, 0, 5)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 
