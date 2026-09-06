@@ -1,0 +1,56 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    doc = "Optional deterministic sprinkler visual effects for the production inspection scene. Runtime/session controls own visibility."
+    metersPerUnit = 1
+    subLayers = [
+        @../shots/sprinkler_particle_preview.usda@
+    ]
+    upAxis = "Y"
+)
+
+over Xform "World"
+{
+    over Scope "Effects"
+    {
+        over Scope "Sprinklers"
+        {
+            over "Sprinkler_01_02"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_01_04"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_01_06"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_02_02"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_02_04"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_02_06"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_03_02"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_03_04"
+            {
+                token visibility = "invisible"
+            }
+            over "Sprinkler_03_06"
+            {
+                token visibility = "invisible"
+            }
+        }
+    }
+}

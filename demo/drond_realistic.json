@@ -1,0 +1,6 @@
+{
+  "name": "drond_greenhouse_photorealistic",
+  "prompt": "Photorealistic inspection-drone footage inside a modern commercial spinach greenhouse; natural daylight through slightly humid glass, realistic wet soil and irrigation infrastructure, detailed healthy spinach, physically plausible lighting. Preserve the exact camera motion, greenhouse layout, plant-bed positions, gantry geometry, and sprinkler placement. No people, no text, no extra equipment.",
+  "video_path": "/home/daniel/Documents/Greenhouse-vids/DronD.mp4",
+  "seed": 42
+}

@@ -499,6 +499,90 @@ over Xform "World"
         {
         }
     }
+
+    over "Sensors"
+    {
+        over "PlantInspectionGantry"
+        {
+            over "Horizontal_Mount"
+            {
+                over "Cam_mount"
+                {
+                    over "PlantScanCamera"
+                    {
+                        bool omni:kit:cameraLock = 1
+                        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5.5742465152046226)
+                        float3 xformOp:rotateYXZ = (0, -0, -0)
+                        double3 xformOp:scale = (0.10000000149011612, 0.10000000149011612, 0.05000000074505806)
+                        double3 xformOp:translate = (-0.016195609863648652, 0.072885291934635, -0.0045969560687320055)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+                    }
+                }
+            }
+        }
+    }
+
+    over "Robots"
+    {
+        over "MuviRobotControls"
+        {
+            over "differential_controller"
+            {
+                over "ArrayNames"
+                {
+                    custom token inputs:input0 (
+                        customData = {
+                            dictionary omni = {
+                                dictionary graph = {
+                                    string resolvedType = "token"
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+
+        over "MuviRobot"
+        {
+            over "Articulation"
+            {
+                over "Top"
+                {
+                }
+
+                over "wheels"
+                {
+                    over "Rear_Left_wheel"
+                    {
+                    }
+
+                    over "Rear_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Right_wheel"
+                    {
+                    }
+
+                    over "Front_Left_wheel"
+                    {
+                    }
+                }
+
+                over "Front_Sensor"
+                {
+                }
+            }
+        }
+    }
+
+    over "Camera_02"
+    {
+        float exposure:fStop = 5
+        float exposure:responsivity = 1.1026709
+        float exposure:time = 0.02
+    }
 }
 
 over "Render"
@@ -510,6 +594,36 @@ over "Render"
             over "omni_kit_widget_viewport_ViewportTexture_0"
             {
                 bool omni:rtx:rt:ecoMode:enabled
+            }
+
+            over "omni_kit_widget_viewport_ViewportTexture_1"
+            {
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:adaptiveSampling:filterError = 0
+                uint omni:rtx:pt:adaptiveSampling:fixedSppIterations = 2
+                uint omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                uint omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode = "RealTimePathTracing"
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:ecoMode:enabled
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                int omni:rtx:rt:sss:samples = 1
+                uint omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
             }
         }
     }

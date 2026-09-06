@@ -1,0 +1,246 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (0.2543874931675617, 1.4510938912612654, 8.352566993971715)
+                double3 target = (-0.8970208075928566, -1.7078648464791812, -1.8250799637756892)
+            }
+            dictionary Right = {
+                double3 position = (-5, 0, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 5, 0)
+                double radius = 5
+            }
+            string boundCamera = "/World/Shot_drone"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./greenhouse_streaming_demo.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    doc = "Streaming-demo presentation of greenhouse_main. Keeps the production scene untouched, removes the robot composition, and adds operator camera views."
+    endTimeCode = 240
+    framesPerSecond = 24
+    metersPerUnit = 1
+    startTimeCode = 0
+    subLayers = [
+        @../shots/streaming_demo.usda@,
+        @greenhouse_main.usda@
+    ]
+    timeCodesPerSecond = 24
+    upAxis = "Y"
+)
+
+over "Render"
+{
+    over "OmniverseKit"
+    {
+        over "HydraTextures"
+        {
+            over "omni_kit_widget_viewport_ViewportTexture_0"
+            {
+                rel camera = </World/Shot_drone>
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1093, 644)
+            }
+        }
+    }
+}
+
+over "World"
+{
+    over "Simulation"
+    {
+        over "PhysicsScene" (
+            prepend apiSchemas = ["PhysxSceneAPI"]
+        )
+        {
+        }
+    }
+
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Utilities"
+            {
+                over "US_Utility_Station_ROOT"
+                {
+                    over "US_Canopy_Solar_Panel"
+                    {
+                        over "Cube_114" (
+                            prepend apiSchemas = ["MaterialBindingAPI"]
+                        )
+                        {
+                            rel material:binding = </_materials/US_Black> (
+                                bindMaterialAs = "weakerThanDescendants"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    over "Camera_01" (
+        active = false
+    )
+    {
+        custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -100)
+        token visibility = "invisible"
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, -5.7836468429707695e-21, 0.7491009999936017)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    over "Cameras"
+    {
+        over "InteriorOverviewCamera"
+        {
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+        }
+
+        over "MainCamera"
+        {
+            custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -51.10862545194756)
+            double3 xformOp:rotateXYZ = (61.90955352783203, -9.700015652924776e-7, 29.643924713134766)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (14.897982235158118, -28.46603421701748, 14.685857590658829)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+
+        over "OppositeExteriorCamera"
+        {
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -78.96029264833466)
+            double3 xformOp:rotateXYZ = (52.546417236328125, 0.0000015462617284356384, -127.95947265625)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (-28.53269778445212, 19.444080787195247, 23.543619290466587)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+
+    over "Camera_02" (
+        active = false
+    )
+    {
+    }
+}
+
+over "OmniverseKit_Persp" (
+    prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (0.01, 10000000)
+    float exposure:fStop = 5
+    float exposure:responsivity = 1.1026709
+    float exposure:time = 0.02
+    float focalLength = 18.147562
+    float focusDistance = 400
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -10.718640724380666)
+    float3 xformOp:rotateXYZ = (-17.14053, 6.454491, -3.2208485e-14)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0.2543874931675617, 1.4510938912612654, 8.352566993971715)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Front" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (0, 0, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 5)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Right" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (0, -90, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (-5, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over "OmniverseKit_Top" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -4.961563e-15, 180)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 5, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}

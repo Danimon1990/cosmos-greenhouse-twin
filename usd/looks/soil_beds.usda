@@ -1,0 +1,344 @@
+#usda 1.0
+(
+    doc = "Shared realistic cultivated-soil look and planar UV overrides for greenhouse beds."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "_materials"
+{
+    over Material "GH_Bed_Rich_Dark_Soil"
+    {
+        over Shader "Ground_Surface"
+        {
+            color3f inputs:diffuseColor.connect = </_materials/GH_Bed_Rich_Dark_Soil/SoilAlbedo.outputs:rgb>
+            float inputs:roughness = 0.91
+            float inputs:specular = 0.24
+        }
+
+        def Shader "SoilUVReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "st"
+            float2 outputs:result
+        }
+
+        def Shader "SoilAlbedo"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../../assets/materials/soil/greenhouse_soil_albedo_v1.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/GH_Bed_Rich_Dark_Soil/SoilUVReader.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+    }
+}
+
+over "World"
+{
+    over "Environment"
+    {
+        over "Greenhouse"
+        {
+            over "Plants"
+            {
+                over "Bed_01"
+                {
+                    over "Bed"
+                    {
+                        over "Bed"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones"
+                    {
+                        over "Zone_A"
+                        {
+                            over "Zone_A"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B"
+                        {
+                            over "Zone_B"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C"
+                        {
+                            over "Zone_C"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_02"
+                {
+                    over "Bed_001"
+                    {
+                        over "Bed_001"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_001"
+                    {
+                        over "Zone_A_001"
+                        {
+                            over "Zone_A_001"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_001"
+                        {
+                            over "Zone_B_001"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_001"
+                        {
+                            over "Zone_C_001"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_03"
+                {
+                    over "Bed_002"
+                    {
+                        over "Bed_002"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_002"
+                    {
+                        over "Zone_A_002"
+                        {
+                            over "Zone_A_002"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_002"
+                        {
+                            over "Zone_B_002"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_002"
+                        {
+                            over "Zone_C_002"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_04"
+                {
+                    over "Bed_003"
+                    {
+                        over "Bed_003"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_003"
+                    {
+                        over "Zone_A_003"
+                        {
+                            over "Zone_A_003"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_003"
+                        {
+                            over "Zone_B_003"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_003"
+                        {
+                            over "Zone_C_003"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_05"
+                {
+                    over "Bed_004"
+                    {
+                        over "Bed_004"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_004"
+                    {
+                        over "Zone_A_004"
+                        {
+                            over "Zone_A_004"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_004"
+                        {
+                            over "Zone_B_004"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_004"
+                        {
+                            over "Zone_C_004"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_06"
+                {
+                    over "Bed_005"
+                    {
+                        over "Bed_005"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_005"
+                    {
+                        over "Zone_A_005"
+                        {
+                            over "Zone_A_005"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_005"
+                        {
+                            over "Zone_B_005"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_005"
+                        {
+                            over "Zone_C_005"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+                over "Bed_07"
+                {
+                    over "Bed_006"
+                    {
+                        over "Bed_006"
+                        {
+                            texCoord2f[] primvars:st = [(1.1, 17.6), (-1.1, 17.6), (-1.1, 17.6), (1.1, 17.6), (-1.1, -17.6), (-1.1, -17.6), (1.1, -17.6), (1.1, -17.6)] (
+                                interpolation = "vertex"
+                            )
+                        }
+                    }
+                    over "Zones_006"
+                    {
+                        over "Zone_A_006"
+                        {
+                            over "Zone_A_006"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_B_006"
+                        {
+                            over "Zone_B_006"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                        over "Zone_C_006"
+                        {
+                            over "Zone_C_006"
+                            {
+                                texCoord2f[] primvars:st = [(0.88, 5.866667), (-0.88, 5.866667), (-0.88, 5.866667), (0.88, 5.866667), (-0.88, -5.866667), (-0.88, -5.866667), (0.88, -5.866667), (0.88, -5.866667)] (
+                                    interpolation = "vertex"
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

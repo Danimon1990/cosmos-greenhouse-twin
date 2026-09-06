@@ -1,14 +1,82 @@
 #usda 1.0
 (
     customLayerData = {
+        dictionary MovieCaptureSettings = {
+            double animation_fps = 24
+            int bad_frame_size_threshold = 0
+            int batch_count = 1
+            string camera_name = "/World/Cameras/MainCamera"
+            bool capture_application = 0
+            int capture_every_nth_frames = 20
+            bool capture_every_nth_frames_checked = 0
+            int capture_frame_end = 240
+            int capture_frame_start = 0
+            string capture_name = "Drone_Def"
+            string capture_range = "Custom Range - Frames"
+            double capture_time_end = 10
+            double capture_time_start = 0
+            int early_quit_time_limit = 0
+            string exr_compression_method = "zips"
+            double fps = 24
+            bool generate_shader_cache = 0
+            bool hdr_for_exr_checked = 1
+            bool hdr_for_exr_visible = 0
+            int iray_pathtrace_spp = 1
+            int iray_subframes_per_frame = 32
+            int max_bad_frame_threshold = 3
+            string movie_type = "Sequence"
+            int mp4_encoding_bitrate = 16777216
+            int mp4_encoding_iframe_interval = 60
+            string mp4_encoding_preset = "PRESET_P3"
+            string mp4_encoding_profile = "H264_PROFILE_HIGH"
+            string mp4_encoding_rc_mode = "RC_VBR"
+            int mp4_encoding_rc_target_quality = 0
+            string mp4_encoding_tuning_info = "TUNING_HIGH_QUALITY"
+            bool mp4_encoding_video_full_range_flag = 0
+            string output_format = ".png"
+            string output_path = "/home/daniel/Documents/Greenhouse-vids"
+            bool overwrite_existing_frame_checked = 0
+            bool pathtrace_mb_checked = 1
+            double pathtrace_mb_frame_shutter_close = 0.5
+            double pathtrace_mb_frame_shutter_open = 0
+            int pathtrace_mb_subframes = 64
+            int pathtrace_spp_per_iteration_mgpu = 1
+            int pathtrace_spp_per_subframe = 1
+            string queue_instance = "localhost Queue"
+            int realtime_settle_latency = 0
+            int realtime_wait_for_render_resolve = 0
+            string render_preset = "RealTimePathTracing"
+            bool render_style = 1
+            bool renumber_negtive_frames_checked = 0
+            int resolution_aspect_ratio_selected = 0
+            string resolution_aspect_ratios = '["16:9", "4:3"]'
+            int resolution_height = 1080
+            string resolution_type = "Custom"
+            bool resolution_w_h_linked = 1
+            int resolution_width = 1920
+            int run_n_frames_before_start = 20
+            bool run_n_frames_before_start_checked = 0
+            bool save_alpha_checked = 0
+            bool skip_upload_to_s3 = 0
+            int start_delay_seconds = 10
+            double sunstudy_end = 18
+            int sunstudy_movie_minutes = 1
+            int sunstudy_movie_seconds = 1
+            double sunstudy_start = 6
+            string task_comment = ""
+            int task_priority = 65535
+            string task_type = "create-render"
+            double texture_streaming_memory_budget = 0.6000000238418579
+            bool upload_to_s3 = 0
+        }
         dictionary cameraSettings = {
             dictionary Front = {
                 double3 position = (0, 0, 5)
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (4.73260369582744, 24.177394952853927, 19.862197301649964)
-                double3 target = (3.6946488798696056, 0.23048319125713945, -3.287145562914098)
+                double3 position = (13.742260740455034, 9.612423595588588, 10.760379580270044)
+                double3 target = (-3.6964807751043622, -3.746023217347334, 2.3786835895805893)
             }
             dictionary Right = {
                 double3 position = (-5, 0, 0)
@@ -25,11 +93,34 @@
             }
             dictionary "/World/Daphne" = {
             }
+            dictionary "/World/Daphne_01" = {
+            }
+            dictionary "/World/Daphne_02" = {
+            }
+            dictionary "/World/Daphne_03" = {
+            }
             dictionary "/World/Fountain_Grass_Short" = {
+            }
+            dictionary "/World/Fountain_Grass_Short_01" = {
             }
             dictionary "/World/Gray_Birch" = {
             }
             dictionary "/World/Gray_Birch_01" = {
+            }
+            dictionary "/World/Gray_Birch_02" = {
+            }
+            dictionary "/World/Gray_Birch_03" = {
+            }
+            dictionary "/World/Gray_Birch_04" = {
+            }
+            dictionary "/World/Gray_Birch_05" = {
+            }
+            dictionary "/World/Holly" = {
+            }
+            dictionary "/World/Orange_Tree" = {
+            }
+            dictionary "/World/exportpallet_a06" = {
+                string write_layer = "metrics:UnitsAdjust-ecee47d4394eea328d9cd4dc2d3e6707.metricsAssembler"
             }
             int version = 1
         }
@@ -37,6 +128,14 @@
             string authoring_layer = "./greenhouse_animation_preview.usda"
         }
         dictionary renderSettings = {
+            double "rtx:directLighting:sampledLighting:maxRayUnexposedIntensity" = 6399.9990234375
+            int "rtx:externalFrameCounter" = 240
+            double "rtx:indirectDiffuse:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:pathtracing:fireflyFilter:maxPerEmissiveUnexposedIntensity" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSample" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse" = 3199.99951171875
+            double "rtx:raytracing:inscattering:maxRTSampleUnexposedIntensity" = 204799.96875
+            double "rtx:translucency:maxRayUnexposedIntensity" = 19199.998046875
         }
     }
     defaultPrim = "World"
@@ -69,7 +168,12 @@ over Xform "World" (
 
                 over "TunnelCover"
                 {
-                    token visibility = "invisible"
+                    token visibility = "inherited"
+
+                    over "TunnelCover"
+                    {
+                        token visibility = "invisible"
+                    }
                 }
             }
 
@@ -121,12 +225,39 @@ over Xform "World" (
 
         over "Exterior"
         {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
             over "RA_Robot_Access_ROOT"
             {
                 over "Plants"
                 {
                     token visibility = "invisible"
                 }
+            }
+
+            over "Wheelbarrow_PULL"
+            {
+                over "Wheelbarrow_Tray"
+                {
+                    over "Wheelbarrow_Tray_Mesh"
+                    {
+                        quatf xformOp:orient = (1, 0, 0, 0)
+                        float3 xformOp:scale = (1, 1, 1)
+                        double3 xformOp:translate = (7.105427357601002e-15, -2.2895463303029828e-11, 0.0006688701397727925)
+                        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+                    }
+                }
+            }
+
+            over "Shovel"
+            {
+                quatf xformOp:orient = (0.9891925, -0.14662273, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (2.0773611749424146, -8.5915570350128, 0.10781985821210563)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
             }
         }
     }
@@ -183,6 +314,9 @@ over Xform "World" (
 
         over "MuviRobot"
         {
+            token visibility = "invisible"
+            double3 xformOp:translate = (0, -12.5, 0.2)
+
             over "Top"
             {
             }
@@ -278,7 +412,7 @@ over Xform "World" (
         double xformOp:rotateX:unitsResolve = -90
         float3 xformOp:scale = (1, 1, 1)
         double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double3 xformOp:translate = (-2.273719423297465, -15.790090702072543, -0.0273651952879607)
+        double3 xformOp:translate = (-2.4216438451743185, -14.103034380260155, -0.1889815939849839)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
     }
 
@@ -286,11 +420,11 @@ over Xform "World" (
         prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Fountain_Grass_Short.usd@
     )
     {
-        quatf xformOp:orient = (1, 0, 0, 0)
+        quatf xformOp:orient = (0.73423034, 0.6789004, 0, 0)
         double xformOp:rotateX:unitsResolve = -90
         float3 xformOp:scale = (1, 1, 1)
         double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double3 xformOp:translate = (-3.0822323120217168, -22.704150194434764, 0.6754352938919574)
+        double3 xformOp:translate = (-3.0822323120217168, -22.748671714907836, 0.10776499927547276)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
     }
 
@@ -302,7 +436,7 @@ over Xform "World" (
         double xformOp:rotateX:unitsResolve = -90
         float3 xformOp:scale = (1, 1, 1)
         double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double3 xformOp:translate = (9.838088649338028, 0.00000533914962560202, -0.035923273972166256)
+        double3 xformOp:translate = (9.296599128063981, 0.000005339149625602021, -0.035923273972166256)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
     }
 
@@ -314,8 +448,519 @@ over Xform "World" (
         double xformOp:rotateX:unitsResolve = -90
         float3 xformOp:scale = (1, 1, 1)
         double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
-        double3 xformOp:translate = (10.291821401882308, 11.165299632460984, -0.04087447036596277)
+        double3 xformOp:translate = (9.16425309364318, 16.319600856178013, -0.7663873459509724)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch_02" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.662975, 0.662975, -0.24589458, -0.24589458)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-11.177136591602212, 2.0119925199116273, -0.03592378090246557)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch_03" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.662975, 0.662975, -0.24589458, -0.24589458)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-10.782305706095034, -8.646703991263191, -0.03591947501411897)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch_04" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.662975, 0.662975, -0.24589458, -0.24589458)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-7.8985509487985714, 9.748310446292171, -0.035913808012962796)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Daphne_01" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Daphne.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7400545, 0.6725469, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (2.602818435274919, -20.0820527770252, 0.058127725927099666)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Daphne_02" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Daphne.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7400545, 0.6725469, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (2.3081301130842524, -14.026296015713294, -0.19633296569605863)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Fountain_Grass_Short_01" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Fountain_Grass_Short.usd@
+    )
+    {
+        quatf xformOp:orient = (0.73423034, 0.6789004, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (2.904085564753735, -22.748671714907765, 0.10776499927555583)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Daphne_03" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Daphne.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7400545, 0.6725469, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-2.3951581674391256, -20.00947210368654, 0.009800624340714801)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Gray_Birch_05" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd@
+    )
+    {
+        quatf xformOp:orient = (0.70710677, 0.70710677, 0, 0)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (5.657565010467859, 14.115258307214221, -0.03592519865244581)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Holly" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Holly.usd@
+    )
+    {
+        quatf xformOp:orient = (0.80571175, 0.582973, 0.08101763, 0.066387005)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-5.9497433655437035, -16.803738411026526, -0.21711137116591636)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Orange_Tree" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7965128, 0.6033902, 0.030220814, 0.023965769)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (10.991288295824681, -12.050570278596819, -0.1489062665519301)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Orange_Tree_01" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7965128, 0.6033902, 0.030220814, 0.023965769)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-10.788553081611937, -13.900440603772529, -0.508164935701821)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Orange_Tree_02" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7965128, 0.6033902, 0.030220814, 0.023965769)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-11.695201560187492, -1.8164051127249419, -0.6071317076633209)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    over "Cameras"
+    {
+        def Camera "Shot_drone" (
+            active = false
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+            hide_in_stage_window = false
+            kind = "component"
+            no_delete = false
+        )
+        {
+            float4[] clippingPlanes = []
+            float2 clippingRange = (0.01, 10000000)
+            float exposure = 0
+            float exposure:fStop = 5
+            float exposure:iso = 100
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            float focalLength = 18.147562
+            float focusDistance = 400
+            float fStop = 0
+            float horizontalAperture = 20.955
+            float horizontalApertureOffset = 0
+            bool omni:kit:cameraLock = 0
+            custom vector3d omni:kit:centerOfInterest = (0, 0, -36.107579535488966)
+            custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+            custom bool omni:rtx:autoExposure:enabled = 0
+            custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+            custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+            custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+            custom token omni:rtx:autoExposure:histogramFilter = "median"
+            custom float omni:rtx:autoExposure:whitePointScale = 10
+            token projection = "perspective"
+            uniform token purpose = "default"
+            double shutter:close = 0
+            double shutter:open = 0
+            uniform token stereoRole = "mono"
+            float verticalAperture = 15.2908
+            float verticalApertureOffset = 0
+            token visibility = "invisible"
+            float3 xformOp:rotateYXZ = (59.596664, -3.180861e-7, 4.7083397)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0.00671921312354274, -40.23488961020205, 15.448658558897842)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+
+            over "OmniverseKitViewportCameraMesh" (
+                always_pick_model = true
+                hide_in_stage_window = true
+                kind = "subcomponent"
+                no_delete = true
+                prepend references = @../../../../.cache/packman/chk/kit-kernel/110.0.0+feature.manylinux_2_35_x86_64.release/resources/models/camera/camera.usd@
+            )
+            {
+                bool primvars:doNotCastShadows = 1
+                bool primvars:invisibleToSecondaryRays = 1
+                bool primvars:omni:kit:isGizmo = 1
+                token visibility
+                float3 xformOp:scale = (0.01, 0.01, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:scale"]
+
+                over "CameraModel" (
+                    always_pick_model = true
+                    hide_in_stage_window = true
+                    no_delete = true
+                )
+                {
+                    float3[] extent = [(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38)]
+                    bool primvars:doNotCastShadows = 1
+                    bool primvars:invisibleToSecondaryRays = 1
+                    bool primvars:omni:kit:isGizmo = 1
+                }
+            }
+        }
+
+        def Camera "Entry_Camera" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+            kind = "component"
+        )
+        {
+            float2 clippingRange = (0.01, 10000000)
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            float focalLength = 11.400001
+            float focusDistance = 400
+            bool omni:kit:cameraLock = 1
+            custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -447.4824237928407)
+            token visibility = "invisible"
+            quatd xformOp:orient = (0.5397859629694649, 0.2802431496392115, 0.36358974744545686, 0.7056184427960843)
+            double3 xformOp:scale = (0.5400000214576721, 0.5400000214576721, 0.5400000214576721)
+            double3 xformOp:translate = (1.6958633382671677, -9.487515485115685, 3.1355512955902367)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "OmniverseKitViewportCameraMesh" (
+                always_pick_model = true
+                hide_in_stage_window = true
+                kind = "subcomponent"
+                no_delete = true
+                prepend references = @../../../../.cache/packman/chk/kit-kernel/110.0.0+feature.manylinux_2_35_x86_64.release/resources/models/camera/camera.usd@
+            )
+            {
+                bool primvars:doNotCastShadows = 1
+                bool primvars:invisibleToSecondaryRays = 1
+                bool primvars:omni:kit:isGizmo = 1
+                token visibility
+                float3 xformOp:scale = (0.01, 0.01, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:scale"]
+
+                over "CameraModel" (
+                    always_pick_model = true
+                    hide_in_stage_window = true
+                    no_delete = true
+                )
+                {
+                    float3[] extent = [(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38)]
+                    bool primvars:doNotCastShadows = 1
+                    bool primvars:invisibleToSecondaryRays = 1
+                    bool primvars:omni:kit:isGizmo = 1
+                }
+            }
+        }
+
+        def Camera "Camera_01" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+            kind = "component"
+        )
+        {
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            token visibility = "invisible"
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+            over "OmniverseKitViewportCameraMesh" (
+                always_pick_model = true
+                hide_in_stage_window = true
+                kind = "subcomponent"
+                no_delete = true
+                prepend references = @../../../../.cache/packman/chk/kit-kernel/110.0.0+feature.manylinux_2_35_x86_64.release/resources/models/camera/camera.usd@
+            )
+            {
+                bool primvars:doNotCastShadows = 1
+                bool primvars:invisibleToSecondaryRays = 1
+                bool primvars:omni:kit:isGizmo = 1
+                token visibility
+                float3 xformOp:scale = (0.01, 0.01, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:scale"]
+
+                over "CameraModel" (
+                    always_pick_model = true
+                    hide_in_stage_window = true
+                    no_delete = true
+                )
+                {
+                    float3[] extent = [(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38)]
+                    bool primvars:doNotCastShadows = 1
+                    bool primvars:invisibleToSecondaryRays = 1
+                    bool primvars:omni:kit:isGizmo = 1
+                }
+            }
+        }
+
+        def Camera "Camera_02" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+            kind = "component"
+        )
+        {
+            float exposure:fStop = 5
+            float exposure:responsivity = 1.1026709
+            float exposure:time = 0.02
+            token visibility = "invisible"
+
+            over "OmniverseKitViewportCameraMesh" (
+                always_pick_model = true
+                hide_in_stage_window = true
+                kind = "subcomponent"
+                no_delete = true
+                prepend references = @../../../../.cache/packman/chk/kit-kernel/110.0.0+feature.manylinux_2_35_x86_64.release/resources/models/camera/camera.usd@
+            )
+            {
+                bool primvars:doNotCastShadows = 1
+                bool primvars:invisibleToSecondaryRays = 1
+                bool primvars:omni:kit:isGizmo = 1
+                token visibility
+                float3 xformOp:scale = (0.01, 0.01, 0.01)
+                uniform token[] xformOpOrder = ["xformOp:scale"]
+
+                over "CameraModel" (
+                    always_pick_model = true
+                    hide_in_stage_window = true
+                    no_delete = true
+                )
+                {
+                    float3[] extent = [(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38)]
+                    bool primvars:doNotCastShadows = 1
+                    bool primvars:invisibleToSecondaryRays = 1
+                    bool primvars:omni:kit:isGizmo = 1
+                }
+            }
+        }
+
+        over "MainCamera"
+        {
+            custom uniform vector3d omni:kit:centerOfInterest = (0, 0, 2)
+            quatd xformOp:orient.timeSamples = {
+                0: (0.01261911413, 0.02116377846, -0.51197633326, 0.858646077625),
+                7.5: (-0.037624103576, -0.06310016572, -0.51074791683, 0.85658587507),
+                15: (-0.087504980597, -0.14675642081, -0.504600718757, 0.846276282281),
+                22.5: (-0.136543136819, -0.228999331342, -0.49359393992, 0.827816586272),
+                30: (-0.184266307992, -0.309036853129, -0.477833581615, 0.801384564006),
+                37.5: (-0.230214893888, -0.386098181084, -0.457471424709, 0.767234770308),
+                45: (-0.273946384509, -0.459441172493, -0.432703567904, 0.725696086359),
+                52.5: (-0.315039621692, -0.528359494254, -0.4037685392, 0.677168552391),
+                60: (-0.3530988551, -0.592189425255, -0.370944998741, 0.622119515087),
+                67.5: (-0.38775755351, -0.650316248367, -0.334549055166, 0.561079126767),
+                75: (-0.41868193471, -0.702180170509, -0.294931221305, 0.494635239739),
+                82.5: (-0.445574180003, -0.747281713757, -0.252473038558, 0.423427744957),
+                90: (-0.468175302368, -0.785186525597, -0.207583402434, 0.348142409523),
+                97.5: (-0.48626764064, -0.815529561968, -0.160694624667, 0.26950427237),
+                105: (-0.499676955712, -0.838018602843, -0.112258269821, 0.188270661749),
+                112.5: (-0.508274108549, -0.852437066466, -0.062740806469, 0.105223901736),
+                120: (-0.51197630387, -0.858646095149, -0.012619114854, 0.021163778028),
+                127.5: (-0.51074788751, -0.856585892553, 0.037624105736, -0.063100164432),
+                135: (-0.50460068979, -0.846276299553, 0.08750498562, -0.146756417815),
+                142.5: (-0.493593911585, -0.827816603167, 0.136543144657, -0.228999326668),
+                150: (-0.477833554185, -0.801384580362, 0.18426631857, -0.309036846822),
+                157.5: (-0.457471398448, -0.767234785967, 0.230214907104, -0.386098173204),
+                165: (-0.432703543065, -0.725696101169, 0.273946400235, -0.459441163116),
+                172.5: (-0.403768516022, -0.677168566212, 0.315039639777, -0.528359483471),
+                180: (-0.370944977447, -0.622119527784, 0.35309887537, -0.592189413169),
+                187.5: (-0.334549035961, -0.561079138218, 0.387757575769, -0.650316235095),
+                195: (-0.294931204375, -0.494635249834, 0.418681958744, -0.702180156178),
+                202.5: (-0.252473024065, -0.423427753599, 0.445574205582, -0.747281698506),
+                210: (-0.207583390517, -0.348142416628, 0.468175329244, -0.785186509572),
+                217.5: (-0.160694615443, -0.269504277871, 0.486267668555, -0.815529545324),
+                225: (-0.112258263377, -0.188270665591, 0.499676984396, -0.83801858574),
+                232.5: (-0.062740802868, -0.105223903883, 0.508274137727, -0.852437049069),
+                240: (-0.01261911413, -0.02116377846, 0.51197633326, -0.858646077625),
+            }
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate.timeSamples = {
+                0: (0.888548400619, -35.373067167557, 18.01391611014),
+                7.5: (-2.642865738655, -35.373067161643, 17.841130933583),
+                15: (-6.072716029729, -35.373067132261, 16.982721054141),
+                22.5: (-9.269195249398, -35.37306708054, 15.471674682078),
+                30: (-12.109464493858, -35.373067008468, 13.36606048207),
+                37.5: (-14.484373808885, -35.373066918814, 10.746796026979),
+                45: (-16.302656761367, -35.373066815024, 7.714538180915),
+                52.5: (-17.494437757144, -35.373066701087, 4.385814912392),
+                60: (-18.013917320908, -35.373066581381, 0.888547189851),
+                67.5: (-17.841132144352, -35.373066460505, -2.642866949423),
+                75: (-16.982722264909, -35.373066343107, -6.072717240497),
+                82.5: (-15.471675892847, -35.373066233696, -9.269196460167),
+                90: (-13.366061692838, -35.373066136478, -12.109465704627),
+                97.5: (-10.746797237748, -35.373066055188, -14.484375019653),
+                105: (-7.714539391684, -35.373065992951, -16.302657972135),
+                112.5: (-4.385816123161, -35.373065952158, -17.494438967913),
+                120: (-0.888548400619, -35.373065934377, -18.013918531677),
+                127.5: (2.642865738655, -35.373065940291, -17.84113335512),
+                135: (6.072716029729, -35.373065969673, -16.982723475678),
+                142.5: (9.269195249398, -35.373066021394, -15.471677103615),
+                150: (12.109464493858, -35.373066093466, -13.366062903607),
+                157.5: (14.484373808885, -35.37306618312, -10.746798448516),
+                165: (16.302656761367, -35.373066286909, -7.714540602452),
+                172.5: (17.494437757144, -35.373066400847, -4.385817333929),
+                180: (18.013917320908, -35.373066520553, -0.888549611387),
+                187.5: (17.841132144352, -35.373066641428, 2.642864527887),
+                195: (16.982722264909, -35.373066758827, 6.07271481896),
+                202.5: (15.471675892847, -35.373066868238, 9.26919403863),
+                210: (13.366061692838, -35.373066965456, 12.10946328309),
+                217.5: (10.746797237748, -35.373067046746, 14.484372598116),
+                225: (7.714539391684, -35.373067108983, 16.302655550598),
+                232.5: (4.385816123161, -35.373067149776, 17.494436546376),
+                240: (0.888548400619, -35.373067167557, 18.01391611014),
+            }
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    over "Shot_drone" (
+        active = false
+    )
+    {
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    over "Entry_Camera" (
+        active = false
+    )
+    {
+    }
+
+    over "Camera_01" (
+        active = false
+    )
+    {
+    }
+
+    over "Camera_02" (
+        active = false
+    )
+    {
+    }
+
+    def "Orange_Tree_03" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7965128, 0.6033902, 0.030220814, 0.023965769)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (-10.760373870169973, 8.922255070272813, -0.2794218445075018)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Orange_Tree_04" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.7965128, 0.6033902, 0.030220814, 0.023965769)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (11.126872251477677, 9.601017810575694, -0.5405986938669294)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "Orange_Tree_05" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Orange_Tree.usd@
+    )
+    {
+        quatf xformOp:orient = (0.45651212, 0.34525254, 0.5067403, 0.6446795)
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:scale:unitsResolve = (0.009999999776482582, 0.009999999776482582, 0.009999999776482582)
+        double3 xformOp:translate = (11.30411435655568, -3.8286603899813616, -0.45715576890049947)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve", "xformOp:scale:unitsResolve"]
+    }
+
+    def "exportpallet_a06" (
+        prepend payload = @https://omniverse-content-staging.s3.us-west-2.amazonaws.com/Assets/simready_content/common_assets/props/exportpallet_a06/exportpallet_a06.usd@
+        variants = {
+            string PhysicsVariant = "RigidBody"
+        }
+    )
+    {
+        double xformOp:rotateX:unitsResolve = -90
+        float3 xformOp:rotateXYZ = (90, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (3.724516396128595, -10.422221435720973, 0.7901361334214907)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "exportpallet_a06_inst"
+        {
+            over "SM_ExportPallet_A06_01"
+            {
+                quatf xformOp:orient = (1, 0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-1.0775353126589158, -1.7514348808924272, -0.7190693724519939)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+            }
+        }
     }
 }
 
@@ -328,13 +973,77 @@ over "Render"
             over "omni_kit_widget_viewport_ViewportTexture_0"
             {
                 rel camera = </OmniverseKit_Persp>
+                bool omni:rtx:material:db:syncLoads = 1
+                bool omni:rtx:post:compositing:outputAlpha
+                float omni:rtx:pt:fireflyFilter:maxPerEmissiveUnexposedIntensity = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSample = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse = 3199.9995
+                uint omni:rtx:pt:samplesPerPixel
+                float omni:rtx:rt:directLighting:maxRayUnexposedIntensity = 6399.999
                 bool omni:rtx:rt:ecoMode:enabled
+                float omni:rtx:rt:indirectdiffuse:maxRayUnexposedIntensity = 6399.999
+                float omni:rtx:rt:inscattering:maxRTSampleUnexposedIntensity = 204799.97
+                float omni:rtx:rt:refractions:maxRayUnexposedIntensity = 19199.998
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
                 bool omni:rtx:scene:useViewLightingMode
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
                 uniform int2 resolution = (1093, 644)
             }
+
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_1" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </OmniverseKit_Persp>
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:adaptiveSampling:filterError = 0
+                uint omni:rtx:pt:adaptiveSampling:fixedSppIterations = 2
+                float omni:rtx:pt:fireflyFilter:maxPerEmissiveUnexposedIntensity = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSample = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse = 3199.9995
+                uint omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                uint omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode = "RealTimePathTracing"
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                float omni:rtx:rt:directLighting:maxRayUnexposedIntensity = 6399.999
+                bool omni:rtx:rt:ecoMode:enabled
+                float omni:rtx:rt:indirectdiffuse:maxRayUnexposedIntensity = 6399.999
+                float omni:rtx:rt:inscattering:maxRTSampleUnexposedIntensity = 204799.97
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                float omni:rtx:rt:refractions:maxRayUnexposedIntensity = 19199.998
+                int omni:rtx:rt:sss:samples = 1
+                uint omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1280, 720)
+            }
         }
+    }
+
+    over "OmniverseGlobalRenderSettings"
+    {
+        rel products = [
+            </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>,
+            </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_1>,
+        ]
     }
 }
 
@@ -359,10 +1068,10 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -33.32302519548331)
-    float3 xformOp:rotateXYZ = (-45.941452, 2.5672705, -5.7705475e-14)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -23.511925369498613)
+    float3 xformOp:rotateXYZ = (-34.621754, 64.32936, -8.810456e-14)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (4.73260369582744, 24.177394952853927, 19.862197301649964)
+    double3 xformOp:translate = (13.742260740455034, 9.612423595588588, 10.760379580270044)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
 

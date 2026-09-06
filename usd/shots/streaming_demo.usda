@@ -1,0 +1,59 @@
+#usda 1.0
+(
+    doc = "Strong, non-destructive presentation opinions for the WebRTC streaming demo. Camera views are intentionally separate from the production greenhouse assembly."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    over Xform "Robots" (
+        active = false
+    )
+    {
+    }
+
+    over Xform "Cameras"
+    {
+        # Existing MainCamera is the exterior hero view. These two views round out
+        # the operator workflow without changing any production camera assets.
+        def Camera "InteriorOverviewCamera" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        )
+        {
+            float2 clippingRange = (0.1, 10000)
+            float focalLength = 24
+            float horizontalAperture = 36
+            double3 xformOp:rotateXYZ = (82, 0, 0)
+            double3 xformOp:translate = (0, -7.2, 3.1)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+
+        def Camera "OppositeExteriorCamera" (
+            prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        )
+        {
+            float2 clippingRange = (0.1, 10000)
+            float focalLength = 28
+            float horizontalAperture = 36
+            double3 xformOp:rotateXYZ = (-15, -34, 0)
+            double3 xformOp:translate = (-12, 8, 18)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ"]
+        }
+    }
+}
+
+over "Render"
+{
+    over "OmniverseKit"
+    {
+        over "HydraTextures"
+        {
+            over "omni_kit_widget_viewport_ViewportTexture_1"
+            {
+                rel camera = </World/Cameras/MainCamera>
+                uniform int2 resolution = (1280, 720)
+            }
+        }
+    }
+}

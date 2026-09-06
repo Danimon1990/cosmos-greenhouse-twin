@@ -1,0 +1,304 @@
+﻿Cloud Deployment
+Now that you’ve seen your Kit application streaming locally, it’s time to take it to the cloud. In this section, we’ll package the application into a Docker container, push it to a container registry, and deploy it to an NVIDIA Cloud Functions (NVCF) cluster.
+This is the transition from development to production. The same application you just streamed locally will soon be running on dedicated GPU hardware in a cloud environment.
+The Deployment Pipeline
+Here’s what we’ll do in this section, step by step:
+    1. Package the Kit application into a Docker container
+    2. Push the container to a container registry
+    3. Set up the NVCF CLI
+    4. Generate an API key
+    5. Register the application as an NVCF function
+    6. Deploy the function to a GPU node
+Let’s get started.
+Build the Docker Container
+Switch to the terminal where you previously built and ran the Kit application – you should already be in the kit-app-template directory.
+    • Navigate to the kit-app-template directory (if you’re not already there):
+      cd kit-app-template
+    • Package your Kit application into a Docker container:
+      ./repo.sh package_container --image-tag localhost:32000/kas/my-kit-app
+    • When prompted, select the NVCF version: my_company.my_usd_viewer_nvcf.kit
+Let’s break this command down:
+Part
+What It Does
+./repo.sh package
+Runs the Kit App Template’s packaging tool
+_container
+Tells it to create a Docker container (not just a zip archive)
+--image-tag
+Specifies the name and location for the container image
+localhost:32000/kas/my-kit-app
+The image tag – localhost:32000 is the local container registry
+Note
+This build process takes several minutes. While it runs, the packaging tool pulls the Omniverse Ubuntu base image, bundles all your application’s dependencies, and creates a deployable container image.
+    • Once the build completes, verify that the container was created:
+      docker image list
+You should see your newly created image in the output:
+REPOSITORY                      TAG       IMAGE ID       CREATED          SIZE
+localhost:32000/kas/my-kit-app  latest    ec3ce7d2a6d4   18 seconds ago   3.13GB
+Tip
+Don’t worry if the size or image ID differ – what matters is that a row appears with localhost:32000/kas/my-kit-app and a recent timestamp.
+Push the Container to the Registry
+Now that the container is built and verified, push it to the local container registry:
+    • Push the container image:
+      docker push localhost:32000/kas/my-kit-app
+    • Wait for the push to complete. You’ll see progress bars for each layer being uploaded.
+Note
+In a production environment, you would push to a container registry like NVIDIA NGC, Docker Hub, or AWS ECR. In this lab, we’re using a local registry that’s part of your lab environment.
+Upload the USD Stage to MinIO
+Before we register our function, we need to upload the digital twin USD scene to an S3-compatible object store so the cloud-deployed Kit application can access it. Your lab environment includes a MinIO server that acts as a local S3-compatible object store running inside the cluster.
+    • Open a new terminal in VS Code (click the + icon in the terminal panel or press Ctrl+Shift+`)
+    • Run the preparation script:
+      bash ./prepare-kas.sh
+      This script configures your environment with the necessary credentials and endpoints for your NVCF cluster.
+    • Upload the USD scene data to the MinIO bucket:
+      aws s3 cp --recursive /config/workspace/data s3://kas/
+This copies the Data Center digital twin scene and its dependencies to the kas bucket in MinIO. When the Kit application launches in the cloud, it will load the USD scene from this bucket using an internal cluster URL.
+Note
+MinIO is an S3-compatible object store. The AWS CLI in your lab environment is pre-configured to point to the local MinIO server, so standard aws s3 commands work exactly as they would with real AWS S3.
+Set Up the NVCF CLI
+Now we need to configure the NVCF command-line interface (CLI) so we can register and deploy our application.
+    • Initialize the NVCF CLI:
+      nvcf init
+      This authenticates you with the cluster and sets up your admin token. You should see a confirmation message.
+Tip
+You can verify that the CLI is working by listing existing functions:
+nvcf function list
+If this is a fresh environment, you’ll see “No functions found” – that’s expected. We’re about to create one.
+Generate an API Key
+Before deploying, generate an API key that your web client will use to authenticate with the NVCF cluster:
+    • Generate the API key:
+      nvcf api-key generate
+The API key will be displayed in the terminal output. It starts with nvapi-.
+    • Open the function-info.txt file in your workspace and paste the entire API key into it
+    • Save the file
+Warning
+Save this API key immediately. Once the terminal output scrolls past, you cannot retrieve it again. If you lose the key, you can generate a new one by running nvcf api-key generate again. If you hit the maximum number of keys, delete an old one first:
+nvcf api-key list
+nvcf api-key delete --key-id <KEY_ID>
+Create a Function Definition
+NVCF organizes workloads as functions. A function definition tells the cluster what container to run, what resources it needs, and how to configure it.
+Your workspace already contains a pre-configured function definition file called create-function.json. Let’s review it:
+    • Open the file create-function.json in your workspace
+The file defines your streaming function with settings for health checks, container configuration, and the USD scene to load. Key configuration values include:
+    • --/app/livestream/nvcf/sessionResumeTimeoutSeconds=300 – Sets a 5-minute session resume timeout
+    • --/app/auto_load_usd='http://minio.minio.svc.cluster.local:9000/kas/DataCenterDigitalTwin.usd' – Tells the Kit application to load the digital twin scene from the MinIO bucket you just uploaded to
+    • Replace <sceneUrl> in --/app/auto_load_usd= with: http://minio.minio.svc.cluster.local:9000/kas/DataCenterDigitalTwin.usd
+    • Save the file
+    • Register the function with the NVCF cluster:
+      nvcf function create --input-file create-function.json
+When the command succeeds, it will output two critical pieces of information:
+    • Function ID – A unique identifier for your function
+    • Version ID – A unique identifier for this version of your function
+    • Copy both IDs to your function-info.txt file. You’ll need them in the next step and again when configuring the cloud web client.
+Tip
+If you forget to record these IDs, you can always retrieve them by running:
+nvcf function list
+Deploy the Function
+Your workspace also contains a pre-configured deployment specification file called deploy-function.json. We need to add the function and version IDs before deploying.
+    • Open the file deploy-function.json in your workspace
+    • Replace <functionId> with the function ID from the previous step
+    • Replace <versionId> with the version ID from the previous step
+    • Save the file
+    • Deploy the function:
+      nvcf function deploy create --input-file deploy-function.json
+The deployment process will begin. This provisions a GPU node, pulls your container image, and starts your Kit application in the cloud.
+Monitor the Deployment
+While the function deploys, let’s monitor its progress:
+    • Check the pod status:
+      kubectl get pods -n nvcf-backend
+Tip
+kubectl (pronounced “kube-control” or, among those in the know, “kube-cuddle”) is the Kubernetes command-line tool. It lets you inspect and manage the cluster. The -n nvcf-backend flag specifies the namespace where NVCF runs your functions.
+Watch for a pod with your function name to appear. It will go through several states:
+Status
+Meaning
+Pending
+The cluster is provisioning resources
+ContainerCreating
+The container image is being pulled and started
+Running (1/2)
+The container is starting but not fully ready
+Running (2/2)
+The function is fully deployed and ready for streaming
+When you see 2/2 under the READY column, your Kit application is running in the cloud and ready to accept streaming connections.
+Note
+The deployment typically takes 2-5 minutes. If the pod stays in Pending for more than 10 minutes, display your red cup to signal for help.
+Troubleshooting
+Note
+If you deploy a misconfigured function, you can Delete the function and try again. Run: nvcf function delete --function-id <id> --version-id <version> with your function ID and version ID.
+What You’ve Accomplished
+You’ve taken your Kit application from a local development project to a cloud-deployed service:
+    1. Packaged the application into a Docker container
+    2. Pushed the container to a registry
+    3. Registered it as an NVCF function with a deployment specification
+    4. Deployed it to a GPU node in the cloud
+Your Kit application is now running in an NVCF cluster, waiting for a web client to connect. In the next section, we’ll create that client.
+
+Pause Point
+Wait here until the instructor signals to continue.
+While you wait, you can explore the cluster by running kubectl get pods -A to see all the pods that make up the Kit App Streaming platform. This is the same infrastructure stack that NVIDIA runs in production for real customers.
+If you’re stuck or your pod isn’t reaching 2/2 Ready, display your red cup and a TA will come assist you. Once your issue is resolved, the TA will switch it back to blue.
+
+Cloud Streaming
+Your Kit application is now deployed and running on a GPU node in the NVCF cluster. In this final hands-on section, we’ll create a new web client configured to connect to the cloud-deployed application and verify end-to-end streaming.
+How Cloud Streaming Differs From Local
+In the previous local streaming section, your web client connected directly to the Kit application using a signaling server and media server running on the same machine. In cloud streaming with NVCF, the architecture is different:
+    • NVCF manages the connection infrastructure – it handles the signaling, session management, and UDP routing for you
+    • Your web client connects to the NVCF API endpoint instead of a local server
+    • Authentication is required – your web client needs an API key and function ID to request a stream
+This is more complex under the hood, but NVCF abstracts away the hard parts so you can focus on your application.
+Create an NVCF Web Client
+We’ll use the same web client template tool from earlier, but this time we’ll select the NVCF stream source.
+    • Open a new terminal in VS Code (click the + icon in the terminal panel or press Ctrl+Shift+`)
+Before running the web client template tool, configure npm to use the NVIDIA package registry:
+    • Set up the NVIDIA npm registry:
+      npm config set "@nvidia:registry" "https://edge.urm.nvidia.com/artifactory/api/npm/omniverse-client-npm/" --location=user
+Now run the web client template tool to scaffold a streaming client:
+    • Run the web client template tool:
+      npx @nvidia/create-ov-web-rtc-app
+The tool will prompt you with several options. Follow these selections:
+    • Project name – Type nvcf-stream and press Enter
+    • Author – Accept the default or type your name
+    • Project description – Press Enter to accept the default
+    • Output directory – Press Enter to accept the default
+    • Select UI framework – Select None TypeScript only
+    • Select stream source – Select NVCF (NVIDIA Cloud Functions)
+    • NVCF API endpoint – Enter http://localhost:20081
+    • API key – Paste the API key from your function-info.txt file (starts with nvapi-)
+    • Function ID – Paste the function ID from your function-info.txt file
+    • Streaming library – Press Enter to accept the default
+Tip
+If you’ve lost your function ID, you can retrieve it by running:
+nvcf function list
+If you’ve lost your API key, generate a new one:
+nvcf api-key generate
+Remember to save the new key in function-info.txt – it can’t be retrieved once the terminal output scrolls past.
+Configure the Web Client
+The NVCF web client generates a frontend/ and backend/ directory structure. The backend acts as an intermediate proxy that communicates with the NVCF API.
+    • Navigate into the newly created NVCF web client directory:
+      cd nvcf-stream
+    • Open frontend/src/main.ts and find the signalingServer configuration (around line 76)
+    • Replace localhost with your instance’s IP address for signalingServer
+    • Find the backendUrl configuration and replace localhost with your instance’s IP address
+Note
+In NVCF mode, you do not need to set a media server address. NVCF handles the UDP media routing automatically. The backendUrl points to the local backend proxy (which you’ll start in the next section), not a media server.
+    • Save the file
+Tip
+Where do I find my IP address? Same as before – look at the URL in your browser’s address bar. The IP address is the part before the colon and port number.
+Install Dependencies and Start the Client
+The NVCF web client runs as two separate processes – a backend proxy that communicates with the NVCF API, and a frontend that renders the stream in the browser. We’ll start each one independently so you can see how they work together.
+    • Install the project dependencies from the nvcf-stream root directory:
+      npm install
+Start the Backend Proxy
+    • Navigate into the backend directory:
+      cd backend
+    • Start the backend proxy:
+      npm run dev -- --host 0.0.0.0
+Note
+The backend proxy relays requests between your frontend and the NVCF API. It handles authentication and session management using the API key and function ID you provided during setup.
+Start the Frontend
+    • Open a new terminal tab in VS Code (click the + icon or press Ctrl+Shift+`)
+    • Navigate into the frontend directory:
+      cd nvcf-stream/frontend
+    • Start the frontend development server:
+      npm run dev -- --host 0.0.0.0
+Verify Cloud Streaming
+    • Open a new terminal in VS Code (click the + icon in the terminal panel or press Ctrl+Shift+`) and run the following command to get the URL for your stream:
+      echo "http://$(curl icanhazip.com):5173"
+    • Control+click the URL in the terminal to open it in your browser
+    • You should see the Data Center digital twin scene streaming from the cloud-deployed Kit application
+Tip
+If you see “Waiting for stream…” for more than 30 seconds, verify:
+    • The backend proxy terminal is still running (no errors)
+    • The frontend terminal is still running
+    • Your signalingServer and backendUrl in frontend/src/main.ts both use your instance’s IP address (not localhost)
+    • Your NVCF function pod is in Running (2/2) state (kubectl get pods -n nvcf-backend)
+Lab Cleanup
+GPU resources in this lab environment are limited. Before wrapping up, let’s clean up the running processes and cloud resources.
+Stop Running Processes
+Go to each terminal where a process is still running and press Ctrl+C to stop it:
+    • Frontend terminal (npm run dev in frontend/): Press Ctrl+C
+    • Backend proxy terminal (npm run dev in backend/): Press Ctrl+C
+    • Any other active terminals: Press Ctrl+C
+Remove the NVCF Deployment
+    • Undeploy your function to free up the GPU node:
+      nvcf function deploy remove --function-id <functionId> --version-id <versionId>
+      Replace <functionId> and <versionId> with the values from your function-info.txt file.
+Delete the API Key
+    • List your API keys:
+      nvcf api-key list
+    • Find the key ID from the output, then delete it:
+      nvcf api-key delete --key-id <KEY_ID>
+Note
+Cleaning up resources is an important habit in production environments. NVCF clusters have a limited number of GPU nodes available. By removing your deployment, you free up resources for other users and avoid unnecessary costs.
+What’s Next
+Proceed to the Conclusion to review what you’ve learned and explore next steps for continuing your Kit App Streaming journey.
+
+Conclusion
+Congratulations on completing the lab. Let’s take a moment to review the journey you’ve taken and reflect on the key concepts you’ve learned.
+The Journey
+You started with an empty workspace and, step by step, built a complete Kit App Streaming pipeline:
+1. Built a Kit Application
+Used the Kit App Template to scaffold a USD Viewer application with streaming and NVCF application layers. Built it from source using repo.sh.
+2. Streamed Locally
+Created a web client using create-ov-web-rtc-app, configured WebRTC connection parameters, and verified direct local streaming between the Kit app and a browser-based client.
+3. Containerized for the Cloud
+Packaged the Kit application into a Docker container and pushed it to a container registry, preparing it for deployment in a managed cloud environment.
+4. Deployed to NVCF
+Used the NVCF CLI to register the application as a function, create a deployment specification, and deploy it to a GPU node in the cloud.
+5. Streamed from the Cloud
+Created a second web client configured for NVCF cloud streaming, connected to the deployed Kit application, and verified end-to-end streaming from cloud GPU to browser.
+Key Concepts
+Here’s a summary of the most important concepts you worked with today:
+Concept
+What It Is
+Kit App Template
+A template tool that generates buildable Kit applications with templates for common use cases
+Application Layers
+.kit configuration files that customize how an application behaves in different environments (local, streaming, NVCF)
+WebRTC
+The streaming protocol used to send GPU-rendered video from the Kit app to a web browser in real time
+Signaling Server
+A server that helps the Kit app and web client establish a WebRTC connection
+NVCF (NVIDIA Cloud Functions)
+A managed platform for deploying and running GPU workloads in the cloud
+Function Definition
+A JSON specification (create-function.json) that tells NVCF what container to run and how to configure it
+Function ID / Version ID
+Unique identifiers used to reference a registered function and its specific version in NVCF
+kubectl
+The Kubernetes command-line tool for inspecting and managing cluster resources
+What Happens in Production
+In a real-world deployment, the workflow you’ve completed today extends further:
+    1. Web hosting – Your web client would be deployed to a web hosting service (like AWS S3 + CloudFront, Azure Static Web Apps, or a CDN) so end users can access it from anywhere
+    2. Scaling – NVCF can automatically scale the number of GPU instances based on demand, supporting hundreds or thousands of concurrent users
+    3. Custom applications – Instead of the default USD Viewer, you’d build custom Kit applications with tailored UI, business logic, and domain-specific extensions
+    4. Security – Production deployments add authentication, encryption (TLS), and access controls to protect streams and data
+Continue Your Journey
+Follow-On Lab: Develop AI-Powered Operational Dashboards
+Ready to take the next step? The follow-on lab, Develop AI-Powered Operational Dashboards for Digital Twin Applications, picks up where this lab leaves off. You’ll learn how to implement custom bi-directional messaging between your Kit application and web client, integrate live data sources, and build interactive operational dashboards on top of the streaming foundation you’ve created here.
+Next Steps
+To continue your Kit App Streaming journey, explore these resources:
+NVIDIA Kit App Streaming
+    • Kit App Streaming Documentation – Comprehensive guides for architecture, deployment, and configuration
+    • Kit App Streaming Collection on NGC – Container images, Helm charts, and deployment resources
+    • Web Development Guide – Detailed guidance on embedding Kit streams into web applications
+Kit Application Development
+    • Kit App Template Repository – The template tool used in this lab, with additional templates and examples
+    • Kit App Template Companion Tutorial – Deep dive into building Kit applications with the Kit SDK
+    • Omniverse Kit App Development Guide – Comprehensive documentation for Kit application development
+Web Client and Streaming Libraries
+    • WebRTC Streaming Library – Documentation for the NVIDIA Omniverse WebRTC Streaming Library used by web clients
+    • Embedded Web Viewer – Ready-to-use embeddable web viewer for Kit applications
+    • Web Viewer Sample – Reference implementation for building custom web clients
+Digital Twins and OpenUSD
+    • OpenUSD Learning Path – Comprehensive learning path for building digital twins with OpenUSD
+    • Connect Real-Time IoT Data to Digital Twins – Tech blog on integrating live IoT data with 3D digital twins
+Tip
+If you’d like to explore further while you still have access to this lab environment, try these exercises:
+    • Run kubectl get pods -A and examine the full list of services that make up the Kit App Streaming platform
+    • Explore the Kit application source code in kit-app-template/source/ to understand the extension structure
+    • Look at the .kit files in the application to see how streaming is configured
+    • Modify the web client’s HTML/CSS to customize the streaming interface
+Thank You
+Thank you for participating in this lab. We hope you’ve gained a solid understanding of the Kit App Streaming development and deployment lifecycle. The skills you’ve practiced today – building Kit apps, configuring web clients, containerizing applications, and deploying to NVCF – are directly applicable to production digital twin projects.
+We’d love your feedback. Please take a moment to fill out the survey linked in the navigation bar.

@@ -17,14 +17,20 @@ from omni.kit.viewport.utility import capture_viewport_to_file, get_active_viewp
 from pxr import Gf, Sdf
 
 from .core import (
+    BED_SCAN_LANES,
     CAMERA_LIMITS,
+    CAMERA_METERS_PER_SECOND,
     CAMERA_PATH,
     CAM_MOUNT_PATH,
+    GANTRY_METERS_PER_SECOND,
     HORIZONTAL_MOUNT_PATH,
     LONGITUDINAL_LIMITS,
+    advance_toward,
     advance_fan_angle,
     advance_ratio,
+    bed_scan_lane,
     clamp,
+    context_with_inspection,
     context_with_sensor_values,
     curtain_scale_z,
     manual_actuator_values,
@@ -59,7 +65,7 @@ class GreenhouseGantryExtension(omni.ext.IExt):
         self._repo_root = _find_repo_root()
         self._window = ui.Window("Greenhouse Gantry + Cosmos", width=460, height=780)
         self._longitudinal_model = ui.SimpleFloatModel(0.0)
-        self._camera_model = ui.SimpleFloatModel(-2.7)
+        self._camera_model = ui.SimpleFloatModel(-1.75)
         self._temperature_model = ui.SimpleFloatModel(28.0)
         self._humidity_model = ui.SimpleFloatModel(50.0)
         self._soil_model = ui.SimpleFloatModel(10.0)
@@ -72,6 +78,8 @@ class GreenhouseGantryExtension(omni.ext.IExt):
         self._fan_speed_override: float | None = None
         self._window_ratio_current = 0.0
         self._window_ratio_target = 0.0
+        self._gantry_target: tuple[float, float] | None = None
+        self._selected_scan_lane = 4
         self._update_sub = (
             omni.kit.app.get_app()
             .get_update_event_stream()
@@ -99,6 +107,7 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             try:
                 # Session state stays stronger than preview time samples and unsaved.
                 stage.SetEditTarget(stage.GetSessionLayer())
+                self._update_gantry(stage, delta_seconds)
                 for offset, index in enumerate(range(1, 4)):
                     fan_path = f"/World/Environment/Greenhouse/Ventilation/Fan_0{index}"
                     fan = stage.GetPrimAtPath(fan_path)
@@ -121,7 +130,47 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             finally:
                 stage.SetEditTarget(previous)
         except Exception as exc:
-            carb.log_warn(f"[{self._ext_id}] Fan animation update failed: {exc}")
+            carb.log_warn(f"[{self._ext_id}] Runtime animation update failed: {exc}")
+
+    def _update_gantry(self, stage, delta_seconds: float) -> None:
+        if self._gantry_target is None:
+            return
+        target_y, target_x = self._gantry_target
+        horizontal = stage.GetPrimAtPath(HORIZONTAL_MOUNT_PATH)
+        carriage = stage.GetPrimAtPath(CAM_MOUNT_PATH)
+        if not horizontal or not carriage:
+            self._gantry_target = None
+            raise RuntimeError("Gantry motion prims are missing from the stage")
+        horizontal_attr = horizontal.GetAttribute("xformOp:translate")
+        carriage_attr = carriage.GetAttribute("xformOp:translate")
+        horizontal_xyz = horizontal_attr.Get() if horizontal_attr else None
+        carriage_xyz = carriage_attr.Get() if carriage_attr else None
+        if horizontal_xyz is None or carriage_xyz is None:
+            self._gantry_target = None
+            raise RuntimeError("Gantry motion transforms are missing")
+
+        next_y = advance_toward(
+            horizontal_xyz[1], target_y, GANTRY_METERS_PER_SECOND, delta_seconds
+        )
+        next_x = advance_toward(
+            carriage_xyz[0], target_x, CAMERA_METERS_PER_SECOND, delta_seconds
+        )
+        horizontal_attr.Set(
+            Gf.Vec3d(float(horizontal_xyz[0]), next_y, float(horizontal_xyz[2]))
+        )
+        carriage_attr.Set(
+            Gf.Vec3d(next_x, float(carriage_xyz[1]), float(carriage_xyz[2]))
+        )
+        self._longitudinal_model.set_value(next_y)
+        self._camera_model.set_value(next_x)
+
+        if abs(next_y - target_y) < 1e-5 and abs(next_x - target_x) < 1e-5:
+            self._gantry_target = None
+            lane, visible_beds, _camera_x = bed_scan_lane(self._selected_scan_lane)
+            self._context = context_with_inspection(self._context, lane, target_y)
+            self._status_model.set_value(
+                f"Scan lane {lane} ready: {visible_beds[0]} and {visible_beds[1]} visible"
+            )
 
     def _update_curtains(self, stage, delta_seconds: float) -> None:
         self._window_ratio_current = advance_ratio(
@@ -143,6 +192,19 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             with ui.ScrollingFrame():
                 with ui.VStack(spacing=8, height=0):
                     ui.Label("Plant Inspection Gantry", height=28)
+                    ui.Label("Adjacent-bed scan lanes")
+                    with ui.HStack(height=30, spacing=4):
+                        for lane, visible_beds, _x in BED_SCAN_LANES[:4]:
+                            ui.Button(
+                                f"{lane}: {visible_beds[0][-2:]}-{visible_beds[1][-2:]}",
+                                clicked_fn=lambda n=lane: self._move_to_scan_lane(n),
+                            )
+                    with ui.HStack(height=30, spacing=4):
+                        for lane, visible_beds, _x in BED_SCAN_LANES[4:]:
+                            ui.Button(
+                                f"{lane}: {visible_beds[0][-2:]}-{visible_beds[1][-2:]}",
+                                clicked_fn=lambda n=lane: self._move_to_scan_lane(n),
+                            )
                     ui.Label("Longitudinal position (local Y, meters)")
                     ui.FloatSlider(
                         model=self._longitudinal_model,
@@ -158,7 +220,7 @@ class GreenhouseGantryExtension(omni.ext.IExt):
                         step=0.05,
                     )
                     with ui.HStack(height=30, spacing=6):
-                        ui.Button("Apply position", clicked_fn=self._apply_position)
+                        ui.Button("Move to position", clicked_fn=self._apply_position)
                         ui.Button("Home", clicked_fn=self._home)
                     ui.Button("Use scan camera in viewport", height=30, clicked_fn=self._activate_camera)
                     ui.Separator(height=12)
@@ -191,10 +253,20 @@ class GreenhouseGantryExtension(omni.ext.IExt):
                     ui.Separator(height=12)
                     ui.Label("Cosmos 3 inspection", height=28)
                     ui.Button("Capture frame and analyze", height=34, clicked_fn=self._start_analysis)
-                    ui.Label(self._proposal_model, word_wrap=True, height=220)
+                    self._proposal_label = ui.Label(
+                        self._proposal_model.as_string, word_wrap=True, height=220
+                    )
+                    self._proposal_model.add_value_changed_fn(
+                        lambda model: setattr(self._proposal_label, "text", model.as_string)
+                    )
                     ui.Button("Approve recommendations", height=34, clicked_fn=self._approve)
                     ui.Separator(height=12)
-                    ui.Label(self._status_model, word_wrap=True, height=70)
+                    self._status_label = ui.Label(
+                        self._status_model.as_string, word_wrap=True, height=70
+                    )
+                    self._status_model.add_value_changed_fn(
+                        lambda model: setattr(self._status_label, "text", model.as_string)
+                    )
 
     def _sensor_row(self, label: str, model, minimum: float, maximum: float) -> None:
         with ui.HStack(height=26, spacing=6):
@@ -234,15 +306,29 @@ class GreenhouseGantryExtension(omni.ext.IExt):
         try:
             y = clamp(self._longitudinal_model.as_float, LONGITUDINAL_LIMITS)
             x = clamp(self._camera_model.as_float, CAMERA_LIMITS)
-            self._set_translate_component(HORIZONTAL_MOUNT_PATH, 1, y)
-            self._set_translate_component(CAM_MOUNT_PATH, 0, x)
-            self._status_model.set_value(f"Gantry positioned at Y={y:.2f} m, camera X={x:.2f} m")
+            self._gantry_target = (y, x)
+            self._status_model.set_value(
+                f"Moving gantry to Y={y:.2f} m and camera X={x:.2f} m"
+            )
+        except Exception as exc:
+            self._fail(exc)
+
+    def _move_to_scan_lane(self, lane_number: int) -> None:
+        try:
+            lane, visible_beds, camera_x = bed_scan_lane(lane_number)
+            target_y = clamp(self._longitudinal_model.as_float, LONGITUDINAL_LIMITS)
+            self._selected_scan_lane = lane
+            self._camera_model.set_value(camera_x)
+            self._gantry_target = (target_y, camera_x)
+            self._status_model.set_value(
+                f"Moving to scan lane {lane}: {visible_beds[0]} and {visible_beds[1]}"
+            )
         except Exception as exc:
             self._fail(exc)
 
     def _home(self) -> None:
         self._longitudinal_model.set_value(0.0)
-        self._camera_model.set_value(-2.7)
+        self._camera_model.set_value(-1.75)
         self._apply_position()
 
     def _activate_camera(self) -> None:
@@ -353,6 +439,11 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             self._fail(exc)
 
     def _start_analysis(self) -> None:
+        if self._gantry_target is not None:
+            self._status_model.set_value(
+                "Wait for gantry motion to finish before capturing"
+            )
+            return
         if self._task and not self._task.done():
             self._status_model.set_value("A Cosmos analysis is already running")
             return
@@ -367,7 +458,7 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             viewport = get_active_viewport()
             capture = capture_viewport_to_file(viewport, str(image_path))
             if hasattr(capture, "wait_for_result"):
-                result = capture.wait_for_result()
+                result = capture.wait_for_result(completion_frames=30)
                 if inspect.isawaitable(result):
                     await result
             elif inspect.isawaitable(capture):
@@ -375,7 +466,11 @@ class GreenhouseGantryExtension(omni.ext.IExt):
             if not image_path.exists():
                 raise RuntimeError("Viewport capture did not create gantry_scan.png")
 
-            context = self._context
+            context = context_with_inspection(
+                self._context,
+                self._selected_scan_lane,
+                self._longitudinal_model.as_float,
+            )
             image_base64 = base64.b64encode(image_path.read_bytes()).decode("ascii")
             agent_dir = self._repo_root / "src/agent"
             if str(agent_dir) not in sys.path:
@@ -419,7 +514,7 @@ class GreenhouseGantryExtension(omni.ext.IExt):
         stage = self._stage()
         available = [stage.GetPrimAtPath(p) for p in SPRINKLER_EFFECT_PATHS if stage.GetPrimAtPath(p)]
         if not available:
-            raise RuntimeError("Sprinkler effects are missing; open greenhouse_animation_preview.usda")
+            raise RuntimeError("Sprinkler effects are not composed in the current stage")
         previous = stage.GetEditTarget()
         try:
             stage.SetEditTarget(stage.GetSessionLayer())

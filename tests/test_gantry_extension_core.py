@@ -20,6 +20,35 @@ def test_clamp():
     assert core.clamp(20, (-7.4, 7.4)) == 7.4
 
 
+def test_advance_toward_moves_without_overshoot():
+    assert core.advance_toward(0.0, 2.0, 1.5, 0.5) == 0.75
+    assert core.advance_toward(1.8, 2.0, 1.5, 0.5) == 2.0
+    assert core.advance_toward(2.0, -1.0, 2.0, 0.5) == 1.0
+    assert core.advance_toward(2.0, -1.0, 2.0, 2.0) == -1.0
+
+
+def test_bed_scan_lanes_cover_all_adjacent_bed_pairs():
+    assert len(core.BED_SCAN_LANES) == 7
+    assert core.bed_scan_lane(1)[1] == ("Bed_01", "Bed_02")
+    assert core.bed_scan_lane(4) == (4, ("Bed_04", "Bed_05"), -1.75)
+    assert core.bed_scan_lane(7)[1] == ("Bed_07", "Bed_08")
+    with pytest.raises(ValueError):
+        core.bed_scan_lane(8)
+
+
+def test_context_with_inspection_identifies_camera_visible_beds():
+    original = {"zones": [{"zoneId": "B04-B"}]}
+    updated = core.context_with_inspection(original, 4, 20.0)
+    assert updated["inspection"] == {
+        "camera": "PlantScanCamera",
+        "scanLane": 4,
+        "visibleBeds": ["Bed_04", "Bed_05"],
+        "cameraCarriageXM": -1.75,
+        "longitudinalYM": 7.4,
+    }
+    assert "inspection" not in original
+
+
 def test_normalized_sensor_values_clamps_readings():
     assert core.normalized_sensor_values(-30, 88, 120) == {
         "temperatureC": -20.0,

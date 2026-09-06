@@ -1,0 +1,47 @@
+#usda 1.0
+(
+    doc = "Exterior grass material override with tiled natural albedo and non-plastic response."
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+over "_materials"
+{
+    over Material "EX_Mat_Grass"
+    {
+        over Shader "Principled_BSDF"
+        {
+            color3f inputs:diffuseColor.connect = </_materials/EX_Mat_Grass/GrassAlbedo.outputs:rgb>
+            float inputs:roughness = 0.82
+            float inputs:specular = 0.28
+        }
+
+        def Shader "GrassUVReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname = "st"
+            float2 outputs:result
+        }
+
+        def Shader "GrassUVTransform"
+        {
+            uniform token info:id = "UsdTransform2d"
+            float2 inputs:in.connect = </_materials/EX_Mat_Grass/GrassUVReader.outputs:result>
+            float inputs:rotation = 0
+            float2 inputs:scale = (24, 18)
+            float2 inputs:translation = (0, 0)
+            float2 outputs:result
+        }
+
+        def Shader "GrassAlbedo"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @../../assets/materials/grass/grass_albedo_v1.png@
+            token inputs:sourceColorSpace = "sRGB"
+            float2 inputs:st.connect = </_materials/EX_Mat_Grass/GrassUVTransform.outputs:result>
+            token inputs:wrapS = "repeat"
+            token inputs:wrapT = "repeat"
+            float3 outputs:rgb
+        }
+    }
+}

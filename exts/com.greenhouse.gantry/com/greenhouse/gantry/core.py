@@ -9,6 +9,20 @@ CAMERA_PATH = f"{CAM_MOUNT_PATH}/PlantScanCamera"
 
 LONGITUDINAL_LIMITS = (-7.4, 7.4)
 CAMERA_LIMITS = (-5.75, 5.75)
+GANTRY_METERS_PER_SECOND = 2.0
+CAMERA_METERS_PER_SECOND = 1.5
+
+# Seven camera lanes look between the greenhouse's eight physical beds.
+# Lane 4 preserves the user-calibrated current view of Beds 04 and 05.
+BED_SCAN_LANES = (
+    (1, ("Bed_01", "Bed_02"), -5.75),
+    (2, ("Bed_02", "Bed_03"), -4.85),
+    (3, ("Bed_03", "Bed_04"), -3.30),
+    (4, ("Bed_04", "Bed_05"), -1.75),
+    (5, ("Bed_05", "Bed_06"), -0.20),
+    (6, ("Bed_06", "Bed_07"), 1.35),
+    (7, ("Bed_07", "Bed_08"), 2.08),
+)
 SENSOR_LIMITS = {
     "temperatureC": (-20.0, 60.0),
     "humidityPct": (0.0, 100.0),
@@ -22,6 +36,41 @@ CURTAIN_OPEN_SCALE_Z = -0.03
 
 def clamp(value: float, limits: tuple[float, float]) -> float:
     return max(limits[0], min(limits[1], float(value)))
+
+
+def advance_toward(
+    current: float, target: float, speed: float, delta_seconds: float
+) -> float:
+    """Advance one linear gantry axis without overshooting its target."""
+    current = float(current)
+    target = float(target)
+    step = max(0.0, float(speed)) * max(0.0, float(delta_seconds))
+    if current < target:
+        return min(target, current + step)
+    return max(target, current - step)
+
+
+def bed_scan_lane(lane_number: int) -> tuple[int, tuple[str, str], float]:
+    """Return one calibrated adjacent-bed scan lane."""
+    if not 1 <= int(lane_number) <= len(BED_SCAN_LANES):
+        raise ValueError(f"Unknown bed scan lane: {lane_number}")
+    return BED_SCAN_LANES[int(lane_number) - 1]
+
+
+def context_with_inspection(
+    context: dict[str, Any], lane_number: int, longitudinal_y: float
+) -> dict[str, Any]:
+    """Add the scan camera pose and visible beds to a Cosmos context copy."""
+    lane, visible_beds, camera_x = bed_scan_lane(lane_number)
+    updated = dict(context)
+    updated["inspection"] = {
+        "camera": "PlantScanCamera",
+        "scanLane": lane,
+        "visibleBeds": list(visible_beds),
+        "cameraCarriageXM": camera_x,
+        "longitudinalYM": clamp(longitudinal_y, LONGITUDINAL_LIMITS),
+    }
+    return updated
 
 
 def normalized_sensor_values(

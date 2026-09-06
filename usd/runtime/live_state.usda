@@ -57,9 +57,9 @@ over Xform "World"
             {
                 over Xform "Sensor_01"
                 {
-                    custom float sensor:humidityPct = 50
-                    custom float sensor:soilMoisturePct = 10
-                    custom float sensor:temperatureC = 28
+                    custom float sensor:humidityPct = 88
+                    custom float sensor:soilMoisturePct = 55
+                    custom float sensor:temperatureC = 32
                 }
             }
         }

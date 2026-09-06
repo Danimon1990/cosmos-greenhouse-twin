@@ -4,6 +4,14 @@ Isaac Sim extension for positioning the plant-inspection gantry, selecting and
 capturing its camera, submitting one frame to the existing Cosmos 3 client, and
 requiring operator approval before supported commands reach the runtime layer.
 
+The gantry UI provides seven calibrated adjacent-bed scan lanes for the eight
+physical beds. Lane 1 frames Beds 01-02, Lane 4 preserves the calibrated view
+of Beds 04-05, and Lane 7 frames Beds 07-08. Selecting a lane smoothly moves
+the bridge along local Y and the camera carriage along local X instead of
+teleporting them. The Y slider chooses the along-bed inspection position.
+After motion completes, the extension adds the selected lane, visible bed IDs,
+camera X, and longitudinal Y to the next Cosmos inspection context.
+
 The panel also provides bounded fake temperature, humidity, and soil-moisture
 readings plus buttons for the three contexts in `demo/scenario_*.json`. Applying
 a reading or loading a scenario writes aggregate sensor values to
