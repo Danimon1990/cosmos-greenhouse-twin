@@ -1,4 +1,4 @@
-# Python
+# Python and local environments
 __pycache__/
 *.py[cod]
 *$py.class
@@ -7,25 +7,121 @@ __pycache__/
 venv/
 .venv/
 env/
+.env/
+.mamba/
+.tools/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
 
-# IDE
+# Credentials and workstation settings
+.env
+.env.*
+!.env.example
+!.env.sample
 .idea/
 .vscode/
+.claude/
+.codex/
 *.swp
 *.swo
-
-# OS
 .DS_Store
 Thumbs.db
 
-# USD / Omniverse
-*.usdc
-*.usdz
+# Web dependencies and generated builds; package manifests/locks stay in Git
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
 
-# Blender authoring files (kept local; USD is the shared source of truth)
+# Blender working files and binary exports
 *.blend
 *.blend[0-9]*
+*.usdc
+*.usdz
+# Required source layer of the core greenhouse, already tracked
+!/usd/source/blender/greenhouse_exchange.usdc
 
-# Local outputs and logs
-logs/
-outputs/
+# Generated data, rendered media, checkpoints, and delivery packages
+/logs/*
+!/logs/.gitkeep
+/outputs/
+/exports/
+/local-notes/
+/experiments/perception/annotations/
+/experiments/perception/data/
+/experiments/perception/cache/
+/experiments/perception/runs/
+/experiments/perception/greenhouse_test/worker_smoke/
+/experiments/plantgl/evidence/
+/usd/assets/plants/radish/
+/usd/assets/plants/radish_v5/
+/usd/assets/plants/radish_v6/
+# Generated experiment scene batches (builders remain in experiments/)
+/usd/scenes/radish_*/
+/usd/scenes/minz_demo/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.engine
+*.safetensors
+*.npy
+*.npz
+*.arrow
+*.parquet
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+*.7z
+*.conda
+*.log
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+
+# Downloaded external data; retain attribution and our small inspection tools
+/experiments/perception/external/*
+!/experiments/perception/external/drone_radish/
+/experiments/perception/external/drone_radish/*
+!/experiments/perception/external/drone_radish/README.md
+!/experiments/perception/external/drone_radish/*.json
+!/experiments/perception/external/cropandweed-review/
+/experiments/perception/external/cropandweed-review/*
+!/experiments/perception/external/cropandweed-review/README.md
+!/experiments/perception/external/cropandweed-review/*.py
+!/experiments/perception/external/cropandweed-review/*.json
+
+# Screenshots and render frames are local unless deliberately curated
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.tif
+*.tiff
+*.exr
+# Runtime textures are required for the small core scene, not gallery images
+!/assets/materials/**/*.png
+!/usd/assets/plant_sprout/plant_sprout_abstract/*.png
+!/textures/*.exr
+!/usd/assets/robots/muvi/source/Robot_muvi/textures/*.exr
+!/usd/source/blender/textures/*.exr
+# One shared demo input / README preview and curated documentation images
+!/demo/frame.png
+!/demo/frame_small.jpg
+!/docs/images/*.png
+!/docs/images/*.jpg
+
+# Personal research documents remain on this machine
+/Cosmos robots.odt
+/NVIDIA stream.odt
+/NVIDIA stream.pdf
+/NVIDIA stream.txt
